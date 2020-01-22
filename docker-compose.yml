@@ -25,9 +25,6 @@ services:
             DB_USER: $DB_USER
             DB_PASSWORD: $DB_PASSWORD
             DB_NAME: $DB_NAME
-            GUESTBOOK_CAPTCHA_SECRET: $GUESTBOOK_CAPTCHA_SECRET
-            GUESTBOOK_CAPTCHA_URL: $GUESTBOOK_CAPTCHA_URL
-            GUESTBOOK_CAPTCHA_KEY: $GUESTBOOK_CAPTCHA_KEY
         links:
             - db
     phpmyadmin:
