@@ -2,3 +2,8 @@
 .env
 docker/mysql/*
 docker/nginx/site.conf
+app/personal-account/node_modules/
+app/personal-account/public/build/
+app/personal-account/var/
+app/personal-account/vendor/
+app/personal-account/.env
