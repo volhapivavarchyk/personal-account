@@ -42,7 +42,9 @@
                             </li>
 
                         {% endblock %}
-
+                        <li>
+                            <a href="{{ path('homepage') }}"> <i class="fa fa-phone"></i> {{ 'menu.contacts'|trans({},'interfaces') }}</a>
+                        </li>
                         <li>
                             <a href="{{ path('homepage') }}"> <i class="fa fa-search"></i> {{ 'menu.search'|trans({},'interfaces') }}</a>
                         </li>

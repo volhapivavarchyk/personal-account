@@ -7,3 +7,4 @@ app/personal-account/public/build/
 app/personal-account/var/
 app/personal-account/vendor/
 app/personal-account/.env
+app/personal-account/yarn-error.log
