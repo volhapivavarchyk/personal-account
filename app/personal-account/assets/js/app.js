@@ -8,12 +8,25 @@ import 'bootstrap-sass/assets/javascripts/bootstrap/dropdown.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/modal.js';
 import 'jquery'
 
-$(document).ready(function() {
-    $('.addauthor').click(function() {
+let ready = $(document).ready(function () {
+    $('.addauthor').click(function () {
         console.log('111');
         let div = document.createElement('div');
         div.id = 'soathor1';
         div.appendChild(document.getElementById('soauthors'));
         div.innerText = '1111';
     });
+    let $navbar = $(".navbar");
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 1) {
+            $navbar.addClass("top-nav-collapse");
+        } else {
+            $navbar.removeClass("top-nav-collapse");
+        }
+    });
+});
+
+$( document ).ready(function() {
+    new WOW().init();
 });
