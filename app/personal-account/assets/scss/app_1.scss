@@ -52,6 +52,12 @@ i {
   color: inherit
 }
 
+input {opacity:20%;
+  border: 1px #0a0a0a;
+  font-size:12px;
+  font-family:Tahoma, Geneva, sans-serif;
+  color:#000000;
+  margin:0 0 6px 0;}
 
 /* Page: 'Homepage' my classes
    ------------------------------------------------------------------------- */
@@ -105,37 +111,9 @@ div.author-background {
 .card {
   background-color: rgba(126, 123, 215, 0.2);
 }
-.white-text {
+
+.md-form label {
   color: #ffffff;
-}
-.form-item {
-  position:relative;
-}
-.form-item input {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  width: 90%;
-  height: 40px;
-  padding: 5px 15px;
-  margin: 10px 5px;
-}
-.form-item label {
-  color: #ffffff;
-  position: absolute;
-  top: 10px;
-  left: 0;
-  color: #ffffff;
-  transition: .3s;
-}
-.form-item input:focus ~ label,
-.form-item input:not(:focus):valid ~ label{
-  left: 0;
-  top: -10px;
-  font-size: 14px;
-  color: rgba(169, 189, 200, 0.88);
-  padding: 10px 15px;
 }
 h6 {
   line-height: 1.7;
