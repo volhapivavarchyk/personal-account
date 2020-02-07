@@ -1,36 +1,31 @@
-<nav class="navbar navbar-default navbar-expand-lg navbar-dark navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top navbar-toggleable navbar-default" role="navigation">
     <div class="container">
-        <div class="navbar-header">
             <a class="navbar-brand" href="{{ path('homepage') }}">
                 <strong>BarSU</strong>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav mr-auto">
-                <li>
-                    <a href="{{ path('homepage') }}">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="{{ path('homepage') }}" class="nav-link">
                         <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans({},'interfaces') }}
                     </a>
                 </li>
-                <li>
-                    <a href="{{ path('homepage') }}">
+                <li class="nav-item">
+                    <a href="{{ path('homepage') }}" class="nav-link">
                         <i class="fa fa-phone"></i> {{ 'menu.contacts'|trans({},'interfaces') }}
                     </a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="input-group">
-                    <input class="form-control  input-sm span-2" type="text" placeholder="{{ 'menu.search'|trans({},'interfaces') }}" aria-label="search">
-                    <div class="input-group-btn ">
-                        <button class="btn btn-sm" type="submit"><i class="fa fa-search"></i></button>
-                    </div>
+            <form class="form-search form-inline">
+                <div class="form-search-item">
+                    <input class="white-text"  type="text" id="search-nav" required>
+                    <label for="search-nav">Найти</label>
                 </div>
+                <button type="submit" class="btn btn-sm btn-link"><i class="fa fa-search"></i></button>
             </form>
-
-            <ul class="nav navbar-nav navbar-right">
                 {#
                     {% if app.user %}
                         <li class="dropdown">
@@ -55,6 +50,8 @@
                         </li>
                     {% endif %}
 #}
+{#
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="locales">
                         <i class="fa fa-globe" aria-hidden="true"></i>
@@ -68,6 +65,7 @@
                     </ul>
                 </li>
             </ul>
+#}
         </div>
     </div>
 </nav>

@@ -7,12 +7,12 @@ $web-font-path: 'data:text/css;base64,';
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $lato-font-path: '~lato-font/fonts';
 
-@import "~bootswatch/flatly/variables";
+//@import "~bootswatch/flatly/variables";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-@import "~bootswatch/flatly/bootswatch";
+//@import "~bootswatch/flatly/bootswatch";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import "~@fortawesome/fontawesome-free/css/v4-shims.css";
-@import "~highlight.js/styles/solarized-light.css";
+//@import "~highlight.js/styles/solarized-light.css";
 
 // pick the Lato fonts individually to avoid importing the entire font family
 @import '~lato-font/scss/public-api';
@@ -25,9 +25,17 @@ p, ul, ol {
   font-size: 17px;
   margin-bottom: 0.75em
 }
-
+hr {
+  border: 0;
+  margin: 10px 10px 15px;
+  border-top: 1px solid #ecf0f1;
+}
 li {
   margin-bottom: 0.5em
+}
+h3 {
+  font-size: 26px;
+  padding-top: 20px;
 }
 
 code {
@@ -108,35 +116,74 @@ div.author-background {
 .white-text {
   color: #ffffff;
 }
+.form-search {
+  padding: 0px 0px 0px 10px;
+  float: left;
+}
 .form-item {
   position:relative;
+  margin: 10px 20px;
+}
+.form-search-item {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
 }
 .form-item input {
   background: transparent;
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
-  width: 90%;
+  width: 100%;
   height: 40px;
-  padding: 5px 15px;
-  margin: 10px 5px;
+  padding: 0px 15px;
+  margin: 10px 10px;
+}
+.form-search-item input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  width: 100%;
+  height: 40px;
+  padding: 5px 5px;
 }
 .form-item label {
   color: #ffffff;
   position: absolute;
-  top: 10px;
+  top: 20px;
   left: 0;
   color: #ffffff;
+  transition: .3s;
+  margin: 5px 10px;
+}
+.form-search-item label {
+  color: #ffffff;
+  position: absolute;
+  pointer-events: none;
+  left: 15px;
+  top: 10px;
+  line-height: 30px;
   transition: .3s;
 }
 .form-item input:focus ~ label,
 .form-item input:not(:focus):valid ~ label{
   left: 0;
-  top: -10px;
+  top: -15px;
   font-size: 14px;
   color: rgba(169, 189, 200, 0.88);
   padding: 10px 15px;
 }
+.form-search-item input:focus ~ label,
+.form-search-item input:not(:focus):valid ~ label {
+  top: -7px;
+  font-size: 10px;
+}
 h6 {
   line-height: 1.7;
+}
+.page-header {
+  padding-bottom: 9.5px;
+  margin: 85px 0 21px;
+  border-bottom: 1px solid transparent;
 }

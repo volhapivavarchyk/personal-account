@@ -2,47 +2,54 @@
     <div class="mask rgba-gradient align-items-center">
         <div class="container body-container">
             <div class="page-header">
-                <h1 class="text-primary">{{ 'title.what'|trans({},'interfaces')|raw }}</h1>
-                <h2>{{ 'title.whom'|trans({},'interfaces')|raw }}</h2>
+                <h1 class="white-text text-center">{{ 'title.what'|trans({},'interfaces')|raw }}</h1>
             </div>
             <div class="row">
                 <div class="col-md-6 white-text text-center text-md-left">
-                    <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">Sign up right now! </h1>
+                    <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">Регистрация! </h1>
                     <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
-                    <h6 class="mb-3 wow fadeInLeft" data-wow-delay="0.3s">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga
-                        nesciunt dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea
-                        dolor molestiae, quisquam iste, maiores. Nulla.</h6>
-                    <a class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s">Learn more</a>
+                    <h6 class="mb-3 wow fadeInLeft" data-wow-delay="0.3s">
+                        Зарегистрируйся в информационно-образовательном пространстве БарГУ и получи доступ к электронным учебным курсам,
+                        учебно-методичестким материалам, системе дистанционного обучения, системе внутреннего взаимодействия.
+                    </h6>
+                    <a class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s">Зарегистрироваться</a>
+                    <a class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s">Войти как гость</a>
                 </div>
                 <div class="col-md-6">
-                    <div class="card wow fadeInRight" data-wow-delay="0.3s">
-                        <div class="card-body">
-                            <h3 class="card-title white-text">
-                                <i class="fas fa-user white-text"></i> Регистрация
-                                <hr class="hr-light">
+                    <div class="card wow fadeInRight mt-3" data-wow-delay="0.3s">
+                        <div class="card-body text-center pt-4">
+                            <h3 class="card-title white-text pt-2">
+                                <i class="fas fa-user white-text"></i> Вход <hr class="hr-light">
                             </h3>
                             <div class="form-item">
                                 <input type="text" id="regfieldemail" class="white-text" required>
-                                <label for="regfieldemail"><i class="fas fa-envelope prefix active"></i>Your email1</label>
+                                <label for="regfieldemail"><i class="fas fa-user prefix active"></i>Имя</label>
                             </div>
                             <div class="form-item">
                                 <input type="password" id="regfieldpassword" class="white-text" required>
-                                <label for="regfieldpassword"><i class="fas fa-lock prefix active"></i>Your password</label>
+                                <label for="regfieldpassword"><i class="fas fa-lock prefix active"></i>Пароль</label>
                             </div>
-                            <div class="text-center mt-4">
-                                <button class="btn btn-indigo">Sign up</button>
-                                <hr class="hr-light mb-3 mt-4">
-                                <div class="inline-ul text-center">
-                                    <a class="p-2 m-2 tw-ic">
-                                        <i class="fab fa-twitter white-text"></i>
-                                    </a>
-                                    <a class="p-2 m-2 li-ic">
-                                        <i class="fab fa-linkedin-in white-text"> </i>
-                                    </a>
-                                    <a class="p-2 m-2 ins-ic">
-                                        <i class="fas fa-instagram white-text"> </i>
-                                    </a>
-                                </div>
+                            <button class="btn btn-link" type="submit">Войти</button>
+                            <hr class="hr-light">
+                            <div class="list-inline text-center">
+                                <a class="btn btn-block btn-social btn-twitter">
+                                    <span class="fa fa-twitter"></span> Sign in with Twitter
+                                </a>
+                                <a class="btn btn-social-icon btn-facebook">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                                <a class="btn btn-social-icon btn-google">
+                                    <span class="fa fa-google"></span>
+                                </a>
+                                <a class="btn btn-social-icon btn-instagram">
+                                    <span class="fa fa-instagram"></span>
+                                </a>
+                                <a class="btn btn-social-icon btn-linkedin">
+                                    <span class="fa fa-linkedin"></span>
+                                </a>
+                                <a class="btn btn-social-icon btn-vk">
+                                    <span class="fa fa-vk"></span>
+                                </a>
                             </div>
                         </div>
                     </div>
