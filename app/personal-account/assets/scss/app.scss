@@ -37,55 +37,26 @@ h3 {
   font-size: 26px;
   padding-top: 20px;
 }
-
 code {
   background: #ecf0f1;
   color: #2c3e50
 }
-
 .text-danger, .text-danger:hover {
   color: #e74c3c
 }
-
 i {
   margin-right: 0.25em
 }
-
 .table.table-middle-aligned th,
 .table.table-middle-aligned td {
   vertical-align: middle;
 }
-
 .doclink {
   color: inherit
 }
 
-
 /* Page: 'Homepage' my classes
    ------------------------------------------------------------------------- */
-html,
-body,
-header,
-.view {
-  height: 100%;
-}
-
-@media (max-width: 740px) {
-  html,
-  body,
-  header,
-  .view {
-    height: 1000px;
-  }
-}
-@media (min-width: 800px) and (max-width: 850px) {
-  html,
-  body,
-  header,
-  .view {
-    height: 650px;
-  }
-}
 .top-nav-collapse {
   background-color: #004890 !important;
 }

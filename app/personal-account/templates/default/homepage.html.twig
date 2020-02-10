@@ -15,54 +15,53 @@
 {% block footer %}{{ parent() }}{% endblock %}
 
 {% block body %}
-
     <div class="container body-container">
-        <div class="page-header">
+        <div class="text-center">
             <h1>{{ 'title.advantages'|trans({},'interfaces')|raw }}</h1>
         </div>
 
         <div class="row">
             <div class="col-sm-3">
                 <div class="jumbotron">
-                    <i class="fa fa-info fa-4x" aria-hidden="true"></i>
-                    <p>
+                    <p class="text-center"><i class="fa fa-info fa-2x" aria-hidden="true"></i></p>
+                    <p class="display-1">
                         {{ 'help.advantages_information'|trans({},'interfaces')|raw }}
-                     </p>
-                    <p>
-                        <i>{{ 'help.advantages_information_detail'|trans({},'interfaces')|raw }}</i>
+                    </p>
+                    <p class="lead">
+                        <small>{{ 'help.advantages_information_detail'|trans({},'interfaces')|raw }}</small>
                     </p>
                </div>
             </div>
             <div class="col-sm-3">
                 <div class="jumbotron">
-                    <i class="fa fa-cog fa-spin fa-4x fa-fw" aria-hidden="true"></i>
-                    <p>
+                    <p class="text-center"><i class="fa fa-server fa-2x" aria-hidden="true"></i></p>
+                    <p class="display-1">
                         {{ 'help.digital_services'|trans({},'interfaces')|raw }}
                     </p>
-                    <p>
-                        <i>{{ 'help.digital_services_detail'|trans({},'interfaces')|raw }}</i>
+                    <p class="lead">
+                        <small>{{ 'help.digital_services_detail'|trans({},'interfaces')|raw }}</small>
                     </p>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="jumbotron">
-                    <i class="fa fa-graduation-cap fa-4x" aria-hidden="true"></i>
-                    <p>
+                    <p class="text-center"><i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i></p>
+                    <p class="display-1">
                         {{ 'help.education_resources'|trans({},'interfaces')|raw }}
                     </p>
-                    <p>
-                        <i>{{ 'help.education_resources_detail'|trans({},'interfaces')|raw }}</i>
+                    <p class="lead">
+                        <small>{{ 'help.education_resources_detail'|trans({},'interfaces')|raw }}</small>
                     </p>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="jumbotron">
-                    <i class="fa fa-mobile-alt fa-4x" aria-hidden="true"></i>
-                    <p>
+                    <p class="text-center"><i class="fa fa-mobile-alt fa-2x" aria-hidden="true"></i></p>
+                    <p class="display-1">
                         {{ 'help.access_devices'|trans({},'interfaces')|raw }}
                     </p>
-                    <p>
-                        <i>{{ 'help.access_devices_detail'|trans({},'interfaces')|raw }}</i>
+                    <p class="lead">
+                        <small>{{ 'help.access_devices_detail'|trans({},'interfaces')|raw }}</small>
                     </p>
                 </div>
             </div>
