@@ -7,12 +7,12 @@ $web-font-path: 'data:text/css;base64,';
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $lato-font-path: '~lato-font/fonts';
 
-//@import "~bootswatch/flatly/variables";
+@import "~bootswatch/cosmo/variables";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-//@import "~bootswatch/flatly/bootswatch";
+@import "~bootswatch/cosmo/bootswatch";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import "~@fortawesome/fontawesome-free/css/v4-shims.css";
-//@import "~highlight.js/styles/solarized-light.css";
+@import "~highlight.js/styles/solarized-light.css";
 
 // pick the Lato fonts individually to avoid importing the entire font family
 @import '~lato-font/scss/public-api';
@@ -22,24 +22,18 @@ $lato-font-path: '~lato-font/fonts';
 /* Basic styles
    ------------------------------------------------------------------------- */
 p, ul, ol {
-  font-size: 17px;
+  font-size: 15px;
   margin-bottom: 0.75em
 }
+
 hr {
   border: 0;
   margin: 10px 10px 15px;
   border-top: 1px solid #ecf0f1;
 }
-li {
-  margin-bottom: 0.5em
-}
 h3 {
   font-size: 26px;
   padding-top: 20px;
-}
-code {
-  background: #ecf0f1;
-  color: #2c3e50
 }
 .text-danger, .text-danger:hover {
   color: #e74c3c
@@ -47,14 +41,23 @@ code {
 i {
   margin-right: 0.25em
 }
-.table.table-middle-aligned th,
-.table.table-middle-aligned td {
-  vertical-align: middle;
+/* Page: 'Homepage' corrected bootstrap style
+   ------------------------------------------------------------------------- */
+a {
+  color: #cccccc;
+  text-decoration: none;
 }
-.doclink {
-  color: inherit
+a:hover {
+  color: #ffffff;
 }
-
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: transparent;
+  /* border-color: #2780E3; */
+}
 /* Page: 'Homepage' my classes
    ------------------------------------------------------------------------- */
 .top-nav-collapse {
@@ -113,23 +116,29 @@ div.author-background {
 .form-search-item input {
   background: transparent;
   border: none;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #ccc;
   outline: none;
   width: 100%;
   height: 40px;
   padding: 5px 5px;
+  font-size: 15px;
+  font-weight: normal;
+  font-family: "Source Sans Pro", Calibri, Candara, Arial, sans-serif;git
+}
+.form-search-item input:hover,
+.form-search-item input:focus {
+  border-bottom: 1px solid #fff;
 }
 .form-item label {
-  color: #ffffff;
+  color: #fff;
   position: absolute;
   top: 20px;
   left: 0;
-  color: #ffffff;
   transition: .3s;
   margin: 5px 10px;
 }
 .form-search-item label {
-  color: #ffffff;
+  color: #cccccc;
   position: absolute;
   pointer-events: none;
   left: 15px;
@@ -149,6 +158,7 @@ div.author-background {
 .form-search-item input:not(:focus):valid ~ label {
   top: -7px;
   font-size: 10px;
+  color: rgba(255, 255, 255, 0.88);
 }
 h6 {
   line-height: 1.7;
