@@ -2,7 +2,7 @@
     <div class="container" style="margin-top: 3px">
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ path('homepage') }}">
-                <strong>{{ 'title.brand'|trans({},'interfaces') }}</strong>
+                <img src="{{ asset('build/images/logo.png') }}" class="transparent-75" alt="{{ 'title.brand'|trans({},'interfaces') }}" height="45">
             </a>
             <button type="button" class="navbar-toggle"
                     data-toggle="collapse"
@@ -15,14 +15,19 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="nav navbar-nav navbar-left">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a href="{{ path('homepage') }}" class="nav-link">
-                        <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans({},'interfaces') }}
+                        <i class="fa fa-home"></i> {{ 'menu.homepage'|trans({},'interfaces') }}
+                    </a>
+                </li>
+              <li class="nav-item">
+                    <a href="{{ path('homepage') }}" class="nav-link">
+                        <i class="fa fa-phone"></i> {{ 'menu.contacts'|trans({},'interfaces') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ path('homepage') }}" class="nav-link">
-                        <i class="fa fa-phone"></i> {{ 'menu.contacts'|trans({},'interfaces') }}
+                        <i class="fa fa-feed"></i> {{ 'menu.feedback'|trans({},'interfaces') }}
                     </a>
                 </li>
             </ul>
@@ -31,7 +36,9 @@
                     <input class="white-text"  type="text" id="search-nav" required>
                     <label for="search-nav">{{ 'menu.search'|trans({},'interfaces') }}</label>
                 </div>
-                <button type="submit" class="btn btn-sm btn-link"><i class="fa fa-search"></i></button>
+                <div class="form-search-item">
+                    <button type="submit" class="btn btn-sm btn-link"><i class="fa fa-search"></i></button>
+                </div>
             </form>
                 {#
                     {% if app.user %}

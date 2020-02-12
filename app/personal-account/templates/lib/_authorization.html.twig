@@ -4,32 +4,37 @@
             <div class="page-header">
                 <h1 class="white-text text-center">{{ 'title.what'|trans({},'interfaces')|raw }}</h1>
             </div>
-            <div class="row" style="margin-bottom: 20px;">
+            <div class="row" style="margin-bottom: 40px;">
                 <div class="col-md-6 white-text text-center text-md-left">
-                    <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">Регистрация! </h1>
+                    <h2 class="wow fadeInLeft" data-wow-delay="0.3s">
+                        <i class="fas fa-registered"></i>
+                        Регистрация
+                    </h2>
                     <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
-                    <h6 class="mb-3 wow fadeInLeft" data-wow-delay="0.3s">
+                    <p class="mb-3 wow fadeInLeft" data-wow-delay="0.3s">
                         Зарегистрируйся в информационно-образовательном пространстве БарГУ и получи доступ к электронным учебным курсам,
                         учебно-методичестким материалам, системе дистанционного обучения, системе внутреннего взаимодействия.
-                    </h6>
-                    <a class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s">Зарегистрироваться</a>
-                    <a class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s">Войти как гость</a>
+                    </p>
+                    <button class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s" type="submit">Зарегистрироваться</button>
+                    <button class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s" type="submit">Войти как гость</button>
                 </div>
                 <div class="col-md-6">
                     <div class="card wow fadeInRight mt-3" data-wow-delay="0.3s">
                         <div class="card-body text-center pt-4">
-                            <h3 class="card-title white-text pt-2">
-                                <i class="fas fa-user white-text"></i> Вход <hr class="hr-light">
-                            </h3>
+                            <h2 class="card-title white-text pt-2">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Вход
+                                <hr class="hr-light">
+                            </h2>
                             <div class="form-item">
                                 <input type="text" id="regfieldemail" class="white-text" required>
-                                <label for="regfieldemail"><i class="fas fa-user prefix active"></i>Имя</label>
+                                <label for="regfieldemail"><i class="fas fa-user"></i>Имя</label>
                             </div>
                             <div class="form-item">
                                 <input type="password" id="regfieldpassword" class="white-text" required>
-                                <label for="regfieldpassword"><i class="fas fa-lock prefix active"></i>Пароль</label>
+                                <label for="regfieldpassword"><i class="fas fa-lock"></i>Пароль</label
                             </div>
-                            <button class="btn btn-primary" type="submit">Войти</button>
+                            <button class="btn btn-outline-white" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;Войти&nbsp;&nbsp;&nbsp;&nbsp;</button>
                             <hr class="hr-light">
                             <div class="list-inline text-center">
                                 <a class="btn btn-block btn-social btn-twitter">
