@@ -1,26 +1,22 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-fixed-top" role="navigation">
-    <div class="container" style="margin-top: 3px">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ path('homepage') }}">
-                <img src="{{ asset('build/images/logo.png') }}" class="transparent-75" alt="{{ 'title.brand'|trans({},'interfaces') }}" height="45">
-            </a>
-            <button type="button" class="navbar-toggle"
-                    data-toggle="collapse"
-                    data-target=".navbar-collapse">
-                <span class="sr-only">{{ 'menu.toggle_nav'|trans }}</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="nav navbar-nav navbar-left">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary"  role="navigation">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path('homepage') }}">
+            <img src="{{ asset('build/images/logo.png') }}" class="transparent-75" alt="{{ 'title.brand'|trans({},'interfaces') }}" height="45">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse d-flex" id="navbarColor01">
+            <div>
+            <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a href="{{ path('homepage') }}" class="nav-link">
                         <i class="fa fa-home"></i> {{ 'menu.homepage'|trans({},'interfaces') }}
+                        <span class="sr-only">(current)</span>
                     </a>
                 </li>
-              <li class="nav-item">
+                <li class="nav-item">
                     <a href="{{ path('homepage') }}" class="nav-link">
                         <i class="fa fa-phone"></i> {{ 'menu.contacts'|trans({},'interfaces') }}
                     </a>
@@ -31,57 +27,60 @@
                     </a>
                 </li>
             </ul>
+            </div>
+            <div class="mb-2 ml-2">
             <form class="form-search">
                 <div class="form-search-item">
-                    <input class="white-text"  type="text" id="search-nav" required>
+                    <input class="text-white"  type="text" id="search-nav" required>
                     <label for="search-nav">{{ 'menu.search'|trans({},'interfaces') }}</label>
                 </div>
                 <div class="form-search-item">
                     <button type="submit" class="btn btn-sm btn-link"><i class="fa fa-search"></i></button>
                 </div>
             </form>
+            </div>
+            <div class="ml-auto align-bottom">
+                <ul class="navbar-nav">
                 {#
-                    {% if app.user %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="user">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="caret"></span>
-                                <span class="sr-only">{{ app.user.fullname }}</span>
-                            </a>
-                            <ul class="dropdown-menu user" role="menu" aria-labelledby="user">
-                                <li>
-                                    <a href="{{ path('homepage') }}">
-                                        <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.user'|trans }}
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="{{ path('homepage') }}">
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    {% endif %}
-#}
-
-            <ul class="nav nav-pills navbar-right">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="locales">
-                        <i class="fa fa-globe" aria-hidden="true"></i>
-                        <span class="caret"></span>
-                        <span class="sr-only">{{ 'menu.choose_language'|trans({},'interfaces') }}</span>
-                    </a>
-                    <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales" >
-                        {% for locale in locales() %}
-                            <li {% if app.request.locale == locale.code %}aria-checked="true" class="active"{% else %}aria-checked="false"{% endif %} role="menuitem">
-                                <a href="{{ path(app.request.get('_route', 'homepage'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }} <small>{{ locale.code[0:2] }}</small></a>
+                        {% if app.user %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="user">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="caret"></span>
+                                    <span class="sr-only">{{ app.user.fullname }}</span>
+                                </a>
+                                <ul class="dropdown-menu user" role="menu" aria-labelledby="user">
+                                    <li>
+                                        <a href="{{ path('homepage') }}">
+                                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.user'|trans }}
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ path('homepage') }}">
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            </ul>
+                        {% endif %}
+                #}
 
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="locales">
+                            <i class="fa fa-globe" aria-hidden="true"></i>
+                            <span class="caret"></span>
+                            <span class="sr-only">{{ 'menu.choose_language'|trans({},'interfaces') }}</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="locales">
+                            {% for locale in locales() %}
+                                <a class="dropdown-item"  href="{{ path(app.request.get('_route', 'homepage'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }} <small>{{ locale.code[0:2] }}</small></a>
+                            {% endfor %}
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
