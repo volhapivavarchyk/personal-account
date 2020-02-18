@@ -14,14 +14,7 @@ h6 {
   margin: 85px 0 21px;
   border-bottom: 1px solid transparent;
 }
-.transparent-75 {
-  filter: alpha(Opacity=75);
-  opacity: 0.75;
-}
-.transparent-75:hover {
-  filter: alpha(opacity=100);
-  opacity: 1.0;
-}
+
 ---------
 /* Basic styles
    ------------------------------------------------------------------------- */
@@ -31,11 +24,6 @@ p, ul, ol, label {
   margin-bottom: 0.75em
 }
 
-hr {
-  border: 0;
-  margin: 10px 10px 15px;
-  border-top: 1px solid #ecf0f1;
-}
 h2 {
   padding-top: 20px;
 }
@@ -64,27 +52,10 @@ a {
 .navbar-brand {
   padding: 3px 5px;
 }
-.dropdown-menu {
-  background-color: rgba(126, 123, 215, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-.dropdown-menu > li > a {
-  color: #cccccc;
-}
-.btn-outline-white {
-   color: #ccc;
-   background-color: rgba(39, 128, 227, 0.2);
-   border: 2px solid #cccccc;
- }
-.btn-outline-white:hover {
-  color: #ffffff;
-  background-color: rgba(39, 128, 227, 0.4);
-  border: 2px solid #ffffff;
-}
 
-.top-nav-collapse {
-  background-color: #004890 !important;
-}
+
+
+
 .navbar:not(.top-nav-collapse) {
   background: transparent !important;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
