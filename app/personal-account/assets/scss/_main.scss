@@ -2,7 +2,8 @@ body {
   font-family: $font;
 }
 hr {
-  border: 0;
+  border: 0 {
+    top: 1px solid $color-white-50;
+  };
   margin: 10px 10px 15px;
-  border-top: 1px solid $color-white-50;
 }
