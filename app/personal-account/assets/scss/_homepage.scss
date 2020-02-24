@@ -1,0 +1,138 @@
+/* Page: 'Homepage' my classes
+   ------------------------------------------------------------------------- */
+.top-nav-collapse {
+  background-color: $color-bright-blue-80 !important;
+}
+.navbar:not(.top-nav-collapse) {
+  background: transparent !important;
+  box-shadow: 0 3px 3px $color-black-30;
+}
+.dropdown-menu {
+  @extend %form-transparent-background;
+
+  & > a {
+    color: $color-white-50;
+
+    &:hover {
+      color: $color-white;
+      background-color: $color-bright-blue;
+    }
+  }
+}
+.btn-outline-white {
+  color: $color-white-50;
+  background-color: $color-bright-blue-20;
+  border: 2px solid $color-white-50;
+
+  &:hover {
+    color: $color-white;
+    background-color: $color-bright-blue-40;
+    border: 2px solid $color-white;
+  }
+}
+.btn-social {
+  color: $color-white-50;
+
+  &:hover {
+    color: $color-white;
+  }
+}
+.btn-social-primary {
+  color: $color-bright-blue-70;
+
+  &:hover {
+    color: $color-bright-blue;
+  }
+}
+div {
+  &.authorize-background {
+    background-size: cover;
+    background-position: center center;
+    background-image: url('../images-scss/university.jpg');
+    background-repeat: no-repeat;
+
+    .bg-transparent {
+      @extend %form-transparent-background;
+    }
+  }
+}
+.rgba-gradient {
+  background: -webkit-linear-gradient(45deg, $color-very-dark-blue-80, $color-dark_blue-50 100%);
+  background: -webkit-gradient(linear, 45deg, from($color-very-dark-blue-80, $color-dark_blue-50 100%));
+  background: linear-gradient(to 45deg, $color-very-dark-blue-80, $color-dark_blue-50 100%);
+}
+
+.form-item {
+  position: relative;
+  margin: 10px 20px;
+
+  input {
+    @extend %form-transparent-input;
+
+    height: 40px;
+    padding: 0px 15px;
+    margin: 10px 10px;
+
+    &:focus ~ label,
+    &:not(:focus):valid ~ label {
+      color: $color-grayish-blue-88;
+      left: 8px;
+      top: -10px;
+      font-size: 14px;
+    }
+  }
+
+  label {
+    @extend %form-transparent-label;
+    top: 18px;
+    margin: 5px 10px;
+  }
+}
+.form-search-item {
+  display: inline-block;
+  position: relative;
+
+  input {
+    @extend %form-transparent-input;
+
+    height: 30px;
+    padding: 0px 10px;
+    font-size: 14px;
+
+    &:focus ~ label,
+    &:not(:focus):valid ~ label {
+      color: $color-grayish-blue-88;
+      left: 8px;
+      top: -6px;
+      font-size: 10px;
+    }
+  }
+
+  label {
+    @extend %form-transparent-label;
+    top: 10px;
+    pointer-events: none;
+    line-height: 15px;
+    font-size: 15px;
+  }
+
+  .btn {
+    background-color: transparent;
+    color: $color-white-50;
+    /* border-color: #2780E3; */
+
+    &:hover, &:focus {
+      color:$color-white;
+      /* border-color: #2780E3; */
+    }
+  }
+}
+.transparent-75 {
+  filter: alpha(Opacity=75);
+  opacity: 0.75;
+
+  &:hover {
+    filter: alpha(opacity=100);
+    opacity: 1.0;
+  }
+}

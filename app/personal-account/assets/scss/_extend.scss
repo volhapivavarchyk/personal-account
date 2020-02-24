@@ -1,0 +1,28 @@
+%form-transparent-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid $color-white-50;
+  outline: none;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    border-bottom: 1px solid $color-white;
+  }
+
+  &:hover ~ label {
+    color: $color-white;
+  }
+}
+
+%form-transparent-label {
+  color: $color-white-50;
+  position: absolute;
+  left: 7px;
+  transition: .3s;
+}
+
+%form-transparent-background {
+  background-color: $color-slightly-desaturated-blue-20 !important;
+  border: 1px solid $color-slightly-desaturated-blue-30;
+}
