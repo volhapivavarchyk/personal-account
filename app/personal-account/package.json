@@ -27,6 +27,7 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "bootstrap-sass": "^3.4.1",
-    "bootswatch": "^4.4.1"
+    "bootswatch": "^4.4.1",
+    "wowjs": "^1.1.3"
   }
 }

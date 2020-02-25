@@ -7,16 +7,10 @@ import 'bootstrap-sass/assets/javascripts/bootstrap/alert.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/collapse.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/dropdown.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/modal.js';
-import 'jquery'
+import 'jquery';
+import WOW from 'wowjs/dist/wow.js';
 
 let ready = $(document).ready(function () {
-    $('.addauthor').click(function () {
-        console.log('111');
-        let div = document.createElement('div');
-        div.id = 'soathor1';
-        div.appendChild(document.getElementById('soauthors'));
-        div.innerText = '1111';
-    });
     let $navbar = $(".navbar");
 
     $(window).scroll(function () {
@@ -26,8 +20,24 @@ let ready = $(document).ready(function () {
             $navbar.removeClass("top-nav-collapse");
         }
     });
-});
 
-$( document ).ready(function() {
-    new WOW().init();
+    console.log('11');
+    //console.log(new WOW.WOW().init());
+
+    let wow = new WOW.WOW(
+        {
+            boxClass:     'wow',      // animated element css class (default is wow)
+            animateClass: 'animated', // animation css class (default is animated)
+            offset:       0,          // distance to the element when triggering the animation (default is 0)
+            mobile:       true,       // trigger animations on mobile devices (default is true)
+            live:         true,       // act on asynchronously loaded content (default is true)
+            callback:     function(box) {
+                // the callback is fired every time an animation is started
+                // the argument that is passed in is the DOM node being animated
+            },
+            scrollContainer: null // optional scroll container selector, otherwise use window
+        }
+    );
+    wow.init();
+    console.log(wow);
 });

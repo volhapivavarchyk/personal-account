@@ -3,7 +3,7 @@ body {
 }
 hr {
   border: 0 {
-    top: 1px solid $color-white-50;
+    top: 1px solid get-color-with-alpha($color-white, 0.5);
   };
   margin: 10px 10px 15px;
 }

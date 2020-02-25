@@ -1,47 +1,47 @@
 /* Page: 'Homepage' my classes
    ------------------------------------------------------------------------- */
 .top-nav-collapse {
-  background-color: $color-bright-blue-80 !important;
+  background-color: get-color-with-alpha($color-bright-blue, 0.8) !important;
 }
 .navbar:not(.top-nav-collapse) {
   background: transparent !important;
-  box-shadow: 0 3px 3px $color-black-30;
+  box-shadow: 0 3px 3px get-color-with-alpha($color-black, 0.3);
 }
 .dropdown-menu {
   @extend %form-transparent-background;
 
   & > a {
-    color: $color-white-50;
+    color: get-color-with-alpha($color-white, 0.5);
 
     &:hover {
-      color: $color-white;
-      background-color: $color-bright-blue;
+      color: get-color-with-alpha($color-white, 1.0);
+      background-color: get-color-with-alpha($color-bright-blue, 1.0);
     }
   }
 }
 .btn-outline-white {
-  color: $color-white-50;
-  background-color: $color-bright-blue-20;
-  border: 2px solid $color-white-50;
+  color: get-color-with-alpha($color-white, 0.5);
+  background-color: get-color-with-alpha($color-bright-blue, 0.2);
+  border: 2px solid get-color-with-alpha($color-white, 0.5);
 
   &:hover {
-    color: $color-white;
-    background-color: $color-bright-blue-40;
-    border: 2px solid $color-white;
+    color: get-color-with-alpha($color-white, 1.0);
+    background-color: get-color-with-alpha($color-bright-blue, 0.4);
+    border: 2px solid get-color-with-alpha($color-white, 1.0);
   }
 }
 .btn-social {
-  color: $color-white-50;
+  color: get-color-with-alpha($color-white, 0.5);
 
   &:hover {
-    color: $color-white;
+    color: get-color-with-alpha($color-white, 1.0);
   }
 }
 .btn-social-invert {
-  color: $color-bright-blue-70;
+  color: get-color-with-alpha($color-bright-blue, 0.7);
 
   &:hover {
-    color: $color-bright-blue;
+    color: get-color-with-alpha($color-bright-blue, 1.0);
   }
 }
 div {
@@ -59,9 +59,7 @@ div {
   }
 }
 .rgba-gradient {
-  background: -webkit-linear-gradient(45deg, $color-very-dark-blue-80, $color-dark_blue-50 100%);
-  background: -webkit-gradient(linear, 45deg, from($color-very-dark-blue-80, $color-dark_blue-50 100%));
-  background: linear-gradient(to 45deg, $color-very-dark-blue-80, $color-dark_blue-50 100%);
+  @include rgba-linear-gradient(45deg, get-color-with-alpha($color-very-dark-blue, 0.8), get-color-with-alpha($color-dark-blue, 0.5));
 }
 .form-item {
   position: relative;
@@ -76,7 +74,7 @@ div {
 
     &:focus ~ label,
     &:not(:focus):valid ~ label {
-      color: $color-grayish-blue-88;
+      color: get-color-with-alpha($color-grayish-blue, 0.88);
       left: 15px;
       top: -10px;
       font-size: 14px;
@@ -102,7 +100,7 @@ div {
 
     &:focus ~ label,
     &:not(:focus):valid ~ label {
-      color: $color-grayish-blue-88;
+      color: get-color-with-alpha($color-grayish-blue, 0.88);
       left: 10px;
       top: -6px;
       font-size: 10px;
@@ -119,11 +117,11 @@ div {
 
   .btn {
     background-color: transparent;
-    color: $color-white-50;
+    color: get-color-with-alpha($color-white, 0.5);
     /* border-color: #2780E3; */
 
     &:hover, &:focus {
-      color:$color-white;
+      color:get-color-with-alpha($color-white, 1.0);
       /* border-color: #2780E3; */
     }
   }
