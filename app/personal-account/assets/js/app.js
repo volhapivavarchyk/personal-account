@@ -20,9 +20,11 @@ let ready = $(document).ready(function () {
             $navbar.removeClass("top-nav-collapse");
         }
     });
-
-    console.log('11');
-    //console.log(new WOW.WOW().init());
+    $(window).scroll(function() {
+        let scrolledY = $(window).scrollTop();
+        console.log(scrolledY);
+        $('.authorize-background').css('background-position', 'center '+ ((scrolledY)) + 'px');
+    });
 
     let wow = new WOW.WOW(
         {
