@@ -16,6 +16,7 @@ class UserController extends AbstractController
      */
     public function action(Request $request): Response
     {
-        return $this->render('default/homepage.html.twig',[]);
+        //return $this->render('default/homepage.html.twig',[]);
+        return $this->render('users/user.html.twig',[]);
     }
 }
