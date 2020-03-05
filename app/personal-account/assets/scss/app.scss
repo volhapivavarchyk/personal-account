@@ -33,4 +33,5 @@ $color-black: (0, 0, 0);
 
 @import 'extend';
 @import 'main';
-@import 'homepage';
+@import '_authorization';
+@import '_user';

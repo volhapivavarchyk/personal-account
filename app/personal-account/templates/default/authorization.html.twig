@@ -5,7 +5,7 @@
 {% block header %}
     <header>
         {{ include('lib/_navbar.html.twig') }}
-        {{ include('lib/_authorization.html.twig') }}
+        {{ include('lib/_authorization_form.html.twig') }}
     </header>
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}
@@ -13,7 +13,7 @@
 {% block body %}
     <div class="container body-container">
         <div class="text-center mt-4 mb-3">
-            <h1>{{ 'title.advantages'|trans({},'interfaces')|raw }}</h1>
+            <h1>{{ 'title.advantages'|trans({},'authorization')|raw }}</h1>
         </div>
         <div class="row">
             <div class="col-lg-3">
@@ -22,8 +22,8 @@
                         <i class="fa fa-info fa-2x" aria-hidden="true"></i>
                      </div>
                     <div class="card-body">
-                        <h4 class="card-title">{{ 'help.advantages_information'|trans({},'interfaces')|raw }}</h4>
-                        <p class="card-text">{{ 'help.advantages_information_detail'|trans({},'interfaces')|raw }}</p>
+                        <h4 class="card-title">{{ 'help.advantages_information'|trans({},'authorization')|raw }}</h4>
+                        <p class="card-text">{{ 'help.advantages_information_detail'|trans({},'authorization')|raw }}</p>
                     </div>
                </div>
             </div>
@@ -31,8 +31,8 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header pt-4"><i class="fa fa-server fa-2x" aria-hidden="true"></i></div>
                     <div class="card-body">
-                        <h4 class="card-title">{{ 'help.digital_services'|trans({},'interfaces')|raw }}</h4>
-                        <p class="card-text">{{ 'help.digital_services_detail'|trans({},'interfaces')|raw }}</p>
+                        <h4 class="card-title">{{ 'help.digital_services'|trans({},'authorization')|raw }}</h4>
+                        <p class="card-text">{{ 'help.digital_services_detail'|trans({},'authorization')|raw }}</p>
                     </div>
                 </div>
             </div>
@@ -40,8 +40,8 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header pt-4"><i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i></div>
                     <div class="card-body">
-                        <h4 class="card-title">{{ 'help.education_resources'|trans({},'interfaces')|raw }}</h4>
-                        <p class="card-text">{{ 'help.education_resources_detail'|trans({},'interfaces')|raw }}</p>
+                        <h4 class="card-title">{{ 'help.education_resources'|trans({},'authorization')|raw }}</h4>
+                        <p class="card-text">{{ 'help.education_resources_detail'|trans({},'authorization')|raw }}</p>
                     </div>
                 </div>
             </div>
@@ -49,8 +49,8 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header pt-4"><i class="fa fa-mobile-alt fa-2x" aria-hidden="true"></i></div>
                     <div class="card-body">
-                        <h4 class="card-title">{{ 'help.access_devices'|trans({},'interfaces')|raw }}</h4>
-                        <p class="card-text">{{ 'help.access_devices_detail'|trans({},'interfaces')|raw }}</p>
+                        <h4 class="card-title">{{ 'help.access_devices'|trans({},'authorization')|raw }}</h4>
+                        <p class="card-text">{{ 'help.access_devices_detail'|trans({},'authorization')|raw }}</p>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,8 @@
 import '../scss/app.scss';
 
 // loads the Bootstrap jQuery plugins
-import 'bootstrap/js/dist/dropdown.js';
+//import 'bootstrap/js/dist/dropdown.js';
+import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/transition.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/alert.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/collapse.js';
@@ -22,7 +23,6 @@ let ready = $(document).ready(function () {
     });
     $(window).scroll(function() {
         let scrolledY = $(window).scrollTop();
-        console.log(scrolledY);
         $('.authorize-background').css('background-position', 'center '+ ((scrolledY)) + 'px');
     });
 
