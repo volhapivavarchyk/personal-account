@@ -12,7 +12,7 @@
   background: -webkit-gradient(linear, $position, from($color-from, $color-to 100%));
   background: linear-gradient(to $position, $color-from, $color-to 100%);
 }
-
+// for _authorization.scss
 %form-transparent-input {
   background: transparent;
   border: none {
@@ -41,4 +41,11 @@
 %form-transparent-background {
   background-color:  get-color-with-alpha($color-slightly-desaturated-blue, 0.2) !important;
   border: 1px solid  get-color-with-alpha($color-slightly-desaturated-blue, 0.3);
+}
+
+// for _user.scss
+%span-order {
+  display:inline-block;
+  vertical-align: top;
+  padding: 1.0rem 0.2rem;
 }
