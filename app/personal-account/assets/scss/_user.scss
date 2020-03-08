@@ -5,12 +5,12 @@ a.btn {
   max-width: 210px;
 }
 a.btn:hover {
-  color: get-color-with-alpha($color-white, 0.5);
-}
-a.btn-level-2 {
   color: get-color-with-alpha($color-white, 0.7);
 }
-a.btn-level-2:hover {
+a.btn-level-2, .card-link {
+  color: get-color-with-alpha($color-white, 0.7);
+}
+a.btn-level-2:hover, .card-link:hover {
   color: get-color-with-alpha($color-white, 0.5);
 }
 .card-header span, .card-body span  {
