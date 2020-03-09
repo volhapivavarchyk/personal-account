@@ -1,4 +1,4 @@
-<div class="card text-white bg-primary" style="width: 18rem;">
+<div class="card text-white bg-primary">
     <img class="rounded-circle img-thumbnail mx-auto" src="{{ asset('build/images/avatar-3.jpg') }}" width="170" height="170" alt="User photo">
     <div class="card-body text-center">
         <h5 class="card-title mb-0"><strong>Иван Жуков</strong></h5>
@@ -9,24 +9,30 @@
         <div class="card text-white bg-primary">
             <div class="card-header align-top" id="headingOne">
                 {# <span class="fas fa-graduation-cap"></span> #}
-                <a class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <a class="btn btn-level-1" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     {{ 'button.service_1'|trans({},'user')|raw }}
                 </a>
             </div>
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                    <div>
-                        <span class="fa fa-user-graduate card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_1_1'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon"><i class="fa fa-user-graduate"></i></div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_1_1'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span class="fas fa-chalkboard card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_1_2'|trans({},'user')|raw }}
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="fas fa-chalkboard card-link"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_1_2'|trans({},'user')|raw }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,41 +40,62 @@
         <div class="card text-white bg-primary">
             <div class="card-header" id="headingTwo">
                 {# <span class="fas fa-mobile-alt"></span> #}
-                <a class="btn collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <a class="btn btn-level-1 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     {{ 'button.service_2'|trans({},'user')|raw }}
                 </a>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
-                    <div>
-                        <span class="far fa-envelope card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_2_1'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_2_1'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span class="far fa-comments card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_2_2'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
-                         </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="far fa-comments"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_2_2'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span class="fas fa-database card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_2_3'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_2_3'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
+                            </a>
+                        </div>
+
                     </div>
-                    <div>
-                        <span class="far fa-calendar-alt card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_2_4'|trans({},'user')|raw }}
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="far fa-calendar-alt"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_2_4'|trans({},'user')|raw }}
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span class="fas fa-chalkboard-teacher card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_2_5'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_2_5'|trans({},'user')|raw }}<i class="fa fa-external-link"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,42 +103,62 @@
         <div class="card text-white bg-primary">
             <div class="card-header" id="headingThree">
                 {# <span class="fas fa-laptop"></span> #}
-                <a class="btn collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <a class="btn btn-level-1 collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                     {{ 'button.service_3'|trans({},'user')|raw }}
                 </a>
                 </h5>
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
-                    <div>
-                        <span class="far fa-handshake card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_3_1'|trans({},'user')|raw }}
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="far fa-handshake"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_3_1'|trans({},'user')|raw }}
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span class="fa fa-user-graduate card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_3_2'|trans({},'user')|raw }}
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="fa fa-user-graduate"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_3_2'|trans({},'user')|raw }}
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span class="fas fa-atom card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_3_3'|trans({},'user')|raw }}
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_3_3'|trans({},'user')|raw }}
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span class="fas fa-theater-masks card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_3_4'|trans({},'user')|raw }}
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="fas fa-theater-masks"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_3_4'|trans({},'user')|raw }}
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span class="fas fa-chart-line card-link"></span>
-                        <a href="" class="btn btn-level-2">
-                            {{ 'link.service_3_5'|trans({},'user')|raw }}
-                        </a>
+                    <div class="card-body-elem">
+                        <div class="elem-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="elem-link">
+                            <a href="" class="btn btn-level-2">
+                                {{ 'link.service_3_5'|trans({},'user')|raw }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -3,11 +3,11 @@
 .top-nav-collapse {
   background-color: get-color-with-alpha($color-bright-blue, 0.8) !important;
 }
-.navbar:not(.top-nav-collapse) {
+.navbar-auth:not(.top-nav-collapse) {
   background: transparent !important;
   box-shadow: 0 3px 3px get-color-with-alpha($color-black, 0.3);
 }
-.dropdown-menu {
+.dropdown-menu-auth {
   @extend %form-transparent-background;
 
   & > a {
@@ -63,69 +63,13 @@ div {
   @include rgba-linear-gradient(45deg, get-color-with-alpha($color-very-dark-blue, 0.8), get-color-with-alpha($color-dark-blue, 0.5));
 }
 .form-item {
-  position: relative;
-  margin: 10px 20px;
-
-  input {
-    @extend %form-transparent-input;
-
-    height: 40px;
-    padding: 0px 15px;
-    margin: 10px 10px;
-
-    &:focus ~ label,
-    &:not(:focus):valid ~ label {
-      color: get-color-with-alpha($color-grayish-blue, 0.88);
-      left: 15px;
-      top: -10px;
-      font-size: 14px;
-    }
-  }
-
-  label {
-    @extend %form-transparent-label;
-    top: 18px;
-    margin: 5px 10px;
-  }
+  @include form-item-with-color($color-white, $color-grayish-blue);
 }
 .form-search-item {
-  display: inline-block;
-  position: relative;
-
-  input {
-    @extend %form-transparent-input;
-
-    height: 30px;
-    padding: 0px 10px;
-    font-size: 14px;
-
-    &:focus ~ label,
-    &:not(:focus):valid ~ label {
-      color: get-color-with-alpha($color-grayish-blue, 0.88);
-      left: 10px;
-      top: -6px;
-      font-size: 10px;
-    }
-  }
-
-  label {
-    @extend %form-transparent-label;
-    top: 10px;
-    pointer-events: none;
-    line-height: 15px;
-    font-size: 15px;
-  }
-
-  .btn {
-    background-color: transparent;
-    color: get-color-with-alpha($color-white, 0.5);
-    /* border-color: #2780E3; */
-
-    &:hover, &:focus {
-      color:get-color-with-alpha($color-white, 1.0);
-      /* border-color: #2780E3; */
-    }
-  }
+  @include form-search-item-with-color($color-white, $color-grayish-blue);
+}
+.form-search-item-invert {
+  @include form-search-item-with-color($color-black, $color-grayish-blue);
 }
 .transparent-75 {
   filter: alpha(Opacity=75);

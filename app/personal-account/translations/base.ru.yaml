@@ -6,6 +6,7 @@ title:
   brand: БарГУ
 menu:
   homepage: Главная
+  homepage-account: Личный кабинет
   admin: Панель управления
   user: Аккаунт
   search: Поиск
@@ -14,3 +15,5 @@ menu:
   choose_language: Выбрать язык
   contacts: Контакты
   feedback: Обратная связь
+  notification: Оповещения
+  help: Помощь

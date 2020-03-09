@@ -1,18 +1,32 @@
-a.btn {
+a.btn-level-1 {
   text-align: left;
   font-size: 1.15rem;
   padding: 0.375rem 0.1rem;
   max-width: 210px;
 }
-a.btn:hover {
+a.btn-level-1:hover {
   color: get-color-with-alpha($color-white, 0.7);
 }
-a.btn-level-2, .card-link {
+a.btn-level-2 {
+  text-align: left;
+  padding: 0.375rem 0.2rem;
   color: get-color-with-alpha($color-white, 0.7);
 }
-a.btn-level-2:hover, .card-link:hover {
+a.btn-level-2:hover {
   color: get-color-with-alpha($color-white, 0.5);
 }
-.card-header span, .card-body span  {
+.card-body-elem div {
+  display: inline-block;
+}
+.card-body-elem .elem-icon {
+  width: 20px;
+  vertical-align: top;
+  padding: 0.5rem 0.1rem;
+}
+.card-body-elem .elem-link {
+  vertical-align: top;
+  max-width: 210px;
+}
+.card-header span  {
   @extend %span-order;
 }

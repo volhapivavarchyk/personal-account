@@ -12,7 +12,7 @@ import 'jquery';
 import WOW from 'wowjs/dist/wow.js';
 
 let ready = $(document).ready(function () {
-    let $navbar = $(".navbar");
+    let $navbar = $(".navbar-auth");
 
     $(window).scroll(function () {
         if ($(this).scrollTop() > 1) {
