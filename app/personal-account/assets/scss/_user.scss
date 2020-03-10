@@ -28,5 +28,28 @@ a.btn-level-2:hover {
   max-width: 210px;
 }
 .card-header span  {
-  @extend %span-order;
+   @extend %span-order;
+}
+// переопределяем nav-tabs
+//.nav-tabs .nav-link {
+//  border: 1px solid transparent;
+//}
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+  color: get-color-with-alpha($color-black, 1.0);
+  border-color: transparent transparent get-color-with-alpha($color-bright-blue, 0.5) !important;
+  border: 2px solid;
+}
+.nav-tabs .nav-link {
+  color: get-color-with-alpha($color-black, 0.7);
+}
+//.nav-tabs .nav-item {
+//  margin-bottom: -1px;
+//}
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: get-color-with-alpha($color-black, 1.0);
+  //background-color: #fff;
+  border-color: transparent transparent get-color-with-alpha($color-bright-blue, 0.5) !important;
+  border: 2px solid;
 }

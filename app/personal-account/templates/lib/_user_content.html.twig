@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+{# ############################################################################################################### #}
+{# Верхнее меню #}
+{# ############################################################################################################### #}
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,7 +17,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ path('homepage') }}" class="nav-link">
-                        <i class="fa fa-bell"></i> {{ 'menu.notification'|trans({},'base') }}
+                        <i class="fa fa-bell"></i> {{ 'menu.notification'|trans({},'base') }}<span class="badge badge-pill badge-primary ml-1">3</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -61,3 +64,143 @@
         </div>
     </div>
 </nav>
+
+{# ############################################################################################################### #}
+{# Все оповещения за период#}
+{# ############################################################################################################### #}
+{#
+<div class="jumbotron jumbotron-fluid bg-light border-top">
+    <div class="container">
+        <h1 class="display-4">Совет факультета</h1>
+        <p class="lead">Внимание! 10.03.2020 в аудитории 214/4 состоится Совет факультета.</p>
+        <hr class="my-4">
+        <p>Повестка дня. 1. Избрание по конкурсу. 2. Утверждение стипендиатов. 3. Награждение победителей.</p>
+    </div>
+</div>
+#}
+
+{# ############################################################################################################### #}
+{# Оперативные оповещения #}
+{# ############################################################################################################### #}
+<div class="alert alert-dismissible alert-primary mx-3 mt-3">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4 class="alert-heading">Совет факультета</h4>
+    <strong>Внимание!</strong> 10.03.2020 в аудитории 214/4 состоится <a href="#" class="alert-link">Совет инженерного факультета</a>.
+</div>
+<div class="alert alert-dismissible alert-success mx-3 mt-3">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4 class="alert-heading">Победитель конкурса студенческих работ</h4>
+    <strong>Отлично сработано!</strong> Под Вашим руководством <a href="#" class="alert-link">студент Иванов И.И. занял 1 место в конкурсе студенческих работ</a>.
+</div>
+<div class="alert alert-dismissible  alert-secondary mx-3 mt-3">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4 class="alert-heading">Международный марафон молодежных инициатив</h4>
+    <strong>Внимание!</strong> 11.03.2020 с 13.30 до 16.00 в малом зале столовой состоится <a href="#" class="alert-link">встреча с ветеранами Великой Отечественной войны</a>.
+</div>
+
+{# ############################################################################################################### #}
+{# Вкладки, отображающие данные личного окабинета #}
+{# ############################################################################################################### #}
+<nav class="mx-3 mt-3">
+    <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active mx-1" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Расписание занятий</a>
+        <a class="nav-item nav-link mx-1" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Аттестация студентов</a>
+        <a class="nav-item nav-link mx-1" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Видеоконференции, вебинары</a>
+    </div>
+</nav>
+<div class="tab-content bg-light mx-3" id="nav-tabContent">
+    {# Расписание занятие #}
+    <div class="tab-pane fade show active py-3 px-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="card">
+            <h5 class="card-header">Расписание занятий</h5>
+            <div class="card-body">
+                <h5 class="card-title">Сегодня понедельник 10 марта 2020 года </h5>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Время</th>
+                        <th scope="col">Аудитория</th>
+                        <th scope="col">Наименование дисциплины</th>
+                        <th scope="col">Группа</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row"><i class="far fa-clock"></i> &nbsp; 8:30 &mdash; 9:50</th>
+                        <td>214/4</td>
+                        <td>Объектно-ориентированное программирование</td>
+                        <td>ИСТ-21, ИСТ-22</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><i class="far fa-clock"></i> &nbsp; 10:00 &mdash; 11:20</th>
+                        <td>308/5</td>
+                        <td>Объектно-ориентированное программирование</td>
+                        <td>ИСТ-21</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><i class="far fa-clock"></i> &nbsp; 11:50 &mdash; 13:10</th>
+                        <td>214/4</td>
+                        <td>Проектирование баз данных и баз знаний</td>
+                        <td>ИСТ-31, ИСТ-32</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p class="card-text">Перейти к информационному ресурсу "Электронное расписание" и информационному ресурсу "Электронный журнал преподавателя" можно по ссылкам ниже.</p>
+                <div class="card-body">
+                    <a href="#" class="card-link">Электронное расписание</a>
+                    <a href="#" class="card-link">Электронный журнал преподавателя</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# Аттестация студентов #}
+    <div class="tab-pane fade py-3 px-3 w-50" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#">ИСТ-21</a>
+                <span class="badge badge-primary badge-pill">24</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#">ИСТ-22</a>
+                <span class="badge badge-primary badge-pill">28</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#">ИСТ-31</a>
+                <span class="badge badge-primary badge-pill">22</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#">ИСТ-32</a>
+                <span class="badge badge-primary badge-pill">25</span>
+            </li>
+        </ul>
+    </div>
+    {# Видеоконференции, вебинары #}
+    <div class="tab-pane fade py-3 px-3 w-50" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">X Международная научно-практическая конференция "Семантические технологии проектирования интеллектуальных систем"</h5>
+                    <small>сегодня 14:00, видеоконференцзал </small>
+                </div>
+                <p class="mb-1">Конференция посвящена основам проектирования интеллектуальных систем. Ваша секция "Проектирование баз знаний"</p>
+                <small>Выступление с докладом в режиме on-line</small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Лекция "Основы объектно-ориентированного проектирования программ"</h5>
+                    <small class="text-muted">14.03.2020 8.30, ауд. 1/1</small>
+                </div>
+                <p class="mb-1">Лекция для студентов дистанционной формы получения образования. Группа ИТСзд-21</p>
+                <small class="text-muted">Лекция в режиме on-line</small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Треннинг "Что такое гибкая методология проектирования программ"</h5>
+                    <small class="text-muted">18.03.2020 12.00, видеоконференцзал</small>
+                </div>
+                <p class="mb-1">Обучение программированию с использованием современных технологий разработки программного обеспечения</p>
+                <small class="text-muted">Вебинар</small>
+            </a>
+        </div>
+    </div>
+</div>
