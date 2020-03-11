@@ -1,13 +1,13 @@
-<div class="card text-white bg-primary" style="height: 100%;">
+<div class="card text-white bg-primary h-100">
     <img class="rounded-circle img-thumbnail mx-auto" src="{{ asset('build/images/avatar-3.jpg') }}" width="170" height="170" alt="User photo">
     <div class="card-body text-center">
         <h5 class="card-title mb-0"><strong>Иван Жуков</strong></h5>
         <p class="card-text">преподаватель кафедры ИСТ</p>
-        <a href="#" class="card-link">Выйти</a>
+        <a href="#" class="btn btn-level-0"><i class="fas fa-sign-out-alt"></i> Выйти</a>
     </div>
     <div class="align-top" id="accordion">
         <div class="card text-white bg-primary">
-            <div class="card-header align-top" id="headingOne">
+            <div class="card-header" id="headingOne">
                 {# <span class="fas fa-graduation-cap"></span> #}
                 <a class="btn btn-level-1" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     {{ 'button.service_1'|trans({},'user')|raw }}

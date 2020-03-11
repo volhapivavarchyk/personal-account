@@ -1,8 +1,16 @@
+a.btn-level-0 {
+  text-align: center;
+  text-decoration: none;
+  color: get-color-with-alpha($color-white, 1.0);
+}
+a.btn-level-0:hover {
+  color: get-color-with-alpha($color-white, 0.7);
+}
 a.btn-level-1 {
   text-align: left;
   font-size: 1.15rem;
   padding: 0.375rem 0.1rem;
-  max-width: 250px;
+  max-width: 230px;
 }
 a.btn-level-1:hover {
   color: get-color-with-alpha($color-white, 0.7);
@@ -25,7 +33,7 @@ a.btn-level-2:hover {
 }
 .card-body-elem .elem-link {
   vertical-align: top;
-  max-width: 250px;
+  max-width: 230px;
 }
 .card-header span  {
    @extend %span-order;
