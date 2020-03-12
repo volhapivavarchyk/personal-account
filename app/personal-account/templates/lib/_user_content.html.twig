@@ -99,45 +99,67 @@
 </div>
 
 {# ############################################################################################################### #}
-{# Вкладки личного кабинета, подобранные системой #}
+{# Вкладки личного кабинета, подобранные системой                                                                  #}
 {# ############################################################################################################### #}
-<nav class="mx-3 mt-3">
-    <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active mx-1" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Расписание занятий</a>
-        <a class="nav-item nav-link mx-1" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Аттестация студентов</a>
-        <a class="nav-item nav-link mx-1" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Видеоконференции, вебинары</a>
+{% if module == 0 %}
+    <nav class="mx-3 mt-3">
+        <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active mx-1" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Расписание занятий</a>
+            <a class="nav-item nav-link mx-1" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Аттестация студентов</a>
+            <a class="nav-item nav-link mx-1" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Видеоконференции, вебинары</a>
+        </div>
+    </nav>
+    <div class="tab-content bg-light mx-3" id="nav-tabContent">
+        {# Расписание занятие #}
+        {{ include('lib/modules/_schedule.html.twig') }}
+        {# Аттестация студентов #}
+        {{ include('lib/modules/_attestation.html.twig') }}
+        {# Видеоконференции, вебинары #}
+        {{ include('lib/modules/_webinar.html.twig') }}
     </div>
-</nav>
-<div class="tab-content bg-light mx-3" id="nav-tabContent">
-    {# Расписание занятие #}
-    {{ include('lib/modules/_schedule.html.twig') }}
-    {# Аттестация студентов #}
-    {{ include('lib/modules/_attestation.html.twig') }}
-    {# Видеоконференции, вебинары #}
-    {{ include('lib/modules/_webinar.html.twig') }}
-</div>
-{# ############################################################################################################### #}
-{# Вкладки личного кабинета при выборе меню электронная библиотека #}
-{# ############################################################################################################### #}
+{% endif %}
 
-<nav class="mx-3 mt-3">
-    <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active mx-1" id="nav-elib-tab" data-toggle="tab" href="#nav-elib" role="tab" aria-controls="nav-elib" aria-selected="true">Электронный каталог</a>
-        <a class="nav-item nav-link mx-1" id="nav-repository-tab" data-toggle="tab" href="#nav-repository" role="tab" aria-controls="nav-repository" aria-selected="false">Репозиторий</a>
-        <a class="nav-item nav-link mx-1" id="nav-warehouse-tab" data-toggle="tab" href="#nav-warehouse" role="tab" aria-controls="nav-warehouse" aria-selected="false">Хранилище электронных ресурсов</a>
-        <a class="nav-item nav-link mx-1" id="nav-department-site-tab" data-toggle="tab" href="#nav-department-site" role="tab" aria-controls="nav-department-site" aria-selected="false">Сайты кафедр</a>
-        <a class="nav-item nav-link mx-1" id="nav-moodle-tab" data-toggle="tab" href="#nav-moodle" role="tab" aria-controls="nav-moodle" aria-selected="false">СУО "Moodle"</a>
+{# ############################################################################################################### #}
+{# Вкладки личного кабинета при выборе меню электронная библиотека                                                 #}
+{# ############################################################################################################### #}
+{% if module == 1 and service == 2 %}
+    <nav class="mx-3 mt-3">
+        <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active mx-1" id="nav-elib-tab" data-toggle="tab" href="#nav-elib" role="tab" aria-controls="nav-elib" aria-selected="true">Электронный каталог</a>
+            <a class="nav-item nav-link mx-1" id="nav-repository-tab" data-toggle="tab" href="#nav-repository" role="tab" aria-controls="nav-repository" aria-selected="false">Репозиторий</a>
+            <a class="nav-item nav-link mx-1" id="nav-warehouse-tab" data-toggle="tab" href="#nav-warehouse" role="tab" aria-controls="nav-warehouse" aria-selected="false">Хранилище электронных ресурсов</a>
+            <a class="nav-item nav-link mx-1" id="nav-department-site-tab" data-toggle="tab" href="#nav-department-site" role="tab" aria-controls="nav-department-site" aria-selected="false">Сайты кафедр</a>
+            <a class="nav-item nav-link mx-1" id="nav-moodle-tab" data-toggle="tab" href="#nav-moodle" role="tab" aria-controls="nav-moodle" aria-selected="false">СУО "Moodle"</a>
+        </div>
+    </nav>
+    <div class="tab-content bg-light mx-3" id="nav-tabContent">
+        {# Электронный каталог библиотеки #}
+        {{ include('lib/modules/_elib.html.twig') }}
+        {# Репозиторий #}
+        {{ include('lib/modules/_repository.html.twig') }}
+        {# Хранилище электронных ресурсов #}
+        {{ include('lib/modules/_warehouse.html.twig') }}
+        {# Сайты кафедр #}
+        {{ include('lib/modules/_department_site.html.twig') }}
+        {# СУО "Moodle" #}
+        {{ include('lib/modules/_moodle.html.twig') }}
     </div>
-</nav>
-<div class="tab-content bg-light mx-3" id="nav-tabContent">
-    {# Расписание занятие #}
-    {{ include('lib/modules/_elib.html.twig') }}
-    {# Аттестация студентов #}
-    {{ include('lib/modules/_repository.html.twig') }}
-    {# Видеоконференции, вебинары #}
-    {{ include('lib/modules/_warehouse.html.twig') }}
-    {# Видеоконференции, вебинары #}
-    {{ include('lib/modules/_department-site.html.twig') }}
-    {# Видеоконференции, вебинары #}
-    {{ include('lib/modules/_moodle.html.twig') }}
-</div>
+{% endif %}
+
+{# ############################################################################################################### #}
+{# Вкладки личного кабинета при выборе меню информационная система управление приемной кампанией                   #}
+{# ############################################################################################################### #}
+{% if module == 3 and service == 1 %}
+    <nav class="mx-3 mt-3">
+        <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active mx-1" id="nav-ir-entrant-tab" data-toggle="tab" href="#nav-ir-entrant" role="tab" aria-controls="nav-ir-entrant" aria-selected="true">Информационный ресурс "Абитуриент БарГУ"</a>
+            <a class="nav-item nav-link mx-1" id="nav-as-entrant-tab" data-toggle="tab" href="#nav-as-entrant" role="tab" aria-controls="nav-as-entrant" aria-selected="false">Автоматизированная система "Абитуриент"</a>
+        </div>
+    </nav>
+    <div class="tab-content bg-light mx-3" id="nav-tabContent">
+        {# Инофрмационный ресурс "Абитуриент барГУ" #}
+        {{ include('lib/modules/_ir_entrant.html.twig') }}
+        {# Автоматизированная система "Абитуриент" #}
+        {{ include('lib/modules/_as_entrant.html.twig') }}
+    </div>
+{% endif %}
