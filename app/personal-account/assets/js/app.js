@@ -21,10 +21,12 @@ let ready = $(document).ready(function () {
             $navbar.removeClass("top-nav-collapse");
         }
     });
+    /*
     $(window).scroll(function() {
         let scrolledY = $(window).scrollTop();
         $('.authorize-background').css('background-position', 'center '+ ((scrolledY)) + 'px');
     });
+    */
 
     let wow = new WOW.WOW(
         {

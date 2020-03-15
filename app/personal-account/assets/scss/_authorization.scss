@@ -48,10 +48,11 @@ div {
   &.authorize-background {
     background: {
       size: cover;
-      position: center 0px;
+      position: center;
+      //position: center 0px;
       image: url('../images-scss/university.jpg');
       repeat: no-repeat;
-      attachment: scroll;
+      //attachment: scroll;
     }
 
     .bg-transparent {
