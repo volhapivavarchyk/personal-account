@@ -48,7 +48,7 @@ div {
   &.authorize-background {
     background: {
       size: cover;
-      position: center;
+      position: center center;
       //position: center 0px;
       image: url('../images-scss/university.jpg');
       repeat: no-repeat;

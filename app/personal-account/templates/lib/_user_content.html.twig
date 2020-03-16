@@ -16,12 +16,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('homepage') }}" class="nav-link">
+                    <a href="#" class="nav-link" id="btn-notifications">
                         <i class="fa fa-bell"></i> {{ 'menu.notification'|trans({},'base') }}<span class="badge badge-pill badge-primary ml-1">3</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ path('homepage') }}" class="nav-link">
+                <li class="nav-item" id="btn-feedback">
+                    <a href="#" class="nav-link">
                         <i class="fa fa-feed"></i> {{ 'menu.feedback'|trans({},'base') }}
                     </a>
                 </li>
@@ -66,18 +66,55 @@
 </nav>
 
 {# ############################################################################################################### #}
-{# Все оповещения за период#}
+{# Обратная связь                                                                                                  #}
+{# ############################################################################################################### #}
+<div class="card d-none mx-3 mt-3" id="feedback">
+    <div class="card-body">
+        <form>
+            <fieldset>
+                <legend>Написать сообщение</legend>
+                <div class="form-group">
+                    <label for="exampleTextarea">Текст сообщения</label>
+                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">Выберите файл</label>
+                    <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                    <small id="fileHelp" class="form-text text-muted">Если необходимо добавить изображение к Вашему сообщению, то прикрепите файл в одном из форматов .jpg, .png, .gif.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+{# ############################################################################################################### #}
+{# Все оповещения за период (неделя, месяц ...)                                                                    #}
 {# ############################################################################################################### #}
 {#
-<div class="jumbotron jumbotron-fluid bg-light border-top">
+<div class="jumbotron jumbotron-fluid d-none mx-3 mt-3" id="notifications">
     <div class="container">
         <h1 class="display-4">Совет факультета</h1>
-        <p class="lead">Внимание! 10.03.2020 в аудитории 214/4 состоится Совет факультета.</p>
-        <hr class="my-4">
+        <p class="lead">Внимание! 10.03.2020 в аудитории 214/4 состоится Совет инженерного факультета.</p>
+        <hr class="my-4 bg-secondary">
         <p>Повестка дня. 1. Избрание по конкурсу. 2. Утверждение стипендиатов. 3. Награждение победителей.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Предыдущее</a>
+        </p>
     </div>
 </div>
 #}
+<div class="card d-none mx-3 mt-3" id="notifications">
+    <div class="card-header d-flex justify-content-between">
+        <div><a href=""><i class="fas fa-angle-double-left"></i></a></div>
+        <div><a href=""><i class="fas fa-angle-double-right"></i></a></div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title ">Совет факультета</h5>
+        <p class="card-text">Внимание! 10.03.2020 в аудитории 214/4 состоится Совет инженерного факультета.</p>
+        <p class="card-text">Повестка дня. 1. Избрание по конкурсу. 2. Утверждение стипендиатов. 3. Награждение победителей.</p>
+    </div>
+</div>
 
 {# ############################################################################################################### #}
 {# Оперативные оповещения #}
@@ -92,7 +129,7 @@
     <h4 class="alert-heading">Победитель конкурса студенческих работ</h4>
     <strong>Отлично сработано!</strong> Под Вашим руководством <a href="#" class="alert-link">студент Иванов И.И. занял 1 место в конкурсе студенческих работ</a>.
 </div>
-<div class="alert alert-dismissible  alert-secondary mx-3 mt-3">
+<div class="alert alert-dismissible alert-secondary mx-3 mt-3">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4 class="alert-heading">Международный марафон молодежных инициатив</h4>
     <strong>Внимание!</strong> 11.03.2020 с 13.30 до 16.00 в малом зале столовой состоится <a href="#" class="alert-link">встреча с ветеранами Великой Отечественной войны</a>.

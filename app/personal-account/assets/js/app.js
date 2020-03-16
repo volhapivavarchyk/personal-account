@@ -27,6 +27,24 @@ let ready = $(document).ready(function () {
         $('.authorize-background').css('background-position', 'center '+ ((scrolledY)) + 'px');
     });
     */
+    $('#btn-notifications').click(function () {
+        $('#notifications')[0].classList.toggle('d-none');
+        $('#btn-notifications')[0].classList.toggle('active');
+        $('#btn-notifications')[0].blur();
+        /*
+        if ($('#notifications')[0].classList.contains('d-none')) {
+            $('#notifications')[0].classList.remove('d-none');
+        } else {
+            $('#notifications')[0].classList.add('d-none');
+        }
+        */
+    });
+
+    $('#btn-feedback').click(function () {
+        $('#feedback')[0].classList.toggle('d-none');
+        $('#btn-feedback')[0].classList.toggle('active');
+        $('#btn-feedback')[0].blur();
+    });
 
     let wow = new WOW.WOW(
         {
