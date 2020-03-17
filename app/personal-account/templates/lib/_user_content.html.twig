@@ -9,9 +9,15 @@
     <div class="collapse navbar-collapse" id="navbarTop">
         <div>
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a href="{{ path('homepage') }}" class="nav-link">
-                        <i class="fa fa-home"></i> {{ 'menu.homepage-account'|trans({},'base') }}
+                <li class="nav-item">
+                    <a href="{{ url('personal') }}" class="nav-link active" id="btn-homepage">
+                        <i class="fa fa-home"></i> {{ 'menu.homepage'|trans({},'base') }}
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" id="btn-info-module">
+                        <i class="fas fa-tasks"></i> {{ 'menu.info-module'|trans({},'base') }}
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -20,13 +26,13 @@
                         <i class="fa fa-bell"></i> {{ 'menu.notification'|trans({},'base') }}<span class="badge badge-pill badge-primary ml-1">3</span>
                     </a>
                 </li>
-                <li class="nav-item" id="btn-feedback">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="btn-feedback">
                         <i class="fa fa-feed"></i> {{ 'menu.feedback'|trans({},'base') }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('homepage') }}" class="nav-link">
+                    <a href="#" class="nav-link" id="btn-help">
                         <i class="fa fa-question"></i> {{ 'menu.help'|trans({},'base') }}
                     </a>
                 </li>
@@ -64,6 +70,62 @@
         </div>
     </div>
 </nav>
+
+{# ############################################################################################################### #}
+{# Помошь                                                                                                          #}
+{# ############################################################################################################### #}
+<div class="card d-none mx-3 mt-3" id="help">
+    <div class="card-body">
+        <fieldset>
+            <legend>Настройки</legend>
+            <div class="form-group">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="">
+                    <label class="custom-control-label" for="customSwitch1">Включить подсказки в полях форм при наведении манипулятора мышь</label>
+                </div>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" disabled="" id="customSwitch2">
+                    <label class="custom-control-label" for="customSwitch2">Включить описание информационных блоков при наведении манипулятора мышь</label>
+                </div>
+            </div>
+            <legend>Справка</legend>
+            <div class="row">
+                <div class="col-4">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Главная</a>
+                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Личный кабинет</a>
+                        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Оповещения</a>
+                        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Обратная связь</a>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                            <p>Начальная (стартовая) страница сайта, которая открывается по URL http://my.barsu.by.</p>
+                            <p>Для авторизавонных пользователей главной странцией является личный кабинет, содержащий базовые блоки информационно-образовательного пространства.
+                            Базовые блоки подбирает система на основании категории пользователя.</p>
+                            <p>Для неавторзованных пользователей главной страницей является страница для авторизации.
+                        </div>
+                        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                            <p>Блоки информационно-образовательного пространства университета (цифрового университета). Представлены в виде иерархической структуры разделов.</p>
+                            <p>Блоки информационно-образовательного пространства университета (цифрового университета). Представлены в виде иерархической структуры разделов.</p>
+                            <p>Блоки информационно-образовательного пространства университета (цифрового университета). Представлены в виде иерархической структуры разделов.</p>
+                            <p>Блоки информационно-образовательного пространства университета (цифрового университета). Представлены в виде иерархической структуры разделов.</p>
+                        </div>
+                        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                            <p>Оперативная информация о мероприятиях университета.</p>
+                            <p>Оповещения выводятся двумя способами.</p>
+                        </div>
+                        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                            <p>Форма обратной связи предназначена для сбора и изучения мнений пользователей о работе системы, предложений по улучшению качества, вопросов по выбранным темам.</p>
+                            <p>Специалисты сделают все возможное, чтобы ответить максимально быстро.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
 
 {# ############################################################################################################### #}
 {# Обратная связь                                                                                                  #}
@@ -119,17 +181,17 @@
 {# ############################################################################################################### #}
 {# Оперативные оповещения #}
 {# ############################################################################################################### #}
-<div class="alert alert-dismissible alert-primary mx-3 mt-3">
+<div class="alert alert-dismissible alert-primary mx-3 mt-3 info-module">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4 class="alert-heading">Совет факультета</h4>
     <strong>Внимание!</strong> 10.03.2020 в аудитории 214/4 состоится <a href="#" class="alert-link">Совет инженерного факультета</a>.
 </div>
-<div class="alert alert-dismissible alert-success mx-3 mt-3">
+<div class="alert alert-dismissible alert-success mx-3 mt-3 info-module">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4 class="alert-heading">Победитель конкурса студенческих работ</h4>
     <strong>Отлично сработано!</strong> Под Вашим руководством <a href="#" class="alert-link">студент Иванов И.И. занял 1 место в конкурсе студенческих работ</a>.
 </div>
-<div class="alert alert-dismissible alert-secondary mx-3 mt-3">
+<div class="alert alert-dismissible alert-secondary mx-3 mt-3 info-module">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <h4 class="alert-heading">Международный марафон молодежных инициатив</h4>
     <strong>Внимание!</strong> 11.03.2020 с 13.30 до 16.00 в малом зале столовой состоится <a href="#" class="alert-link">встреча с ветеранами Великой Отечественной войны</a>.
@@ -139,14 +201,14 @@
 {# Вкладки личного кабинета, подобранные системой                                                                  #}
 {# ############################################################################################################### #}
 {% if module == 0 %}
-    <nav class="mx-3 mt-3">
+    <nav class="mx-3 mt-3 info-module">
         <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active mx-1" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Расписание занятий</a>
             <a class="nav-item nav-link mx-1" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Аттестация студентов</a>
             <a class="nav-item nav-link mx-1" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Видеоконференции, вебинары</a>
         </div>
     </nav>
-    <div class="tab-content bg-light mx-3" id="nav-tabContent">
+    <div class="tab-content bg-light mx-3 info-module" id="nav-tabContent">
         {# Расписание занятие #}
         {{ include('lib/modules/_schedule.html.twig') }}
         {# Аттестация студентов #}
@@ -160,7 +222,7 @@
 {# Вкладки личного кабинета при выборе меню электронная библиотека                                                 #}
 {# ############################################################################################################### #}
 {% if module == 1 and service == 2 %}
-    <nav class="mx-3 mt-3">
+    <nav class="mx-3 mt-3 info-module">
         <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active mx-1" id="nav-elib-tab" data-toggle="tab" href="#nav-elib" role="tab" aria-controls="nav-elib" aria-selected="true">Электронный каталог</a>
             <a class="nav-item nav-link mx-1" id="nav-repository-tab" data-toggle="tab" href="#nav-repository" role="tab" aria-controls="nav-repository" aria-selected="false">Репозиторий</a>
@@ -169,7 +231,7 @@
             <a class="nav-item nav-link mx-1" id="nav-moodle-tab" data-toggle="tab" href="#nav-moodle" role="tab" aria-controls="nav-moodle" aria-selected="false">СУО "Moodle"</a>
         </div>
     </nav>
-    <div class="tab-content bg-light mx-3" id="nav-tabContent">
+    <div class="tab-content bg-light mx-3 info-module" id="nav-tabContent">
         {# Электронный каталог библиотеки #}
         {{ include('lib/modules/_elib.html.twig') }}
         {# Репозиторий #}
@@ -187,13 +249,13 @@
 {# Вкладки личного кабинета при выборе меню информационная система управление приемной кампанией                   #}
 {# ############################################################################################################### #}
 {% if module == 3 and service == 1 %}
-    <nav class="mx-3 mt-3">
+    <nav class="mx-3 mt-3 info-module">
         <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active mx-1" id="nav-ir-entrant-tab" data-toggle="tab" href="#nav-ir-entrant" role="tab" aria-controls="nav-ir-entrant" aria-selected="true">Информационный ресурс "Абитуриент БарГУ"</a>
             <a class="nav-item nav-link mx-1" id="nav-as-entrant-tab" data-toggle="tab" href="#nav-as-entrant" role="tab" aria-controls="nav-as-entrant" aria-selected="false">Автоматизированная система "Абитуриент"</a>
         </div>
     </nav>
-    <div class="tab-content bg-light mx-3" id="nav-tabContent">
+    <div class="tab-content bg-light mx-3 info-module" id="nav-tabContent">
         {# Инофрмационный ресурс "Абитуриент барГУ" #}
         {{ include('lib/modules/_ir_entrant.html.twig') }}
         {# Автоматизированная система "Абитуриент" #}

@@ -3,7 +3,7 @@
     <div class="card-body text-center">
         <h5 class="card-title mb-0"><strong>Иван Жуков</strong></h5>
         <p class="card-text">преподаватель кафедры ИСТ</p>
-        <a href="#" class="btn btn-level-0"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+        <a href="{{ url('homepage') }}" class="btn btn-level-0"><i class="fas fa-sign-out-alt"></i> Выйти</a>
     </div>
     <div class="align-top" id="accordion">
         <div class="card text-white bg-primary">
@@ -19,7 +19,7 @@
                     <div class="card-body-elem">
                         <div class="elem-icon"><i class="fa fa-user-graduate"></i></div>
                         <div class="elem-link">
-                            <a href="" class="btn btn-level-2 {{ module==1 and service==1 ? 'active' : '' }}">
+                            <a href="http://education.barsu.by/" class="btn btn-level-2 {{ module==1 and service==1 ? 'active' : '' }}">
                                 {{ 'link.service_1_1'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
                             </a>
                         </div>
@@ -51,7 +51,7 @@
                             <i class="far fa-envelope"></i>
                         </div>
                         <div class="elem-link">
-                            <a href="" class="btn btn-level-2 {{ module==2 and service==1 ? 'active' : '' }}">
+                            <a href="https://barsu.by:2096/" class="btn btn-level-2 {{ module==2 and service==1 ? 'active' : '' }}">
                                 {{ 'link.service_2_1'|trans({},'user')|raw }} <i class="fa fa-external-link"></i>
                             </a>
                         </div>

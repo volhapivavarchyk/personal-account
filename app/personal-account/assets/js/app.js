@@ -27,6 +27,14 @@ let ready = $(document).ready(function () {
         $('.authorize-background').css('background-position', 'center '+ ((scrolledY)) + 'px');
     });
     */
+    $('#btn-info-module').click(function () {
+        for (let i = 0; i<$('.info-module').length; i++) {
+            $('.info-module')[i].classList.toggle('d-none');
+        }
+        $('#btn-info-module')[0].classList.toggle('active');
+        $('#btn-info-module')[0].blur();
+    });
+
     $('#btn-notifications').click(function () {
         $('#notifications')[0].classList.toggle('d-none');
         $('#btn-notifications')[0].classList.toggle('active');
@@ -44,6 +52,12 @@ let ready = $(document).ready(function () {
         $('#feedback')[0].classList.toggle('d-none');
         $('#btn-feedback')[0].classList.toggle('active');
         $('#btn-feedback')[0].blur();
+    });
+
+    $('#btn-help').click(function () {
+        $('#help')[0].classList.toggle('d-none');
+        $('#btn-help')[0].classList.toggle('active');
+        $('#btn-help')[0].blur();
     });
 
     let wow = new WOW.WOW(
