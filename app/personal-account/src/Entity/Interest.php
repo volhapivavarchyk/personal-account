@@ -10,70 +10,69 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="role", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="interest", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Role extends UserInterface, \Serializable
+class Interest extends UserInterface, \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="role")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="interests", cascade={"persist"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=true)
      */
-    protected $users;
+    protected $user;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
     /**
      * $id getter
      * @return integer $id
      */
     public function getId()
-    {
-        return $this->id;
-    }
+{
+    return $this->id;
+}
     /**
      * $name getter
      * @return string $name
      */
     public function getName(): ?string
-    {
-        return $this->name;
-    }
+{
+    return $this->name;
+}
     /**
      * $name setter
      * @param string $name
      * @return void
      */
     public function setName(string $name)
+{
+    $this->name = $name;
+}
+    /**
+     * $user getter
+     * @return User|null $user
+     */
+    public function getUser(): ?User
     {
-        $this->name = $name;
+        return $this->user;
     }
     /**
-     * @param User $user
-     * @return Role
+     * $user setter
+     * @param User|null $user
+     * @return void
      */
-    public function addUser(User $user): self
+    public function setUser(User $user = null): void
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-        }
-        return $this;
+        $user->addInterest($this);
+        $this->user = $user;
     }
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
-    }
-
     public function serialize(): string
     {
-        return serialize([$this->idRole, $this->rolename]);
+        return serialize([$this->id, $this->name]);
     }
     public function unserialize($serialized): void
     {
-        [$this->idRole, $this->rolename] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

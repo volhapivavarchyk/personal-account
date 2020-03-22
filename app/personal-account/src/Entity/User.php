@@ -10,11 +10,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="users", indexes={@ORM\Index(name="search_idx", columns={"email"})})
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="search_idx", columns={"email"})})
  */
 class User extends UserInterface, \Serializable
 {
-    /** @ORM\Id @ORM\Column(name="id_user", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
+    /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $username;
@@ -26,22 +26,20 @@ class User extends UserInterface, \Serializable
     protected $password;
     /**
      * @ORM\ManyToOne(targetEntity="Role", inversedBy="users", cascade={"persist"})
-     * @ORM\JoinColumn(name="id_role", referencedColumnName="id_role", nullable=true)
+     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=true)
      */
     protected $role;
     /**
-     * @ORM\ManyToMany(targetEntity="Position", inversedBy="positions", cascade={"persist"})
-     * @ORM\JoinColumn(name="id_position", referencedColumnName="id_posiiton", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Position", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinTable(name="users_positions")
      */
     protected $positions;
     /**
-     * @ORM\ManyToMany(targetEntity="Interest", inversedBy="interests", cascade={"persist"})
-     * @ORM\JoinColumn(name="id_interest", referencedColumnName="id_interest", nullable=true)
+     * @ORM\OneToMany(targetEntity="Interest", mappedBy="user")
      */
     protected $interests;
     /**
-     * @ORM\ManyToMany(targetEntity="History", inversedBy="hystories", cascade={"persist"})
-     * @ORM\JoinColumn(name="id_hystory", referencedColumnName="id_history", nullable=true)
+     * @ORM\OneToMany(targetEntity="History", mappedBy="user")
      */
     protected $histories;
     /**
@@ -55,6 +53,9 @@ class User extends UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->positions = new ArrayCollection();
+        $this->interests = new ArrayCollection();
+        $this->histories = new ArrayCollection();
         $this->messages = new ArrayCollection();
     }
     /**
@@ -139,7 +140,7 @@ class User extends UserInterface, \Serializable
      */
     public function getRole(): ?Role
     {
-       return $this->user;
+       return $this->role;
     }
     /**
      * $role setter
@@ -150,6 +151,51 @@ class User extends UserInterface, \Serializable
     {
         $role->addUser($this);
         $this->role = $role;
+    }
+    public function addPosition(Position $position): self
+    {
+        if (!$this->positions->contains($position)) {
+            $this->position[] = $positiont;
+        }
+        return $this;
+    }
+    public function removePosition(POsition $position): self
+    {
+        $this->positions->removeElement($position);
+    }
+
+    public function addInterest(Interest $interest): self
+    {
+        if (!$this->interests->contains($interest)) {
+            $this->interests[] = $interest;
+        }
+        return $this;
+    }
+    public function removeInterest(Interest $interest): self
+    {
+        $this->interests->removeElement($interest);
+    }
+    public function addHistory(History $history): self
+    {
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+        }
+        return $this;
+    }
+    public function removeHistory(History $history): self
+    {
+        $this->histories->removeElement($history);
+    }
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+        }
+        return $this;
+    }
+    public function removeMessage(Message $message): self
+    {
+        $this->messages->removeElement($message);
     }
     /**
      * convert properties to array

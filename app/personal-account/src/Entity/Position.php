@@ -10,16 +10,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="role", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="position", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Role extends UserInterface, \Serializable
+class Position extends UserInterface, \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="role")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="positions")
      */
     protected $users;
 
@@ -33,7 +33,7 @@ class Role extends UserInterface, \Serializable
      */
     public function getId()
     {
-        return $this->id;
+       return $this->id;
     }
     /**
      * $name getter
@@ -59,6 +59,7 @@ class Role extends UserInterface, \Serializable
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
+            $user->addPosition($this);
             $this->users[] = $user;
         }
         return $this;
@@ -70,10 +71,10 @@ class Role extends UserInterface, \Serializable
 
     public function serialize(): string
     {
-        return serialize([$this->idRole, $this->rolename]);
+        return serialize([$this->id, $this->name]);
     }
     public function unserialize($serialized): void
     {
-        [$this->idRole, $this->rolename] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
