@@ -10,63 +10,59 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="interest", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="formula", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Interest extends UserInterface, \Serializable
+class Formula extends UserInterface, \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
+    /** @ORM\Column(length=256) **/
+    protected $content;
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="interests", cascade={"persist"})
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\OneToMany(targetEntity="Function", inversedBy="formula", cascade={"persist"})
      */
-    protected $user;
+    protected $functions;
 
     /**
      * $id getter
      * @return integer $id
      */
     public function getId()
-{
-    return $this->id;
-}
+    {
+        return $this->id;
+    }
     /**
      * $name getter
      * @return string $name
      */
     public function getName(): ?string
-{
-    return $this->name;
-}
+    {
+        return $this->name;
+    }
     /**
      * $name setter
      * @param string $name
      * @return void
      */
     public function setName(string $name)
-{
-    $this->name = $name;
-}
-    /**
-     * $user getter
-     * @return User|null $user
-     */
-    public function getUser(): ?User
     {
-        return $this->user;
+        $this->name = $name;
     }
-    /**
-     * $user setter
-     * @param User|null $user
-     * @return void
-     */
-    public function setUser(User $user = null): void
+
+    public function addFunction(Function $function): self
     {
-        $user->addInterest($this);
-        $this->user = $user;
+        if (!$this->functions->contains($function)) {
+            $this->functions[] = $function;
+        }
+        return $this;
     }
+    public function removeFunction(Function $function): self
+    {
+        $this->functions->removeElement($function);
+    }
+
     public function serialize(): string
     {
         return serialize([$this->id, $this->name]);

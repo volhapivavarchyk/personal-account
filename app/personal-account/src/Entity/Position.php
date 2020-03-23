@@ -54,7 +54,7 @@ class Position extends UserInterface, \Serializable
     }
     /**
      * @param User $user
-     * @return Role
+     * @return Position
      */
     public function addUser(User $user): self
     {

@@ -70,10 +70,10 @@ class Role extends UserInterface, \Serializable
 
     public function serialize(): string
     {
-        return serialize([$this->idRole, $this->rolename]);
+        return serialize([$this->id, $this->name]);
     }
     public function unserialize($serialized): void
     {
-        [$this->idRole, $this->rolename] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

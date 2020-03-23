@@ -20,7 +20,7 @@ class Message extends UserInterface, \Serializable
     protected $name;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="messages", cascade={"persist"})
-     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     protected $user;
 

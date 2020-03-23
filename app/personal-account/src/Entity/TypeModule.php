@@ -10,20 +10,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="history", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="role", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class History extends UserInterface, \Serializable
+class TypeModule extends UserInterface, \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="histories", cascade={"persist"})
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\OneToMany(targetEntity="Module", mappedBy="type")
      */
-    protected $user;
+    protected $modules;
 
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
     /**
      * $id getter
      * @return integer $id
@@ -50,30 +53,27 @@ class History extends UserInterface, \Serializable
         $this->name = $name;
     }
     /**
-     * $user getter
-     * @return User|null $user
+     * @param Module $modules
+     * @return TypeModule
      */
-    public function getUser(): ?User
-    {
-        return $this->user;
+    public function addModule(Module $module): self
+{
+    if (!$this->modules->contains($module)) {
+        $this->modules[] = $module;
     }
-    /**
-     * $user setter
-     * @param User|null $user
-     * @return void
-     */
-    public function setUser(User $user = null): void
-    {
-        $user->addHistory($this);
-        $this->user = $user;
-    }
+    return $this;
+}
+    public function removeModule(Module $module): self
+{
+    $this->modules->removeElement($module);
+}
 
     public function serialize(): string
-    {
-        return serialize([$this->id, $this->name]);
-    }
+{
+    return serialize([$this->id, $this->name]);
+}
     public function unserialize($serialized): void
-    {
-        [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
-    }
+{
+    [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
+}
 }

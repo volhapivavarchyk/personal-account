@@ -10,23 +10,27 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user", indexes={@ORM\Index(name="search_idx", columns={"email"})})
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="search_idx", columns={"email", "firstname", "lastname"})})
  */
 class User extends UserInterface, \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
-    protected $username;
-    /** @ORM\Column(length=128) **/
-    protected $email;
-    /** @ORM\Column(length=128) **/
     protected $login;
     /** @ORM\Column(type="string", length=128) **/
     protected $password;
+    /** @ORM\Column(length=64) **/
+    protected $firstname;
+    /** @ORM\Column(length=64) **/
+    protected $lastname;
+    /** @ORM\Column(length=64) **/
+    protected $patronymic;
+    /** @ORM\Column(length=128) **/
+    protected $email;
     /**
      * @ORM\ManyToOne(targetEntity="Role", inversedBy="users", cascade={"persist"})
-     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=true)
      */
     protected $role;
     /**
@@ -67,21 +71,55 @@ class User extends UserInterface, \Serializable
         return $this->idUser;
     }
     /**
-     * $name getter
-     * @return string $name
+     * $firstname getter
+     * @return string $firstname
      */
-    public function getUsername(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->username;
+        return $this->firstname;
     }
     /**
-     * $name setter
-     * @param string $name
+     * $firstname setter
+     * @param string $firstname
      * @return void
      */
-    public function setUsername(string $username)
+    public function setFirstname(string $firstname)
     {
-        $this->username = $username;
+        $this->firstname = $firstname;
+    }
+    /**
+     * $lastname getter
+     * @return string $lastname
+     */
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+    /**
+     * $lastname setter
+     * @param string $lastname
+     * @return void
+     */
+    public function setLastname(string $lastname)
+    {
+        $this->lastname = $lastname;
+    }
+    /**
+     * $patronymic getter
+     * @return string $patronymic
+     */
+    public function getPatronymic(): ?string
+    {
+        return $this->patronymic;
+    }
+    /**
+     * $patronymic setter
+     * @param string $patronymic
+     * @return void
+     */
+    public function setPatronymic(string $patronymic)
+    {
+        $this->patronymic = $patronymic;
     }
     /**
      * $email getter
@@ -155,11 +193,11 @@ class User extends UserInterface, \Serializable
     public function addPosition(Position $position): self
     {
         if (!$this->positions->contains($position)) {
-            $this->position[] = $positiont;
+            $this->positions[] = $position;
         }
         return $this;
     }
-    public function removePosition(POsition $position): self
+    public function removePosition(Position $position): self
     {
         $this->positions->removeElement($position);
     }
