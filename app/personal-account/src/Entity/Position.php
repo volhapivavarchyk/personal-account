@@ -6,13 +6,12 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="position", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Position extends UserInterface, \Serializable
+class Position implements \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -22,6 +21,11 @@ class Position extends UserInterface, \Serializable
      * @ORM\ManyToMany(targetEntity="User", mappedBy="positions")
      */
     protected $users;
+    /**
+     * @ORM\ManyToOne(targetEntity="Department", inversedBy="positions")
+     * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=true)
+     */
+    protected $department;
 
     public function __construct()
     {
@@ -67,6 +71,24 @@ class Position extends UserInterface, \Serializable
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);
+    }
+    /**
+     * $department getter
+     * @return Department|null $role
+     */
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+    /**
+     * $department setter
+     * @param Department|null $department
+     * @return void
+     */
+    public function setDepartment(Department $department = null): void
+    {
+        $department->addPosition($this);
+        $this->department = $department;
     }
 
     public function serialize(): string

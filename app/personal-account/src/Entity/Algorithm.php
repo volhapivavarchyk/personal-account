@@ -6,13 +6,12 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="algorithm", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Algorithm extends UserInterface, \Serializable
+class Algorithm
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -21,10 +20,14 @@ class Algorithm extends UserInterface, \Serializable
     /** @ORM\Column(type="text", length=256) **/
     protected $content;
     /**
-     * @ORM\OneToMany(targetEntity="Function", inversedBy="formula", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Functionality", mappedBy="formula", cascade={"persist"})
      */
-    protected $functions;
+    protected $functionalities;
 
+    public function __construct()
+    {
+        $this->functionalities = new ArrayCollection();
+    }
     /**
      * $id getter
      * @return integer $id
@@ -51,16 +54,16 @@ class Algorithm extends UserInterface, \Serializable
         $this->name = $name;
     }
 
-    public function addFunction(Function $function): self
+    public function addFunctionality(Functionality $functionality): self
     {
-        if (!$this->functions->contains($function)) {
-            $this->functions[] = $function;
+        if (!$this->functionalities->contains($functionality)) {
+            $this->functionalities[] = $functionality;
         }
         return $this;
     }
-    public function removeFunction(Function $function): self
+    public function removeFunctionality(Functionality $functionality): self
     {
-        $this->functions->removeElement($function);
+        $this->functionalities->removeElement($functionality);
     }
 
     public function serialize(): string

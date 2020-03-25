@@ -6,35 +6,34 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="function", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="functionality", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Function extends UserInterface, \Serializable
+class Functionality
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\ManyToOne(targetEntity="Formula", inversedBy="functions", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Formula", inversedBy="functionalities", cascade={"persist"})
      * @ORM\JoinColumn(name="formula_id", referencedColumnName="id", nullable=true)
      */
     protected $formula;
     /**
-     * @ORM\ManyToOne(targetEntity="Algorithm", inversedBy="functions", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Algorithm", inversedBy="functionalities", cascade={"persist"})
      * @ORM\JoinColumn(name="algorithm_id", referencedColumnName="id", nullable=true)
      */
     protected $algorithm;
     /**
-     * @ORM\ManyToOne(targetEntity="Intelligence;", inversedBy="functions", cascade={"persist"})
-     * @ORM\JoinColumn(name="intelligence;_id", referencedColumnName="id", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Intelligence", inversedBy="functionalities", cascade={"persist"})
+     * @ORM\JoinColumn(name="intelligence_id", referencedColumnName="id", nullable=true)
      */
     protected $intelligence;
     /**
-     * @ORM\ManyToMany(targetEntity="Module", mappedBy="functions")
+     * @ORM\ManyToMany(targetEntity="Module", mappedBy="functionalities")
      */
     protected $modules;
 
@@ -124,7 +123,7 @@ class Function extends UserInterface, \Serializable
 
     /**
      * @param Module $module
-     * @return Function
+     * @return Functionality
      */
     public function addModule(Module $module): self
     {
@@ -137,14 +136,5 @@ class Function extends UserInterface, \Serializable
     public function removeModule(Module $module): self
     {
         $this->modules->removeElement($module);
-    }
-
-    public function serialize(): string
-    {
-       return serialize([$this->id, $this->name]);
-    }
-    public function unserialize($serialized): void
-    {
-        [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

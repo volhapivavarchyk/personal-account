@@ -6,13 +6,12 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="formula", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Formula extends UserInterface, \Serializable
+class Formula
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -21,10 +20,14 @@ class Formula extends UserInterface, \Serializable
     /** @ORM\Column(length=256) **/
     protected $content;
     /**
-     * @ORM\OneToMany(targetEntity="Function", inversedBy="formula", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Functionality", mappedBy="formula", cascade={"persist"})
      */
-    protected $functions;
+    protected $functionalities;
 
+    public function __construct()
+    {
+        $this->functionalities = new ArrayCollection();
+    }
     /**
      * $id getter
      * @return integer $id
@@ -51,24 +54,15 @@ class Formula extends UserInterface, \Serializable
         $this->name = $name;
     }
 
-    public function addFunction(Function $function): self
+    public function addFunctionality(Functionality $functionality): self
     {
-        if (!$this->functions->contains($function)) {
-            $this->functions[] = $function;
+        if (!$this->functionalities->contains($functionality)) {
+            $this->functionalities[] = $functionality;
         }
         return $this;
     }
-    public function removeFunction(Function $function): self
+    public function removeFunctionality(Functionality $functionality): self
     {
-        $this->functions->removeElement($function);
-    }
-
-    public function serialize(): string
-    {
-        return serialize([$this->id, $this->name]);
-    }
-    public function unserialize($serialized): void
-    {
-        [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
+        $this->functionalities->removeElement($functionality);
     }
 }

@@ -6,20 +6,20 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Serializable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="role", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Role extends UserInterface, \Serializable
+class Role implements Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="role")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      */
     protected $users;
 
@@ -59,6 +59,7 @@ class Role extends UserInterface, \Serializable
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
+            $user->addRole($this);
             $this->users[] = $user;
         }
         return $this;

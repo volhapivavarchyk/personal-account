@@ -6,13 +6,13 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Serializable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="message", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Message extends UserInterface, \Serializable
+class Message implements Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;

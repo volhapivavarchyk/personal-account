@@ -12,12 +12,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity
  * @ORM\Table(name="user", indexes={@ORM\Index(name="search_idx", columns={"email", "firstname", "lastname"})})
  */
-class User extends UserInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
-    protected $login;
+    protected $username;
     /** @ORM\Column(type="string", length=128) **/
     protected $password;
     /** @ORM\Column(length=64) **/
@@ -29,10 +29,10 @@ class User extends UserInterface, \Serializable
     /** @ORM\Column(length=128) **/
     protected $email;
     /**
-     * @ORM\ManyToOne(targetEntity="Role", inversedBy="users", cascade={"persist"})
-     * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinTable(name="users_roles")
      */
-    protected $role;
+    protected $roles;
     /**
      * @ORM\ManyToMany(targetEntity="Position", inversedBy="users", cascade={"persist"})
      * @ORM\JoinTable(name="users_positions")
@@ -74,6 +74,41 @@ class User extends UserInterface, \Serializable
      * $firstname getter
      * @return string $firstname
      */
+    /**
+     * $username getter
+     * @return string $login
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+    /**
+     * $username setter
+     * @param string $username
+     * @return void
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+    /**
+     * $password getter
+     * @return string $password
+     */
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+    /**
+     * $password setter
+     * @param string $password
+     * @return void
+     */
+    public function setPassword(string $password)
+    {
+        $this->password = password_hash($password);
+    }
+
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -139,57 +174,25 @@ class User extends UserInterface, \Serializable
         $this->email = $email;
     }
     /**
-     * $password getter
-     * @return string $login
-     */
-    public function getLogin(): ?string
-    {
-        return $this->login;
-    }
-    /**
-     * $password setter
-     * @param string $login
-     * @return void
-     */
-    public function setLogin(string $login)
-    {
-        $this->password = $login;
-    }
-    /**
-     * $password getter
-     * @return string $password
-     */
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-     /**
-     * $password setter
-     * @param string $password
-     * @return void
-     */
-    public function setPassword(string $password)
-    {
-        $this->password = password_hash($password);
-    }
-    /**
      * $role getter
-     * @return Role|null $role
+     * @return array|null $role
      */
-    public function getRole(): ?Role
+    public function getRoles(): ?array
     {
-       return $this->role;
+       return $this->roles;
     }
-    /**
-     * $role setter
-     * @param Role|null $role
-     * @return void
-     */
-    public function setRole(Role $role = null): void
+    public function addRole(Role $role = null)
     {
-        $role->addUser($this);
-        $this->role = $role;
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+        return $this;
     }
+    public function removeRole(Role $role): self
+    {
+        $this->roles->removeElement($role);
+    }
+
     public function addPosition(Position $position): self
     {
         if (!$this->positions->contains($position)) {
@@ -236,11 +239,32 @@ class User extends UserInterface, \Serializable
         $this->messages->removeElement($message);
     }
     /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+    }
+    /**
      * convert properties to array
      * @return array of class properties
      */
     public function toArray(): array
     {
         return get_object_vars($this);
+    }
+    public function serialize(): string
+    {
+        return serialize([$this->id, $this->username, $this->password]);
+    }
+    public function unserialize($serialized): void
+    {
+        [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

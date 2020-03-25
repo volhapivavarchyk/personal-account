@@ -6,13 +6,12 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="modules", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="module", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Module extends UserInterface, \Serializable
+class Module
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -28,20 +27,25 @@ class Module extends UserInterface, \Serializable
      */
     protected $type;
     /**
-     * @ORM\ManyToMany(targetEntity="Function", inversedBy="modules", cascade={"persist"})
-     * @ORM\JoinTable(name="modules_functions")
+     * @ORM\ManyToMany(targetEntity="Functionality", inversedBy="modules", cascade={"persist"})
+     * @ORM\JoinTable(name="modules_functionality")
      */
-    protected $functions;
+    protected $functionalities;
     /**
-     * @ORM\OneToMany(targetEntity="Module", inversedBy="parent", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Module", mappedBy="parent", cascade={"persist"})
      */
     protected $children;
     /**
      * @ORM\ManyToOne(targetEntity="Module", inversedBy="children", cascade={"persist"})
-     * @JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
 
+    public function __construct()
+    {
+        $this->functionalities = new ArrayCollection();
+        $this->children = new ArrayCollection();
+    }
     /**
      * $id getter
      * @return integer $id
@@ -119,16 +123,16 @@ class Module extends UserInterface, \Serializable
         $type->addModule($this);
         $this->type = $type;
     }
-    public function addFunction(Function $function): self
+    public function addFunctionality(Functionality $functionality): self
     {
-        if (!$this->functions->contains($function)) {
-            $this->functions[] = $function;
+        if (!$this->functionalities->contains($functionality)) {
+            $this->functionalities[] = $functionality;
         }
         return $this;
     }
-    public function removeFunction(Function $function): self
+    public function removeFunctionality(Functionality $functionality): self
     {
-        $this->functions->removeElement($function;
+        $this->functionalities->removeElement($functionality);
     }
     public function addChild(Module $child): self
     {

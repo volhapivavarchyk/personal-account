@@ -6,13 +6,12 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="interest", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Interest extends UserInterface, \Serializable
+class Interest implements \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -29,26 +28,26 @@ class Interest extends UserInterface, \Serializable
      * @return integer $id
      */
     public function getId()
-{
-    return $this->id;
-}
+    {
+        return $this->id;
+    }
     /**
      * $name getter
      * @return string $name
      */
     public function getName(): ?string
-{
-    return $this->name;
-}
+    {
+        return $this->name;
+    }
     /**
      * $name setter
      * @param string $name
      * @return void
      */
     public function setName(string $name)
-{
-    $this->name = $name;
-}
+    {
+        $this->name = $name;
+    }
     /**
      * $user getter
      * @return User|null $user

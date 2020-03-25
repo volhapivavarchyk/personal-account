@@ -6,13 +6,13 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Serializable;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="role", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="typemodule", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class TypeModule extends UserInterface, \Serializable
+class TypeModule implements Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -25,7 +25,7 @@ class TypeModule extends UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->modules = new ArrayCollection();
     }
     /**
      * $id getter
@@ -54,26 +54,27 @@ class TypeModule extends UserInterface, \Serializable
     }
     /**
      * @param Module $modules
+     * @param Module $module
      * @return TypeModule
      */
     public function addModule(Module $module): self
-{
-    if (!$this->modules->contains($module)) {
-        $this->modules[] = $module;
+    {
+        if (!$this->modules->contains($module)) {
+            $this->modules[] = $module;
+        }
+        return $this;
     }
-    return $this;
-}
     public function removeModule(Module $module): self
-{
-    $this->modules->removeElement($module);
-}
+    {
+        $this->modules->removeElement($module);
+    }
 
     public function serialize(): string
-{
-    return serialize([$this->id, $this->name]);
-}
+    {
+        return serialize([$this->id, $this->name]);
+    }
     public function unserialize($serialized): void
-{
-    [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
-}
+    {
+        [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
+    }
 }

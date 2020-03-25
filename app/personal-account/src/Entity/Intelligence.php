@@ -6,13 +6,12 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="algorithm", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="intelligence", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Intelligence extends UserInterface, \Serializable
+class Intelligence implements \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -21,54 +20,58 @@ class Intelligence extends UserInterface, \Serializable
     /** @ORM\Column(type="json_array", length=256) **/
     protected $content;
     /**
-     * @ORM\OneToMany(targetEntity="Function", inversedBy="formula", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Functionality", mappedBy="intelligence")
      */
-    protected $functions;
+    protected $functionalities;
 
+    public function __construct()
+    {
+        $this->functionalities = new ArrayCollection();
+    }
     /**
      * $id getter
      * @return integer $id
      */
     public function getId()
-{
-    return $this->id;
-}
+    {
+        return $this->id;
+    }
     /**
      * $name getter
      * @return string $name
      */
     public function getName(): ?string
-{
-    return $this->name;
-}
+    {
+        return $this->name;
+    }
     /**
      * $name setter
      * @param string $name
      * @return void
      */
     public function setName(string $name)
-{
-    $this->name = $name;
-}
-
-    public function addFunction(Function $function): self
     {
-        if (!$this->functions->contains($function)) {
-            $this->functions[] = $function;
+        $this->name = $name;
+    }
+
+    public function addFunctionality(Functionality $functionality): self
+    {
+        if (!$this->functionalities->contains($functionality)) {
+            $this->functionalities[] = $functionality;
         }
         return $this;
     }
-    public function removeFunction(Function $function): self
+    public function removeFunctionality(Functionality $functionality): self
     {
-        $this->functions->removeElement($function);
+        $this->functionalities->removeElement($functionality);
     }
 
     public function serialize(): string
-{
-    return serialize([$this->id, $this->name]);
-}
+    {
+        return serialize([$this->id, $this->name]);
+    }
     public function unserialize($serialized): void
-{
-    [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
-}
+    {
+        [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
+    }
 }

@@ -30,7 +30,8 @@
     "erusev/parsedown": "^1.7",
     "doctrine/doctrine-bundle": "^2.0",
     "doctrine/doctrine-migrations-bundle": "^2.1",
-    "doctrine/orm": "^2.7"
+    "doctrine/orm": "^2.7",
+    "symfony/security-bundle": "^5.0"
   },
   "require-dev": {
     "phpmd/phpmd": "^2.7",
