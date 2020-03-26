@@ -22,10 +22,20 @@ class Role implements Serializable
      * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      */
     protected $users;
+    /**
+     * @ORM\OneToMany(targetEntity="Role", mappedBy="parent")
+     */
+    protected $children;
+    /**
+     * @ORM\ManyToOne(targetEntity="Role", inversedBy="children", cascade={"persist"})
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    protected $parent;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
     /**
      * $id getter
@@ -67,6 +77,24 @@ class Role implements Serializable
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);
+    }
+    /**
+     * $parent getter
+     * @return Role|null $module
+     */
+    public function getParent(): ?Role
+    {
+        return $this->parent;
+    }
+    /**
+     * $parent setter
+     * @param Role|null $parent
+     * @return void
+     */
+    public function setParent(Role $parent = null): void
+    {
+        $parent->addChild($this);
+        $this->parent = $parent;
     }
 
     public function serialize(): string

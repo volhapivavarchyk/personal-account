@@ -1,0 +1,39 @@
+# config/packages/security.yaml
+security:
+    providers:
+        users:
+            entity:
+                class: 'VP\PersonalAccount\Entity\User'
+    encoders:
+        VP\PersonalAccount\Entity\User:
+            algorithm: auto
+    access_control:
+      - { path: ^/admin, roles: ROLE_ADMIN }
+      - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+      - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            pattern: ^/
+            form_login:
+                login_path: /login
+                check_path: /login
+                target_path: /
+                failure_path: /login
+                use_referer: true
+                always_use_default_target_path: true
+                default_target_path: homepage
+                target_path_parameter: go_to
+                failure_path_parameter: back_to
+            logout:
+                path: logout
+                target: index
+            guard:
+                authenticators:
+                  - VP\PersonalAccount\Security\LoginFormAuthenticator
+        secured_area:
+            form_login:
+                csrf_token_generator: security.csrf.token_manager
