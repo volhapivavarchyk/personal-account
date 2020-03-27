@@ -1,8 +1,8 @@
-homepage:
+index:
   path: /{_locale}
-  controller: VP\PersonalAccount\Controller\UserController::authorization
+  controller: VP\PersonalAccount\Controller\UserController::action
   requirements:
     _locale: '%app_locales%'
   defaults:
-    template: default/homepage.html.twig
+    template: users/user.html.twig
     _locale: '%locale%'

@@ -24,9 +24,9 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
-    use TargerPathTrait;
+    use TargetPathTrait;
 
-    private const LOGIN_ROUTE = '/login';
+    private const LOGIN_ROUTE = 'login';
 
     private $entityManager;
     private $urlGenerator;
@@ -97,5 +97,13 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPassword($credentials): ?string
+    {
+        // TODO: Implement getPassword() method.
     }
 }
