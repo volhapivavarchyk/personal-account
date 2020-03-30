@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200325134517 extends AbstractMigration
+final class Version20200330112028 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -33,7 +33,7 @@ final class Version20200325134517 extends AbstractMigration
         $this->addSql('CREATE TABLE module (id INT AUTO_INCREMENT NOT NULL, type_id INT DEFAULT NULL, parent_id INT DEFAULT NULL, name VARCHAR(128) NOT NULL, description VARCHAR(128) NOT NULL, url VARCHAR(128) NOT NULL, INDEX IDX_C242628C54C8C93 (type_id), INDEX IDX_C242628727ACA70 (parent_id), INDEX search_idx (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE modules_functionality (module_id INT NOT NULL, functionality_id INT NOT NULL, INDEX IDX_4202780AAFC2B591 (module_id), INDEX IDX_4202780A39EDDC8 (functionality_id), PRIMARY KEY(module_id, functionality_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE position (id INT AUTO_INCREMENT NOT NULL, department_id INT DEFAULT NULL, name VARCHAR(128) NOT NULL, INDEX IDX_462CE4F5AE80F5DF (department_id), INDEX search_idx (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(128) NOT NULL, INDEX search_idx (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, name VARCHAR(128) NOT NULL, INDEX IDX_57698A6A727ACA70 (parent_id), INDEX search_idx (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE typemodule (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(128) NOT NULL, INDEX search_idx (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(128) NOT NULL, password VARCHAR(128) NOT NULL, firstname VARCHAR(64) NOT NULL, lastname VARCHAR(64) NOT NULL, patronymic VARCHAR(64) NOT NULL, email VARCHAR(128) NOT NULL, api_token VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D6497BA2F5EB (api_token), INDEX search_idx (email, firstname, lastname), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE users_roles (user_id INT NOT NULL, role_id INT NOT NULL, INDEX IDX_51498A8EA76ED395 (user_id), INDEX IDX_51498A8ED60322AC (role_id), PRIMARY KEY(user_id, role_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -50,6 +50,7 @@ final class Version20200325134517 extends AbstractMigration
         $this->addSql('ALTER TABLE modules_functionality ADD CONSTRAINT FK_4202780AAFC2B591 FOREIGN KEY (module_id) REFERENCES module (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE modules_functionality ADD CONSTRAINT FK_4202780A39EDDC8 FOREIGN KEY (functionality_id) REFERENCES functionality (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE position ADD CONSTRAINT FK_462CE4F5AE80F5DF FOREIGN KEY (department_id) REFERENCES department (id)');
+        $this->addSql('ALTER TABLE role ADD CONSTRAINT FK_57698A6A727ACA70 FOREIGN KEY (parent_id) REFERENCES role (id)');
         $this->addSql('ALTER TABLE users_roles ADD CONSTRAINT FK_51498A8EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE users_roles ADD CONSTRAINT FK_51498A8ED60322AC FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE users_positions ADD CONSTRAINT FK_B0E29F9DA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
@@ -70,6 +71,7 @@ final class Version20200325134517 extends AbstractMigration
         $this->addSql('ALTER TABLE module DROP FOREIGN KEY FK_C242628727ACA70');
         $this->addSql('ALTER TABLE modules_functionality DROP FOREIGN KEY FK_4202780AAFC2B591');
         $this->addSql('ALTER TABLE users_positions DROP FOREIGN KEY FK_B0E29F9DDD842E46');
+        $this->addSql('ALTER TABLE role DROP FOREIGN KEY FK_57698A6A727ACA70');
         $this->addSql('ALTER TABLE users_roles DROP FOREIGN KEY FK_51498A8ED60322AC');
         $this->addSql('ALTER TABLE module DROP FOREIGN KEY FK_C242628C54C8C93');
         $this->addSql('ALTER TABLE history DROP FOREIGN KEY FK_27BA704BA76ED395');

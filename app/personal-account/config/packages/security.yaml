@@ -1,16 +1,18 @@
 # config/packages/security.yaml
 security:
     providers:
-        users:
+        user:
             entity:
                 class: 'VP\PersonalAccount\Entity\User'
     encoders:
         VP\PersonalAccount\Entity\User:
             algorithm: auto
     access_control:
-      #- { path: ^/admin, roles: ROLE_ADMIN }
-      #- { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-      #- { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
+        #- { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        #- { path: ^/login$, roles: ROLE_USER}
+        #- { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        #- { path: ^/, roles:  ROLE_ADMIN}
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
