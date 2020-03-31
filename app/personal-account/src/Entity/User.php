@@ -57,6 +57,7 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->roles = new ArrayCollection();
         $this->positions = new ArrayCollection();
         $this->interests = new ArrayCollection();
         $this->histories = new ArrayCollection();

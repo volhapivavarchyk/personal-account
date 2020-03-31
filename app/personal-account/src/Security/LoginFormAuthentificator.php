@@ -35,6 +35,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
+        //var_dump($request);
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -54,6 +55,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
+        //var_dump($credentials);
         $request->getSession()->set(
             Security::LAST_USERNAME,
             $credentials['username']
@@ -105,5 +107,6 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
     public function getPassword($credentials): ?string
     {
         // TODO: Implement getPassword() method.
+        return $credentials['password'];
     }
 }
