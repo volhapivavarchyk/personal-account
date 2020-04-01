@@ -21,13 +21,23 @@ class SecurityController extends AbstractController
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
+        var_dump($lastUsername);
+        var_dump($this->isGranted('IS_AUTHENTICATED_REMEMBERED'));
+        var_dump($this->isGranted('IS_AUTHENTICATED_FULLY'));
         return $this->render(
             'security/security.html.twig',
             [
                 'last_username' => $lastUsername,
                 'error'         => $error,
             ]);
+    }
+
+    /**
+     * @Route("/logout", name="logout", methods={"GET"})
+     */
+    public function logout(Request $request, AuthenticationUtils $authUtils): Response
+    {
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 }
 

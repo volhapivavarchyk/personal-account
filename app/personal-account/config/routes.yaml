@@ -1,8 +1,8 @@
 index:
   path: /{_locale}
-  controller: VP\PersonalAccount\Controller\UserController::action
+  controller: VP\PersonalAccount\Controller\IndexController::show
   requirements:
     _locale: '%app_locales%'
   defaults:
-    template: users/user.html.twig
+    template: security/security.html.twig
     _locale: '%locale%'

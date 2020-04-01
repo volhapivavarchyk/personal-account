@@ -9,10 +9,8 @@ security:
             algorithm: auto
     access_control:
         #- { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/personal, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN]}
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        #- { path: ^/login$, roles: ROLE_USER}
-        #- { path: ^/, roles: IS_AUTHENTICATED_FULLY }
-        #- { path: ^/, roles:  ROLE_ADMIN}
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -23,13 +21,14 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                #always_use_default_target_path: true
+                always_use_default_target_path: true
                 default_target_path: homepage
+                failure_path: login_failure
                 #target_path_parameter: go_to
                 #failure_path_parameter: back_to
             logout:
                 path: logout
-                target: index
+                target: login
             guard:
                 authenticators:
                   - VP\PersonalAccount\Security\LoginFormAuthentificator

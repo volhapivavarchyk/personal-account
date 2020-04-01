@@ -178,11 +178,15 @@ class User implements UserInterface, \Serializable
      * $role getter
      * @return array|null $role
      */
-    public function getRoles(): ?array
+    public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-        return array_unique($roles);
+        $roles = array();
+        foreach ($this->roles as $role) {
+            $roles[] = $role->getName();
+        }
+        //$roles[] = 'ROLE_USER';
+        //return $this->roles->toArray();
+        return $roles;
     }
     public function addRole(Role $role = null)
     {
@@ -196,6 +200,10 @@ class User implements UserInterface, \Serializable
         $this->roles->removeElement($role);
     }
 
+    public function getPositions(): Collection
+    {
+        return $this->positions;
+    }
     public function addPosition(Position $position): self
     {
         if (!$this->positions->contains($position)) {

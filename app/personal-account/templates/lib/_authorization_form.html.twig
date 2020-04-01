@@ -4,7 +4,7 @@
             <div style="padding-top: 110px;">
                 <h1 class="text-white text-center">{{ 'title.what'|trans({},'authorization')|raw }}</h1>
             </div>
-            <form action="{{ url('login') }}" method="post">
+            <form method="post">
                 <div class="row pt-2 pb-lg-5">
                     <div class="col-md-6 text-white text-center">
                         <h2 class="wow fadeIn mt-5" data-wow-delay="0.3s">
@@ -47,6 +47,9 @@
                                     Вход
                                     <hr class="hr-light">
                                 </h2>
+                                {% if error %}
+                                    <div>{{ error.message }}</div>
+                                {% endif %}
                                 <div class="form-item">
                                     <input type="text" id="username" name="username" class="text-white" required>
                                     <label for="username"><i class="fas fa-user"></i> Имя</label>

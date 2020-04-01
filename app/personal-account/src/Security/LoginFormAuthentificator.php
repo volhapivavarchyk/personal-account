@@ -35,7 +35,6 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
-        //var_dump($request);
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -55,7 +54,6 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
-        //var_dump($credentials);
         $request->getSession()->set(
             Security::LAST_USERNAME,
             $credentials['username']
@@ -77,7 +75,6 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }
-
         return $user;
     }
 
@@ -88,7 +85,9 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        var_dump($providerKey);
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+            var_dump($targetPath);
             return new RedirectResponse($targetPath);
         }
 
