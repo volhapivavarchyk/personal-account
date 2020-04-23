@@ -78,6 +78,22 @@ class Role implements Serializable
     {
         $this->users->removeElement($user);
     }
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+    public function addChild(Module $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+        }
+        return $this;
+    }
+    public function removeChild(Module $child): self
+    {
+        $this->children->removeElement($child);
+    }
+
     /**
      * $parent getter
      * @return Role|null $module

@@ -216,6 +216,10 @@ class User implements UserInterface, \Serializable
         $this->positions->removeElement($position);
     }
 
+    public function getInterests(): Collection
+    {
+        return $this->interests;
+    }
     public function addInterest(Interest $interest): self
     {
         if (!$this->interests->contains($interest)) {
@@ -227,6 +231,10 @@ class User implements UserInterface, \Serializable
     {
         $this->interests->removeElement($interest);
     }
+    public function getHistories(): Collection
+    {
+        return $this->histories;
+    }
     public function addHistory(History $history): self
     {
         if (!$this->histories->contains($history)) {
@@ -237,6 +245,10 @@ class User implements UserInterface, \Serializable
     public function removeHistory(History $history): self
     {
         $this->histories->removeElement($history);
+    }
+    public function getMessages(): Collection
+    {
+        return $this->messages;
     }
     public function addMessage(Message $message): self
     {

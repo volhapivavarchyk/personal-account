@@ -1,0 +1,26 @@
+user:
+  username: Имя пользователя
+  password: Пароль
+  firstname: Имя
+  lastname: Фамилия
+  patronymic: Отчество
+  email: Адрес электронной почты
+  roles: Роли
+  positions: Должность
+  interests: Интересы
+  histories: История взаимодействия
+  messages: Сообщения
+role:
+  name: Наименование роли
+  children: Подроли
+position:
+  name: Наименование должности
+  department: Подразделение
+interest:
+  name: Наименование интереса
+history:
+  name: Наименование действия
+message:
+  name: Текст сообщения
+
+

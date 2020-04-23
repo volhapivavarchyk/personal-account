@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+
+{% block header %}
+    <header>
+        {{ include('lib/_navbar.html.twig') }}
+        {{ include('lib/_form_authorization.html.twig') }}
+    </header>
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container body-container mt-lg-4" id="header-registration">
+        <h2> Регистрация пользователя информационно-образовательного пространства БарГУ</h2>
+    </div>
+
+    <div class="container body-container" id="container-registration">
+        {{ include('lib/_form_registration.html.twig') }}
+    </div>
+{% endblock %}
