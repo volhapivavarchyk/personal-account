@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\{Length, Regex};
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\Role;
+use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType
 {
@@ -125,7 +126,13 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'class' => Role::class,
-                'choice_label' => 'name',
+                'choice_label' => 'roles',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')->orderBy('name', 'ASC');
+                },
+
+
+
             ])
 //            ->add('roles', CollectionType::class, [
 //                'label' => 'user.roles',

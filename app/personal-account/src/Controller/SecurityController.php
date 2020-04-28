@@ -60,12 +60,15 @@ class SecurityController extends AbstractController
         $user->getPositions()->add($position);
         $user->getInterests()->add($interest);
 
-        $formFactory = Forms::CreateFormFactoryBuilder()
-            ->addExtension(new FormHttpFoundationExtension())
-            ->addExtension(new ValidatorExtension(Validation::createValidator()))
-            ->getFormFactory();
-        $builderForm = $formFactory->createBuilder(UserType::class, $user);
-        $registrationform = $builderForm->getForm();
+//        $formFactory = Forms::CreateFormFactoryBuilder()
+//            ->addExtension(new FormHttpFoundationExtension())
+//            ->addExtension(new ValidatorExtension(Validation::createValidator()))
+//            ->getFormFactory();
+//        $builderForm = $formFactory->createBuilder(UserType::class, $user);
+//        $registrationform = $builderForm->getForm();
+
+        $registrationform = $this->createForm(UserType::class, $user);
+//        var_dump($registrationform);
 
         return $this->render(
             'security/registration.html.twig',
