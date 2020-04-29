@@ -121,18 +121,19 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('roles', EntityType::class, [
-                'mapped' => false,
                 'required' => false,
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
                 'class' => Role::class,
                 'choice_label' => 'roles',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')->orderBy('name', 'ASC');
+                    return $er->createQueryBuilder('r')
+                        ->where('r.parent = :isParent')
+                        ->setParameter('isParent', NULL)
+//                        ->leftJoin('r.parent', 'rc', 'WITH', 'rc.parent = :idParent')
+//                        ->setParameter('idParent', 'r.id')
+                        ->orderBy('r.name', 'ASC');
                 },
-
-
-
             ])
 //            ->add('roles', CollectionType::class, [
 //                'label' => 'user.roles',
