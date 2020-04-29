@@ -121,4 +121,8 @@ class Role implements Serializable
     {
         [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
     }
+    public function __toString()
+    {
+        return $this->getId().'. '.$this->getName();
+    }
 }
