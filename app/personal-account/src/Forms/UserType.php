@@ -127,29 +127,24 @@ class UserType extends AbstractType
                     return $role->getName();
                 },
 //                'required' => false,
-//                'multiple' => true,
-//                'expanded' => true,
-//                'class' => Role::class,
-//                'choice_label' => 'roles',
-//                'query_builder' => function (EntityRepository $er) {
+                'multiple' => false,
+                'expanded' => true,
+                'class' => Role::class,
+                'choice_label' => 'name',
+                'query_builder' => function (EntityRepository $er) {
+                    $qb = $er->createQueryBuilder('r');
+                    $qb->where(
+                        $qb->expr()->isNull('r.parent')
+                    );
 //                    return $er->createQueryBuilder('r')
 //                        ->where('r.parent = :isParent')
-//                        ->setParameter('isParent', NULL)
-////                        ->leftJoin('r.parent', 'rc', 'WITH', 'rc.parent = :idParent')
-////                        ->setParameter('idParent', 'r.id')
+//                        ->setParameter('isParent', null)
+//                        ->leftJoin('r.parent', 'rc', 'WITH', 'rc.parent = :idParent')
+//                        ->setParameter('idParent', 'r.id')
 //                        ->orderBy('r.name', 'ASC');
-//                },
+                    return $qb;
+                },
             ])
-//            ->add('roles', CollectionType::class, [
-//                'label' => 'user.roles',
-//                'label_translation_parameters' => [],
-//                'translation_domain' => 'forms',
-//                'entry_type' => RoleType::class,
-//                'entry_options' => ['label' => 'роль'],
-//                'by_reference' => false,
-//                'prototype' => true,
-//                'allow_add' => true,
-//            ])
             ->add('positions', CollectionType::class, [
                 'label' => 'user.positions',
                 'label_translation_parameters' => [],
