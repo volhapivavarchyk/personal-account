@@ -5,11 +5,12 @@ user:
   lastname: Фамилия
   patronymic: Отчество
   email: Адрес электронной почты
-  roles: Роли
+  roles: Роль
   positions: Должность
   interests: Интересы
   histories: История взаимодействия
   messages: Сообщения
+  kind: Тип пользователя
 role:
   name: Наименование роли
   children: Подроли

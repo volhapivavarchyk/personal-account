@@ -29,6 +29,10 @@ class User implements UserInterface, \Serializable
     /** @ORM\Column(length=128) **/
     protected $email;
     /**
+     * @ORM\ManyToOne(targetEntity="UserKind", inversedBy="users")
+     */
+    protected $userkind;
+    /**
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="users", cascade={"persist"})
      * @ORM\JoinTable(name="users_roles")
      */
@@ -173,6 +177,24 @@ class User implements UserInterface, \Serializable
     public function setEmail(string $email)
     {
         $this->email = $email;
+    }
+    /**
+     * $userkind getter
+     * @return UserKind|null $userkind
+     */
+    public function getUserKind(): ?UserKind
+    {
+        return $this->userkind;
+    }
+    /**
+     * $userkind setter
+     * @param UserKind|null $userkind
+     * @return void
+     */
+    public function setUserKind(UserKind $userkind = null): void
+    {
+        $userkind->addUser($this);
+        $this->userkind = $userkind;
     }
     /**
      * $role getter

@@ -11,6 +11,8 @@ use Symfony\Component\Validator\Constraints\{Length, Regex};
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\Role;
+use VP\PersonalAccount\Entity\Interest;
+use VP\PersonalAccount\Entity\Position;
 use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType
@@ -120,70 +122,63 @@ class UserType extends AbstractType
                     'placeholder' => 'mailbox@hostname',
                 ],
             ])
+            ->add('positions', EntityType::class, [
+                'label' => 'user.positions',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Position::class,
+                'mapped' => false,
+                'choice_label' => 'name',
+                'required' => false,
+                'multiple' => false,
+                'expanded' => false,
+                'group_by' => function (Position $position, $key, $value) {
+                    return $position->getDepartment();
+                }
+            ])
+            ->add('interests', EntityType::class, [
+                'label' => 'user.interests',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Interest::class,
+                'mapped' => false,
+                'choice_label' => 'name',
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add('userkind', EntityType::class, [
+                'label' => 'user.kind',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => UserKind::class,
+                'mapped' => false,
+                'choice_label' =>  function (UserKind $userkind){
+                    return $userkind->getName();
+                },
+                'required' => true,
+                'multiple' => false,
+                'expanded' => true,
+            ])
             ->add('roles', EntityType::class, [
+                'label' => 'user.roles',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
                 'class' => Role::class,
                 'mapped' => false,
                 'choice_label' =>  function (Role $role){
                     return $role->getName();
                 },
-//                'required' => false,
+                'required' => true,
                 'multiple' => false,
                 'expanded' => true,
-                'class' => Role::class,
-                'choice_label' => 'name',
                 'query_builder' => function (EntityRepository $er) {
                     $qb = $er->createQueryBuilder('r');
                     $qb->where(
                         $qb->expr()->isNull('r.parent')
                     );
-//                    return $er->createQueryBuilder('r')
-//                        ->where('r.parent = :isParent')
-//                        ->setParameter('isParent', null)
-//                        ->leftJoin('r.parent', 'rc', 'WITH', 'rc.parent = :idParent')
-//                        ->setParameter('idParent', 'r.id')
-//                        ->orderBy('r.name', 'ASC');
                     return $qb;
                 },
-            ])
-            ->add('positions', CollectionType::class, [
-                'label' => 'user.positions',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'entry_type' => PositionType::class,
-                'entry_options' => ['label' => 'должность'],
-                'by_reference' => false,
-                'prototype' => true,
-                'allow_add' => true,
-            ])
-            ->add('interests', CollectionType::class, [
-                'label' => 'user.interests',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'entry_type' => InterestType::class,
-                'entry_options' => ['label' => 'иснтерес'],
-                'by_reference' => false,
-                'prototype' => true,
-                'allow_add' => true,
-            ])
-            ->add('histories', CollectionType::class, [
-                'label' => 'user.histories',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'entry_type' => HistoryType::class,
-                'entry_options' => ['label' => 'история взаимодействия'],
-                'by_reference' => false,
-                'prototype' => true,
-                'allow_add' => true,
-            ])
-            ->add('messages', CollectionType::class, [
-                'label' => 'user.messages',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'entry_type' => MessageType::class,
-                'entry_options' => ['label' => 'сообщения'],
-                'by_reference' => false,
-                'prototype' => true,
-                'allow_add' => true,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Сохранить',

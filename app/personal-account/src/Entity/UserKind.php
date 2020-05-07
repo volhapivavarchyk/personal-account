@@ -6,26 +6,22 @@ namespace VP\PersonalAccount\Entity;
 
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="position", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="usertype", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Position implements \Serializable
+class UserKind implements Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="positions")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="usertype")
      */
     protected $users;
-    /**
-     * @ORM\ManyToOne(targetEntity="Department", inversedBy="positions")
-     * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=true)
-     */
-    protected $department;
 
     public function __construct()
     {
@@ -37,7 +33,7 @@ class Position implements \Serializable
      */
     public function getId()
     {
-       return $this->id;
+        return $this->id;
     }
     /**
      * $name getter
@@ -58,12 +54,12 @@ class Position implements \Serializable
     }
     /**
      * @param User $user
-     * @return Position
+     * @return Role
      */
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
-            $user->addPosition($this);
+            $user->addRole($this);
             $this->users[] = $user;
         }
         return $this;
@@ -71,24 +67,6 @@ class Position implements \Serializable
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);
-    }
-    /**
-     * $department getter
-     * @return Department|null $role
-     */
-    public function getDepartment(): ?Department
-    {
-        return $this->department;
-    }
-    /**
-     * $department setter
-     * @param Department|null $department
-     * @return void
-     */
-    public function setDepartment(Department $department = null): void
-    {
-        $department->addPosition($this);
-        $this->department = $department;
     }
 
     public function serialize(): string
@@ -101,6 +79,6 @@ class Position implements \Serializable
     }
     public function __toString()
     {
-        return $this->getId().'. '.$this->getName();
+        return $this->getName();
     }
 }

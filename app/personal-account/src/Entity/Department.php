@@ -100,4 +100,8 @@ class Department implements Serializable
     {
         [$this->id, $this->name] = unserialize($serialized, ['allowed_classes' => false]);
     }
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
