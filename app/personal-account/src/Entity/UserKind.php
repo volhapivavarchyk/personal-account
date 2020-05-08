@@ -10,7 +10,7 @@ use Serializable;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="usertype", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="userkind", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
 class UserKind implements Serializable
 {

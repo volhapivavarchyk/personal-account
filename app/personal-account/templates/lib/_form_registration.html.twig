@@ -60,38 +60,51 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="form-group col text-dark">
-                                {{ form_label(formregistration.roles) }}
-                                {{ form_widget(formregistration.roles, {'attr': {'class': 'custom-control custom-radio'}}) }}
-                                <small>{{ form_help(formregistration.roles) }}</small>
-                                {{ form_errors(formregistration.roles) }}
-                                <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
-                            </div>
-                            <div class="form-group col text-dark">
-                                {{ form_label(formregistration.interests) }}
-                                {{ form_widget(formregistration.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
-                                <small>{{ form_help(formregistration.interests) }}</small>
-                                {{ form_errors(formregistration.interests) }}
-                                <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <div class="form-group col text-dark">
+                                        {{ form_label(formregistration.userkind) }}
+                                        {{ form_widget(formregistration.userkind, {'attr': {'class': 'custom-control custom-radio'}}) }}
+                                        <small>{{ form_help(formregistration.userkind) }}</small>
+                                        {{ form_errors(formregistration.userkind) }}
+                                        <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+                                    </div>
+                                    <div class="form-group col text-dark">
+                                        {{ form_label(formregistration.roles) }}
+                                        {{ form_widget(formregistration.roles, {'attr': {'class': 'custom-control custom-radio'}}) }}
+                                        <small>{{ form_help(formregistration.roles) }}</small>
+                                        {{ form_errors(formregistration.roles) }}
+                                        <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group col text-dark">
-                                {{ form_label(formregistration.positions) }}
-                                {{ form_widget(formregistration.positions) }}
-                                <small>{{ form_help(formregistration.positions) }}</small>
-                                {{ form_errors(formregistration.positions) }}
-                                <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <div class="form-group col text-dark">
+                                        {{ form_label(formregistration.positions) }}
+                                        {{ form_widget(formregistration.positions) }}
+                                        <small>{{ form_help(formregistration.positions) }}</small>
+                                        {{ form_errors(formregistration.positions) }}
+                                        <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+                                    </div>
+                                    <div class="form-group col text-dark">
+                                        {{ form_label(formregistration.interests) }}
+                                        {{ form_widget(formregistration.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
+                                        <small>{{ form_help(formregistration.interests) }}</small>
+                                        {{ form_errors(formregistration.interests) }}
+                                        <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 {{ form_end(formregistration) }}
             </div>
-
         </div>
     </div>
 </div>

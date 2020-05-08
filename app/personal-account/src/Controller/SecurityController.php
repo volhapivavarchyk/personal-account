@@ -50,25 +50,24 @@ class SecurityController extends AbstractController
     /**
      * @Route("/registration", defaults={"_fragment" = "header-registration"}, name="registration", methods={"GET"})
      */
-    public function registration(): Response
+    public function registration(Request $request): Response
     {
         $user = new User();
-        $role = new Role();
-        $position = new Position();
-        $interest = new Interest();
-        $user->addRole($role);
-        $user->getPositions()->add($position);
-        $user->getInterests()->add($interest);
-
-//        $formFactory = Forms::CreateFormFactoryBuilder()
-//            ->addExtension(new FormHttpFoundationExtension())
-//            ->addExtension(new ValidatorExtension(Validation::createValidator()))
-//            ->getFormFactory();
-//        $builderForm = $formFactory->createBuilder(UserType::class, $user);
-//        $registrationform = $builderForm->getForm();
+//        $role = new Role();
+//        $position = new Position();
+//        $interest = new Interest();
+//        $user->addRole($role);
+//        $user->getPositions()->add($position);
+//        $user->getInterests()->add($interest);
 
         $registrationform = $this->createForm(UserType::class, $user);
-//        var_dump($registrationform);
+        $registrationform->handleRequest($request);
+
+        if ($registrationform->isSubmitted() && $registrationform->isValid()) {
+            $user = $registrationform->getData();
+
+            return $this->redirectToRoute('user-success');
+        }
 
         return $this->render(
             'security/registration.html.twig',

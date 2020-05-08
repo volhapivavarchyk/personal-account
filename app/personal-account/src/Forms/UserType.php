@@ -13,6 +13,7 @@ use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\Role;
 use VP\PersonalAccount\Entity\Interest;
 use VP\PersonalAccount\Entity\Position;
+use VP\PersonalAccount\Entity\UserKind;
 use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType
@@ -192,3 +193,4 @@ class UserType extends AbstractType
         ]);
     }
 }
+
