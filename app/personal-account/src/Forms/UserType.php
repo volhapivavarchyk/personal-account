@@ -5,6 +5,7 @@ namespace VP\PersonalAccount\Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, PasswordType, EmailType, CollectionType, SubmitType};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\{Length, Regex};
@@ -14,10 +15,13 @@ use VP\PersonalAccount\Entity\Role;
 use VP\PersonalAccount\Entity\Interest;
 use VP\PersonalAccount\Entity\Position;
 use VP\PersonalAccount\Entity\UserKind;
+use VP\PersonalAccount\Repository\UserKindRepository;
 use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType
 {
+    private const DEFAULT_USER_KIND_ID = 2;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -36,9 +40,9 @@ class UserType extends AbstractType
                         'maxMessage' => 'Это значение слишком длинное. Оно должно иметь 120 или менее символов',
                     ]),
                     new Regex([
-                        'pattern' => '/[A-Za-zА-Яа-я0-9\s]*/',
+                        'pattern' => '/[A-Za-z0-9\s]*/',
                         'match' => true,
-                        'message' => 'Имя пользователя должно содержать буквы и цифры'
+                        'message' => 'Имя пользователя должно содержать буквы латинского алфавита, цифры и символы'
                     ]),
                 ],
             ])
@@ -135,7 +139,8 @@ class UserType extends AbstractType
                 'expanded' => false,
                 'group_by' => function (Position $position, $key, $value) {
                     return $position->getDepartment();
-                }
+                },
+                'required'   => false,
             ])
             ->add('interests', EntityType::class, [
                 'label' => 'user.interests',
@@ -160,6 +165,16 @@ class UserType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
+                'data' => function(EntityRepository $er) {
+                    echo '111';
+                    $qb = $er->createQueryBuilder('uk');
+                    var_dump($qb);
+                    $qb->where('uk.id = :default')
+                    ->setParameter('default', self::DEFAULT_USER_KIND_ID )
+                    ->getQuery()
+                    ->getOneOrNullResult();
+                    return $qb;
+                },
             ])
             ->add('roles', EntityType::class, [
                 'label' => 'user.roles',
@@ -173,7 +188,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function(EntityRepository $er) {
                     $qb = $er->createQueryBuilder('r');
                     $qb->where(
                         $qb->expr()->isNull('r.parent')
