@@ -15,9 +15,12 @@ use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Validator\Validation;
 use VP\PersonalAccount\Forms\UserType;
 use VP\PersonalAccount\Entity\User;
+use VP\PersonalAccount\Entity\UserKind;
 use VP\PersonalAccount\Entity\Role;
 use VP\PersonalAccount\Entity\Position;
 use VP\PersonalAccount\Entity\Interest;
+//use VP\PersonalAccount\Repository\UserKindRepository;
+//use VP\PersonalAccount\Repository\RoleRepository;
 
 class SecurityController extends AbstractController
 {
@@ -53,6 +56,14 @@ class SecurityController extends AbstractController
     public function registration(Request $request): Response
     {
         $user = new User();
+        $defaultUserKind = $this->getDoctrine()
+            ->getRepository(UserKind::class)
+            ->findByDefault();
+        $user->setUserKind($defaultUserKind);
+        $defaultRole = $this->getDoctrine()
+            ->getRepository(Role::class)
+            ->findByDefault();
+        $user->setRole($defaultRole);
 //        $role = new Role();
 //        $position = new Position();
 //        $interest = new Interest();
@@ -60,11 +71,11 @@ class SecurityController extends AbstractController
 //        $user->getPositions()->add($position);
 //        $user->getInterests()->add($interest);
 
-        $registrationform = $this->createForm(UserType::class, $user);
-        $registrationform->handleRequest($request);
+        $registrationForm = $this->createForm(UserType::class, $user);
+        $registrationForm->handleRequest($request);
 
-        if ($registrationform->isSubmitted() && $registrationform->isValid()) {
-            $user = $registrationform->getData();
+        if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            $user = $registrationForm->getData();
 
             return $this->redirectToRoute('user-success');
         }
@@ -72,7 +83,7 @@ class SecurityController extends AbstractController
         return $this->render(
             'security/registration.html.twig',
             [
-                'formregistration' => $registrationform->createView(),
+                'formregistration' => $registrationForm->createView(),
                 'error' => '',
             ]);
     }

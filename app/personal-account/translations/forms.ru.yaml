@@ -6,6 +6,7 @@ user:
   patronymic: Отчество
   email: Адрес электронной почты
   roles: Роль
+  department: Подразделение
   positions: Должность
   interests: Интересы
   histories: История взаимодействия

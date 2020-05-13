@@ -33,10 +33,9 @@ class User implements UserInterface, \Serializable
      */
     protected $userkind;
     /**
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users", cascade={"persist"})
-     * @ORM\JoinTable(name="users_roles")
+     * @ORM\ManyToOne(targetEntity="Role", inversedBy="users")
      */
-    protected $roles;
+    protected $role;
     /**
      * @ORM\ManyToMany(targetEntity="Position", inversedBy="users", cascade={"persist"})
      * @ORM\JoinTable(name="users_positions")
@@ -202,27 +201,18 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles(): array
     {
-        $roles = array();
-        foreach ($this->roles as $role) {
-            $roles[] = $role->getName();
-        }
-        //$roles[] = 'ROLE_USER';
-        //return $this->roles->toArray();
-        return $roles;
+        return $this->role == null ? ['ROLE_GUEST'] : [$this->role->getName()];
     }
-    public function addRole(Role $role = null)
+    public function getRole(): Role
     {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-        }
-        return $this;
+        return $this->role;
     }
-    public function removeRole(Role $role): self
+    public function setRole(Role $role = null)
     {
-        $this->roles->removeElement($role);
+        $role->addUser($this);
+        $this->role = $role;
     }
-
-    public function getPositions(): Collection
+    public function getPositions(): ArrayCollection
     {
         return $this->positions;
     }
@@ -238,7 +228,7 @@ class User implements UserInterface, \Serializable
         $this->positions->removeElement($position);
     }
 
-    public function getInterests(): Collection
+    public function getInterests(): ArrayCollection
     {
         return $this->interests;
     }
@@ -253,7 +243,7 @@ class User implements UserInterface, \Serializable
     {
         $this->interests->removeElement($interest);
     }
-    public function getHistories(): Collection
+    public function getHistories(): ArrayCollection
     {
         return $this->histories;
     }
@@ -268,7 +258,7 @@ class User implements UserInterface, \Serializable
     {
         $this->histories->removeElement($history);
     }
-    public function getMessages(): Collection
+    public function getMessages(): ArrayCollection
     {
         return $this->messages;
     }

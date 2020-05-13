@@ -10,18 +10,16 @@ use Symfony\Component\Form\Extension\Core\Type\{TextType, PasswordType, EmailTyp
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\{Length, Regex};
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use VP\PersonalAccount\Entity\Department;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\Role;
 use VP\PersonalAccount\Entity\Interest;
 use VP\PersonalAccount\Entity\Position;
 use VP\PersonalAccount\Entity\UserKind;
-use VP\PersonalAccount\Repository\UserKindRepository;
 use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType
 {
-    private const DEFAULT_USER_KIND_ID = 2;
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -127,6 +125,18 @@ class UserType extends AbstractType
                     'placeholder' => 'mailbox@hostname',
                 ],
             ])
+            ->add('department', EntityType::class, [
+                'label' => 'user.department',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Department::class,
+                'mapped' => false,
+                'choice_label' => 'name',
+                'required' => false,
+                'multiple' => false,
+                'expanded' => false,
+                'required'   => false,
+            ])
             ->add('positions', EntityType::class, [
                 'label' => 'user.positions',
                 'label_translation_parameters' => [],
@@ -149,9 +159,14 @@ class UserType extends AbstractType
                 'class' => Interest::class,
                 'mapped' => false,
                 'choice_label' => 'name',
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
+                'attr' => ['class' => 'custom-control custom-radio'],
+                'label_attr' => ['class' => 'custom-control-label'],
             ])
             ->add('userkind', EntityType::class, [
                 'label' => 'user.kind',
@@ -159,22 +174,21 @@ class UserType extends AbstractType
                 'translation_domain' => 'forms',
                 'class' => UserKind::class,
                 'mapped' => false,
-                'choice_label' =>  function (UserKind $userkind){
+                'choice_label' =>  function (UserKind $userkind, $key, $name){
                     return $userkind->getName();
                 },
+                'choice_value' => function(UserKind $userkind = null) {
+                    return $userkind == null ? '' : $userkind->getId();
+                },
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'data' => $options['data']->getUserKind(),
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
-                'data' => function(EntityRepository $er) {
-                    echo '111';
-                    $qb = $er->createQueryBuilder('uk');
-                    var_dump($qb);
-                    $qb->where('uk.id = :default')
-                    ->setParameter('default', self::DEFAULT_USER_KIND_ID )
-                    ->getQuery()
-                    ->getOneOrNullResult();
-                    return $qb;
-                },
+                'attr' => ['class' => 'custom-control custom-radio'],
+                'label_attr' => ['class' => 'custom-control-label'],
             ])
             ->add('roles', EntityType::class, [
                 'label' => 'user.roles',
@@ -183,8 +197,15 @@ class UserType extends AbstractType
                 'class' => Role::class,
                 'mapped' => false,
                 'choice_label' =>  function (Role $role){
-                    return $role->getName();
+                    return $role->getNameRu();
                 },
+                'choice_value' => function(Role $role = null) {
+                    return $role == null ? '' : $role->getName();
+                },
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'data' => $options['data']->getRole(),
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
@@ -195,9 +216,12 @@ class UserType extends AbstractType
                     );
                     return $qb;
                 },
+                'attr' => ['class' => 'custom-control custom-radio'],
+                'label_attr' => ['class' => 'custom-control-label'],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Сохранить',
+
             ]);
     }
 

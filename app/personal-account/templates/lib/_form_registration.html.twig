@@ -10,21 +10,24 @@
                                 <div class="card-header font-weight-bold">Авторизационные данные</div>
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.username) }}
+                                        <legend>{{'user.username'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.username) }}#}
                                         {{ form_widget(formregistration.username) }}
                                         <small>{{ form_help(formregistration.username) }}</small>
                                         {{ form_errors(formregistration.username) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.password) }}
+                                        <legend>{{'user.password'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.password) }}#}
                                         {{ form_widget(formregistration.password) }}
                                         <small>{{ form_help(formregistration.password) }}</small>
                                         {{ form_errors(formregistration.password) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.email) }}
+                                        <legend>{{'user.email'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.email) }}#}
                                         {{ form_widget(formregistration.email) }}
                                         <small>{{ form_help(formregistration.email) }}</small>
                                         {{ form_errors(formregistration.email) }}
@@ -39,21 +42,24 @@
                                 <div class="card-header font-weight-bold">Фамилия, имя, отчество на русском языке</div>
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.lastname) }}
+                                        <legend>{{'user.lastname'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.lastname) }}#}
                                         {{ form_widget(formregistration.lastname) }}
                                         <small>{{ form_help(formregistration.lastname) }}</small>
                                         {{ form_errors(formregistration.lastname) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.firstname) }}
+                                        <legend>{{'user.firstname'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.firstname) }}#}
                                         {{ form_widget(formregistration.firstname) }}
                                         <small>{{ form_help(formregistration.firstname) }}</small>
                                         {{ form_errors(formregistration.firstname) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.patronymic) }}
+                                        <legend>{{'user.patronymic'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.patronymic) }}#}
                                         {{ form_widget(formregistration.patronymic) }}
                                         <small>{{ form_help(formregistration.patronymic) }}</small>
                                         {{ form_errors(formregistration.patronymic) }}
@@ -69,14 +75,16 @@
                                 <div class="card-header font-weight-bold">Категория пользователя</div>
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.userkind) }}
-                                        {{ form_widget(formregistration.userkind, {'attr': {'class': 'custom-control custom-radio'}}) }}
+                                        <legend>{{'user.kind'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.userkind) }}#}
+                                        {{ form_widget(formregistration.userkind) }}
                                         <small>{{ form_help(formregistration.userkind) }}</small>
                                         {{ form_errors(formregistration.userkind) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.roles) }}
+                                        <legend>{{'user.roles'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.roles) }}#}
                                         {{ form_widget(formregistration.roles, {'attr': {'class': 'custom-control custom-radio'}}) }}
                                         <small>{{ form_help(formregistration.roles) }}</small>
                                         {{ form_errors(formregistration.roles) }}
@@ -90,14 +98,24 @@
                                 <div class="card-header font-weight-bold">Информация о пользователе</div>
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.positions) }}
+                                        <legend>{{'user.department'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.department) }}#}
+                                        {{ form_widget(formregistration.department) }}
+                                        <small>{{ form_help(formregistration.department) }}</small>
+                                        {{ form_errors(formregistration.department) }}
+                                        <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+                                    </div>
+                                    <div class="form-group col text-dark">
+                                        <legend>{{'user.positions'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.positions) }}#}
                                         {{ form_widget(formregistration.positions) }}
                                         <small>{{ form_help(formregistration.positions) }}</small>
                                         {{ form_errors(formregistration.positions) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.interests) }}
+                                        <legend>{{'user.interests'|trans({},'forms')|raw}}</legend>
+{#                                        {{ form_label(formregistration.interests) }}#}
                                         {{ form_widget(formregistration.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
                                         <small>{{ form_help(formregistration.interests) }}</small>
                                         {{ form_errors(formregistration.interests) }}

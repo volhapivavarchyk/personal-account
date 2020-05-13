@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="VP\PersonalAccount\Repository\UserKindRepository")
  * @ORM\Table(name="userkind", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
 class UserKind implements Serializable
@@ -19,7 +19,7 @@ class UserKind implements Serializable
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="usertype")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="userkind")
      */
     protected $users;
 
@@ -59,8 +59,7 @@ class UserKind implements Serializable
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
-            $user->addRole($this);
-            $this->users[] = $user;
+             $this->users[] = $user;
         }
         return $this;
     }

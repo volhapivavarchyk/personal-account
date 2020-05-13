@@ -5,15 +5,15 @@ namespace VP\PersonalAccount\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use VP\PersonalAccount\Entity\UserKind;
+use VP\PersonalAccount\Entity\Role;
 
-class UserKindRepository extends ServiceEntityRepository
+class RoleRepository extends ServiceEntityRepository
 {
-    const DEFAULT_USER_KIND_ID = 1;
+    const DEFAULT_ROLE_ID = 2;
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserKind::class);
+        parent::__construct($registry, Role::class);
     }
 
     /**
@@ -21,6 +21,6 @@ class UserKindRepository extends ServiceEntityRepository
      */
     public function findByDefault()
     {
-        return $this->find(self::DEFAULT_USER_KIND_ID);
+        return $this->find(self::DEFAULT_ROLE_ID);
     }
 }

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="VP\PersonalAccount\Repository\RoleRepository")
  * @ORM\Table(name="role", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
 class Role implements Serializable
@@ -18,8 +18,10 @@ class Role implements Serializable
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
+    /** @ORM\Column(length=128) **/
+    protected $nameRu;
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="role")
      */
     protected $users;
     /**
@@ -63,13 +65,29 @@ class Role implements Serializable
         $this->name = $name;
     }
     /**
+     * $nameRu getter
+     * @return string $nameRu
+     */
+    public function getNameRu(): ?string
+    {
+        return $this->nameRu;
+    }
+    /**
+     * $nameRu setter
+     * @param string $nameRu
+     * @return void
+     */
+    public function setNameRu(string $nameRu)
+    {
+        $this->nameRu = $nameRu;
+    }
+    /**
      * @param User $user
      * @return Role
      */
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
-            $user->addRole($this);
             $this->users[] = $user;
         }
         return $this;
@@ -78,7 +96,7 @@ class Role implements Serializable
     {
         $this->users->removeElement($user);
     }
-    public function getChildren(): Collection
+    public function getChildren(): ArrayCollection
     {
         return $this->children;
     }
