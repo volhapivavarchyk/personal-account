@@ -51,10 +51,16 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/registration", defaults={"_fragment" = "header-registration"}, name="registration", methods={"GET"})
+     * @Route("/registration", defaults={"_fragment" = "header-registration"}, name="registration", methods={"GET", "POST"})
      */
     public function registration(Request $request): Response
     {
+//        $isAjax = $this->get('Request')->isXMLHttpRequest();
+        $isAjax = $request->isXmlHttpRequest();
+        if ($isAjax) {
+            return new Response('This is ajax response '.$request->request->get('department'));
+        }
+
         $user = new User();
         $defaultUserKind = $this->getDoctrine()
             ->getRepository(UserKind::class)

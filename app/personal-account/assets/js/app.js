@@ -11,7 +11,7 @@ import 'bootstrap-sass/assets/javascripts/bootstrap/modal.js';
 import 'jquery';
 import WOW from 'wowjs/dist/wow.js';
 
-let ready = $(document).ready(function () {
+let ready = $(document).ready(function() {
     let $navbar = $(".navbar-auth");
 
     $(window).scroll(function () {
@@ -27,7 +27,7 @@ let ready = $(document).ready(function () {
         $('.authorize-background').css('background-position', 'center '+ ((scrolledY)) + 'px');
     });
     */
-    $('#btn-info-module').click(function () {
+    $('#btn-info-module').click(function (){
         for (let i = 0; i<$('.info-module').length; i++) {
             $('.info-module')[i].classList.toggle('d-none');
         }
@@ -35,7 +35,7 @@ let ready = $(document).ready(function () {
         $('#btn-info-module')[0].blur();
     });
 
-    $('#btn-notifications').click(function () {
+    $('#btn-notifications').click(function() {
         $('#notifications')[0].classList.toggle('d-none');
         $('#btn-notifications')[0].classList.toggle('active');
         $('#btn-notifications')[0].blur();
@@ -48,16 +48,39 @@ let ready = $(document).ready(function () {
         */
     });
 
-    $('#btn-feedback').click(function () {
+    $('#btn-feedback').click(function() {
         $('#feedback')[0].classList.toggle('d-none');
         $('#btn-feedback')[0].classList.toggle('active');
         $('#btn-feedback')[0].blur();
     });
 
-    $('#btn-help').click(function () {
+    $('#btn-help').click(function() {
         $('#help')[0].classList.toggle('d-none');
         $('#btn-help')[0].classList.toggle('active');
         $('#btn-help')[0].blur();
+    });
+
+    $('#user_department').change(function() {
+        let $form = $(this).closest('form');
+        console.log($form);
+        let data = {};
+        //data[$('#user_department').attr('name')] = $('#user_department').val();
+        data['department'] = $('#user_department').val();
+        console.log('22');
+
+        console.log(data);
+
+        $.ajax({
+            url : $form.attr('action'),
+            type : $form.attr('method'),
+            data : data,
+            success : function(html) {
+                console.log(html);
+                $('#user_positions').replaceWith(
+                    $(html).find('#user_positions')
+                );
+            }
+        });
     });
 
     let wow = new WOW.WOW(

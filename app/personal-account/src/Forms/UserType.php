@@ -17,9 +17,18 @@ use VP\PersonalAccount\Entity\Interest;
 use VP\PersonalAccount\Entity\Position;
 use VP\PersonalAccount\Entity\UserKind;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UserType extends AbstractType
 {
+    private $tokenStorage;
+
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -136,22 +145,48 @@ class UserType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'required'   => false,
-            ])
-            ->add('positions', EntityType::class, [
-                'label' => 'user.positions',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'class' => Position::class,
-                'mapped' => false,
-                'choice_label' => 'name',
-                'required' => false,
-                'multiple' => false,
-                'expanded' => false,
-                'group_by' => function (Position $position, $key, $value) {
-                    return $position->getDepartment();
-                },
-                'required'   => false,
-            ])
+            ]);
+        $department = $builder->get('department');
+        $builder
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($department) {
+                $form = $event->getForm();
+                $data = $event->getData();
+//                $department = $data->getDepartment();
+//                $positions = $department === null ? '' : $department->getAvailablePositions();
+                $form->add('positions', EntityType::class, [
+                    'label' => 'user.positions',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'class' => Position::class,
+                    'mapped' => false,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+//                    'choices' => $positions,
+                    'query_builder' => function(EntityRepository $er) use ($department) {
+                        $qb = $er->createQueryBuilder('p');
+                        if ($department->getData()) {
+                            $qb->where('p.department = ?1')->setParameter(1, $department);
+                        }
+                        return $qb;
+                    },
+                ]);
+            })
+//            ->add('positions', EntityType::class, [
+//                'label' => 'user.positions',
+//                'label_translation_parameters' => [],
+//                'translation_domain' => 'forms',
+//                'class' => Position::class,
+//                'mapped' => false,
+//                'choice_label' => 'name',
+//                'required' => false,
+//                'multiple' => false,
+//                'expanded' => false,
+//                'group_by' => function (Position $position, $key, $value) {
+//                    return $position->getDepartment();
+//                },
+//            ])
             ->add('interests', EntityType::class, [
                 'label' => 'user.interests',
                 'label_translation_parameters' => [],
