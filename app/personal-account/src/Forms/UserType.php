@@ -146,13 +146,9 @@ class UserType extends AbstractType
                 'expanded' => false,
                 'required'   => false,
             ]);
-        $department = $builder->get('department');
         $builder
-            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($department) {
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
-                $data = $event->getData();
-//                $department = $data->getDepartment();
-//                $positions = $department === null ? '' : $department->getAvailablePositions();
                 $form->add('positions', EntityType::class, [
                     'label' => 'user.positions',
                     'label_translation_parameters' => [],
@@ -163,30 +159,14 @@ class UserType extends AbstractType
                     'required' => false,
                     'multiple' => false,
                     'expanded' => false,
-//                    'choices' => $positions,
-                    'query_builder' => function(EntityRepository $er) use ($department) {
+                    'query_builder' => function(EntityRepository $er) use ($options) {
                         $qb = $er->createQueryBuilder('p');
-                        if ($department->getData()) {
-                            $qb->where('p.department = ?1')->setParameter(1, $department);
-                        }
+                        $idDepartment = $options['id_department'];
+                        $qb->where('p.department = ?1')->setParameter(1, $idDepartment);
                         return $qb;
                     },
                 ]);
             })
-//            ->add('positions', EntityType::class, [
-//                'label' => 'user.positions',
-//                'label_translation_parameters' => [],
-//                'translation_domain' => 'forms',
-//                'class' => Position::class,
-//                'mapped' => false,
-//                'choice_label' => 'name',
-//                'required' => false,
-//                'multiple' => false,
-//                'expanded' => false,
-//                'group_by' => function (Position $position, $key, $value) {
-//                    return $position->getDepartment();
-//                },
-//            ])
             ->add('interests', EntityType::class, [
                 'label' => 'user.interests',
                 'label_translation_parameters' => [],
@@ -264,6 +244,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'id_department' => null,
         ]);
     }
 }

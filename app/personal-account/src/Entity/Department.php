@@ -62,6 +62,14 @@ class Department implements Serializable
     {
         $this->name = $name;
     }
+    /**
+     * $positions getter
+     * @return string $positions
+     */
+    public function getPositions(): ArrayCollection
+    {
+        return $this->positions;
+    }
     public function addPosition(Position $position): self
     {
         if (!$this->positions->contains($position)) {
