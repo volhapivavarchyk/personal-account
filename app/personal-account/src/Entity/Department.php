@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="VP\PersonalAccount\Repository\DepartmentRepository")
  * @ORM\Table(name="department", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
 class Department implements Serializable
