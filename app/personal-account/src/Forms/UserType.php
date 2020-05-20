@@ -16,6 +16,7 @@ use VP\PersonalAccount\Entity\Role;
 use VP\PersonalAccount\Entity\Interest;
 use VP\PersonalAccount\Entity\Position;
 use VP\PersonalAccount\Entity\UserKind;
+use VP\PersonalAccount\Repository\DepartmentRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -145,6 +146,10 @@ class UserType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'required'   => false,
+                'query_builder' => function(DepartmentRepository $repo) {
+                    var_dump($repo-> getDepartmentOwnershipChain(2));
+                    return $repo-> getDepartmentOwnershipChain(2);
+                }
             ]);
         $builder
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {

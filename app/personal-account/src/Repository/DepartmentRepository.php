@@ -21,25 +21,26 @@ class DepartmentRepository extends ServiceEntityRepository
         $rsm = new ResultSetMapping();
         $rsm->addEntityResult(Department::class, 'dep');
         $rsm->addFieldResult('dep', 'id', 'id');
-        $rsm->addFieldResult('dep', 'name', 'name');
+        $rsm->addFieldResult('dep', 'parent', 'parent');
 
-        $query = $this->createNativeNamedQuery(
-            'with recursive cte as (
-                 SELECT dep.id, dep.parent
-                 WHERE dep.id = ?
-                 FROM   group
+        $em = $this->getEntityManager();
 
-                 UNION  ALL
-
-                 SELECT e.id, e.parent
-                 FROM   cte c
-                 JOIN   group e ON e.id = c.parent
+        $query = $em->createNativeQuery('
+            with recursive departments as (
+                SELECT id, parent_id
+                FROM department
+                WHERE id = ?
+                
+                UNION ALL
+                
+                SELECT dep.id, dep.parent_id
+                FROM departments as deps
+                JOIN department as dep ON deps.id = dep.parent_id
             )
             SELECT *
-            FROM   cte;',
-            $rsm
-        );
+            FROM departments;',
+            $rsm);
         $query->setParameter(1, $department_id);
-        return $query->getResult();
+        return $query->getScalarResult();
     }
 }
