@@ -135,22 +135,32 @@ class UserType extends AbstractType
                     'placeholder' => 'mailbox@hostname',
                 ],
             ])
-            ->add('department', EntityType::class, [
+            ->add('department', EntityTreeType::class, [
                 'label' => 'user.department',
                 'label_translation_parameters' => [],
                 'translation_domain' => 'forms',
                 'class' => Department::class,
                 'mapped' => false,
-                'choice_label' => 'name',
                 'required' => false,
                 'multiple' => false,
                 'expanded' => false,
-                'required'   => false,
-                'query_builder' => function(DepartmentRepository $repo) {
-                    var_dump($repo-> getDepartmentOwnershipChain(2));
-                    return $repo-> getDepartmentOwnershipChain(2);
-                }
+                'placeholder' => '-- выберите подразделение --',
             ]);
+//          $builder->add('department', EntityType::class, [
+//                'label' => 'user.department',
+//                'label_translation_parameters' => [],
+//                'translation_domain' => 'forms',
+//                'class' => Department::class,
+//                'mapped' => false,
+//                'choice_label' => 'name',
+//                'required' => false,
+//                'multiple' => false,
+//                'expanded' => false,
+//                'required'   => false,
+//                'query_builder' => function(DepartmentRepository $repo) {
+//                    return $repo-> getDepartmentOwnershipChain(2);
+//                }
+//            ]);
         $builder
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
@@ -170,6 +180,7 @@ class UserType extends AbstractType
                         $qb->where('p.department = ?1')->setParameter(1, $idDepartment);
                         return $qb;
                     },
+                    'placeholder' => '-- выберите должность --',
                 ]);
             })
             ->add('interests', EntityType::class, [

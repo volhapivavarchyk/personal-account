@@ -66,7 +66,7 @@ class Department implements Serializable
      * $positions getter
      * @return string $positions
      */
-    public function getPositions(): ArrayCollection
+    public function getPositions(): Collection
     {
         return $this->positions;
     }
@@ -83,7 +83,7 @@ class Department implements Serializable
     }
     /**
      * $parent getter
-     * @return Department|null $module
+     * @return Department|null $parent
      */
     public function getParent(): ?Department
     {
@@ -98,6 +98,28 @@ class Department implements Serializable
     {
         $parent->addChild($this);
         $this->parent = $parent;
+    }
+    /**
+     * $children getter
+     * @return Collection|null $children
+     */
+    public function getChildren(): ?Collection
+    {
+        return $this->children;
+    }
+    /**
+     * $children setter
+     * @return void
+     */
+    public function addChild(Department $child): void
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+        }
+    }
+    public function removeChild(Module $child): void
+    {
+        $this->children->removeElement($child);
     }
 
     public function serialize(): string

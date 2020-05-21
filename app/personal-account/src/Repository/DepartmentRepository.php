@@ -27,13 +27,13 @@ class DepartmentRepository extends ServiceEntityRepository
 
         $query = $em->createNativeQuery('
             with recursive departments as (
-                SELECT id, parent_id
+                SELECT id, parent_id, name
                 FROM department
                 WHERE id = ?
                 
                 UNION ALL
                 
-                SELECT dep.id, dep.parent_id
+                SELECT dep.id, dep.parent_id, dep.name
                 FROM departments as deps
                 JOIN department as dep ON deps.id = dep.parent_id
             )
@@ -41,6 +41,7 @@ class DepartmentRepository extends ServiceEntityRepository
             FROM departments;',
             $rsm);
         $query->setParameter(1, $department_id);
+        //return $query;
         return $query->getScalarResult();
     }
 }

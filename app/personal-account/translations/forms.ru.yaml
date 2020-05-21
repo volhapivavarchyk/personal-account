@@ -7,6 +7,7 @@ user:
   email: Адрес электронной почты
   roles: Роль
   department: Подразделение
+  department-placeholder: -- выбор подразделения --
   positions: Должность
   interests: Интересы
   histories: История взаимодействия
