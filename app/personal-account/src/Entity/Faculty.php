@@ -8,27 +8,24 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="position", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="faculty", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Position implements \Serializable
+class Faculty implements \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
+    /** @ORM\Column(length=128) **/
+    protected $shortName;
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="positions")
+     * @ORM\OneToMany(targetEntity="Speciality", mappedBy="faculty")
      */
-    protected $users;
-    /**
-     * @ORM\ManyToOne(targetEntity="Department", inversedBy="positions")
-     * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=true)
-     */
-    protected $department;
+    protected $specialities;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->specialities = new ArrayCollection();
     }
     /**
      * $id getter
@@ -36,7 +33,7 @@ class Position implements \Serializable
      */
     public function getId()
     {
-       return $this->id;
+        return $this->id;
     }
     /**
      * $name getter
@@ -56,38 +53,44 @@ class Position implements \Serializable
         $this->name = $name;
     }
     /**
-     * @param User $user
-     * @return Position
+     * $shortName getter
+     * @return string $shortName
      */
-    public function addUser(User $user): self
+    public function getShortName(): ?string
     {
-        if (!$this->users->contains($user)) {
-            $user->addPosition($this);
-            $this->users[] = $user;
-        }
-        return $this;
-    }
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
+        return $this->shortName;
     }
     /**
-     * $department getter
-     * @return Department|null $role
-     */
-    public function getDepartment(): ?Department
-    {
-        return $this->department;
-    }
-    /**
-     * $department setter
-     * @param Department|null $department
+     * $shortName setter
+     * @param string $shortName
      * @return void
      */
-    public function setDepartment(Department $department = null): void
+    public function setShortName(string $shortName)
     {
-        $department->addPosition($this);
-        $this->department = $department;
+        $this->shortName = $shortName;
+    }
+    /**
+     * $specialities getter
+     * @return Collection|null $specialities
+     */
+    public function getSpecialities(): ?Collection
+    {
+        return $this->specialities;
+    }
+    /**
+     * @param Speciality $speciality
+     * @return Speciality
+     */
+    public function addSpeciality(Speciality $speciality): void
+    {
+        if (!$this->specialities->contains($speciality)) {
+            $speciality->addSpeciality($this);
+            $this->specialities[] = $speciality;
+        }
+    }
+    public function removeSpeciality(Speciality $speciality): void
+    {
+        $this->specialities->removeElement($speciality);
     }
 
     public function serialize(): string
@@ -102,4 +105,5 @@ class Position implements \Serializable
     {
         return $this->getId().'. '.$this->getName();
     }
+
 }

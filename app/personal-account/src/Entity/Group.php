@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="position", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="group", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class Position implements \Serializable
+class Group implements \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -21,10 +21,10 @@ class Position implements \Serializable
      */
     protected $users;
     /**
-     * @ORM\ManyToOne(targetEntity="Department", inversedBy="positions")
-     * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Speciality", inversedBy="groups")
+     * @ORM\JoinColumn(name="speciality_id", referencedColumnName="id", nullable=true)
      */
-    protected $department;
+    protected $speciality;
 
     public function __construct()
     {
@@ -36,7 +36,7 @@ class Position implements \Serializable
      */
     public function getId()
     {
-       return $this->id;
+        return $this->id;
     }
     /**
      * $name getter
@@ -56,38 +56,45 @@ class Position implements \Serializable
         $this->name = $name;
     }
     /**
+     * $users getter
+     * @return Collection|null $users
+     */
+    public function getUsers(): ?Collection
+    {
+        return $this->users;
+    }
+    /**
      * @param User $user
      * @return Position
      */
-    public function addUser(User $user): self
+    public function addUser(User $user): void
     {
         if (!$this->users->contains($user)) {
-            $user->addPosition($this);
+            $user->addGroup($this);
             $this->users[] = $user;
         }
-        return $this;
     }
-    public function removeUser(User $user): self
+    public function removeUser(User $user): void
     {
         $this->users->removeElement($user);
     }
     /**
-     * $department getter
-     * @return Department|null $role
+     * $speciality getter
+     * @return Speciality|null $cpeciality
      */
-    public function getDepartment(): ?Department
+    public function getSpeciality(): ?Speciality
     {
-        return $this->department;
+        return $this->speciality;
     }
     /**
-     * $department setter
-     * @param Department|null $department
+     * $speciality setter
+     * @param Speciality|null $speciality
      * @return void
      */
-    public function setDepartment(Department $department = null): void
+    public function setSpeciality(Speciality $speciality = null): void
     {
-        $department->addPosition($this);
-        $this->department = $department;
+        $speciality->addGroup($this);
+        $this->speciality = $speciality;
     }
 
     public function serialize(): string
@@ -102,4 +109,5 @@ class Position implements \Serializable
     {
         return $this->getId().'. '.$this->getName();
     }
+
 }

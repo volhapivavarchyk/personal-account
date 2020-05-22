@@ -42,6 +42,11 @@ class User implements UserInterface, \Serializable
      */
     protected $positions;
     /**
+     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinTable(name="users_groups")
+     */
+    protected $groups;
+    /**
      * @ORM\OneToMany(targetEntity="Interest", mappedBy="user")
      */
     protected $interests;
@@ -212,7 +217,7 @@ class User implements UserInterface, \Serializable
         $role->addUser($this);
         $this->role = $role;
     }
-    public function getPositions(): ArrayCollection
+    public function getPositions(): Collection
     {
         return $this->positions;
     }
@@ -227,8 +232,23 @@ class User implements UserInterface, \Serializable
     {
         $this->positions->removeElement($position);
     }
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+    public function addGroup(Group $group): self
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups[] = $group;
+        }
+        return $this;
+    }
+    public function removeGroup(Group $group): self
+    {
+        $this->groups->removeElement($group);
+    }
 
-    public function getInterests(): ArrayCollection
+    public function getInterests(): Collection
     {
         return $this->interests;
     }
