@@ -11,6 +11,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\{Length, Regex};
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use VP\PersonalAccount\Entity\Department;
+use VP\PersonalAccount\Entity\Faculty;
+use VP\PersonalAccount\Entity\Group;
+use VP\PersonalAccount\Entity\Speciality;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\Role;
 use VP\PersonalAccount\Entity\Interest;
@@ -134,7 +137,8 @@ class UserType extends AbstractType
                 'attr' => [
                     'placeholder' => 'mailbox@hostname',
                 ],
-            ])
+            ]);
+        $builder
             ->add('department', EntityTreeType::class, [
                 'label' => 'user.department',
                 'label_translation_parameters' => [],
@@ -145,7 +149,7 @@ class UserType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'placeholder' => '-- выберите подразделение --',
-            ]);
+            ])
 //          $builder->add('department', EntityType::class, [
 //                'label' => 'user.department',
 //                'label_translation_parameters' => [],
@@ -161,7 +165,6 @@ class UserType extends AbstractType
 //                    return $repo-> getDepartmentOwnershipChain(2);
 //                }
 //            ]);
-        $builder
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
                 $form->add('positions', EntityType::class, [
@@ -182,7 +185,62 @@ class UserType extends AbstractType
                     },
                     'placeholder' => '-- выберите должность --',
                 ]);
+            });
+        $builder
+            ->add('faculty', EntityType::class, [
+                'label' => 'user.faculty',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Faculty::class,
+                'mapped' => false,
+                'required' => false,
+                'multiple' => false,
+                'expanded' => false,
+                'placeholder' => '-- выберите факультет --',
+            ])
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                $form->add('speciality', EntityType::class, [
+                    'label' => 'user.speciality',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'class' => Speciality::class,
+                    'mapped' => false,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function(EntityRepository $er) use ($options) {
+                        $qb = $er->createQueryBuilder('f');
+                        $idFaculty = $options['id_faculty'];
+                        $qb->where('f.faculty = ?1')->setParameter(1, $idFaculty);
+                        return $qb;
+                    },
+                    'placeholder' => '-- выберите специальность --',
+                ]);
             })
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                $form->add('group', EntityType::class, [
+                    'label' => 'user.group',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'class' => Group::class,
+                    'mapped' => false,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function(EntityRepository $er) use ($options) {
+                        $qb = $er->createQueryBuilder('g');
+                        $idSpeciality = $options['id_speciality'];
+                        $qb->where('g.speciality = ?1')->setParameter(1, $idSpeciality);
+                        return $qb;
+                    },
+                    'placeholder' => '-- выберите группу --',
+                ]);
+            });
+        $builder
             ->add('interests', EntityType::class, [
                 'label' => 'user.interests',
                 'label_translation_parameters' => [],
@@ -213,6 +271,11 @@ class UserType extends AbstractType
                 },
                 'choice_attr' => function($choice, $key, $value) {
                     return ['class' => 'custom-control-input'];
+                },
+                'query_builder' => function(EntityRepository $er) {
+                    $qb = $er->createQueryBuilder('uk')
+                        ->orderBy('uk.id', 'ASC');
+                    return $qb;
                 },
                 'data' => $options['data']->getUserKind(),
                 'required' => true,
@@ -261,6 +324,8 @@ class UserType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
             'id_department' => null,
+            'id_faculty' => null,
+            'id_speciality' => null,
         ]);
     }
 }

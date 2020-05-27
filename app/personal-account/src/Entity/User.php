@@ -37,13 +37,11 @@ class User implements UserInterface, \Serializable
      */
     protected $role;
     /**
-     * @ORM\ManyToMany(targetEntity="Position", inversedBy="users", cascade={"persist"})
-     * @ORM\JoinTable(name="users_positions")
+     * @ORM\OneToMany(targetEntity="UserPosition", mappedBy="user")
      */
     protected $positions;
     /**
-     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users", cascade={"persist"})
-     * @ORM\JoinTable(name="users_groups")
+     * @ORM\OneToMany(targetEntity="UserGroup", mappedBy="user")
      */
     protected $groups;
     /**
@@ -65,8 +63,8 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
         $this->positions = new ArrayCollection();
+        $this->groups = new ArrayCollection();
         $this->interests = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->messages = new ArrayCollection();
@@ -221,14 +219,13 @@ class User implements UserInterface, \Serializable
     {
         return $this->positions;
     }
-    public function addPosition(Position $position): self
+    public function addPosition(UserPosition $position): void
     {
         if (!$this->positions->contains($position)) {
             $this->positions[] = $position;
         }
-        return $this;
     }
-    public function removePosition(Position $position): self
+    public function removePosition(UserPosition $position): void
     {
         $this->positions->removeElement($position);
     }
@@ -236,14 +233,13 @@ class User implements UserInterface, \Serializable
     {
         return $this->groups;
     }
-    public function addGroup(Group $group): self
+    public function addGroup(UserGroup $group): void
     {
         if (!$this->groups->contains($group)) {
             $this->groups[] = $group;
         }
-        return $this;
     }
-    public function removeGroup(Group $group): self
+    public function removeGroup(UserGroup $group): void
     {
         $this->groups->removeElement($group);
     }

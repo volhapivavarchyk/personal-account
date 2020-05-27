@@ -13,6 +13,9 @@ user:
   histories: История взаимодействия
   messages: Сообщения
   kind: Тип пользователя
+  faculty: Факультет
+  speciality: Специальность
+  group: Группа
 role:
   name: Наименование роли
   children: Подроли

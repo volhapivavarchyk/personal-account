@@ -72,14 +72,13 @@ class SecurityController extends AbstractController
             ->getRepository(Role::class)
             ->findByDefault();
         $user->setRole($defaultRole);
-//        $role = new Role();
-//        $position = new Position();
-//        $interest = new Interest();
-//        $user->addRole($role);
-//        $user->getPositions()->add($position);
-//        $user->getInterests()->add($interest);
 
-        $registrationForm = $this->createForm(UserType::class, $user, ['id_department' => $idDepartment]);
+        $registrationForm = $this->createForm(
+            UserType::class,
+            $user,
+            [
+                'id_department' => $idDepartment
+            ]);
         $registrationForm->handleRequest($request);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {

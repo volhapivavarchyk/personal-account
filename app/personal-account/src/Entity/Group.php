@@ -17,7 +17,7 @@ class Group implements \Serializable
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="positions")
+     * @ORM\OneToMany(targetEntity="UserGroup", mappedBy="group")
      */
     protected $users;
     /**
@@ -28,7 +28,7 @@ class Group implements \Serializable
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->usersGroups = new ArrayCollection();
     }
     /**
      * $id getter
@@ -64,17 +64,17 @@ class Group implements \Serializable
         return $this->users;
     }
     /**
-     * @param User $user
-     * @return Position
+     * @param UserGroup $user
+     * @return void
      */
-    public function addUser(User $user): void
+    public function addUser(UserGroup $user): void
     {
         if (!$this->users->contains($user)) {
             $user->addGroup($this);
             $this->users[] = $user;
         }
     }
-    public function removeUser(User $user): void
+    public function removeUser(UserGroup $user): void
     {
         $this->users->removeElement($user);
     }

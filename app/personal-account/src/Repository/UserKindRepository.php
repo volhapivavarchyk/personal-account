@@ -9,7 +9,7 @@ use VP\PersonalAccount\Entity\UserKind;
 
 class UserKindRepository extends ServiceEntityRepository
 {
-    const DEFAULT_USER_KIND_ID = 1;
+    const DEFAULT_USER_KIND_ID = 3;
 
     public function __construct(ManagerRegistry $registry)
     {

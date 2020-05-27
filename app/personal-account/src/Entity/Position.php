@@ -17,7 +17,7 @@ class Position implements \Serializable
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="positions")
+     * @ORM\OneToMany(targetEntity="UserPosition", mappedBy="position")
      */
     protected $users;
     /**
@@ -56,18 +56,25 @@ class Position implements \Serializable
         $this->name = $name;
     }
     /**
-     * @param User $user
-     * @return Position
+     * $users getter
+     * @return Collection $users
      */
-    public function addUser(User $user): self
+    public function getUsers(): ?Collection
+    {
+        return $this->users;
+    }
+    /**
+     * @param UserPosition $user
+     * @return void
+     */
+    public function addUser(UsersPositions $user): void
     {
         if (!$this->users->contains($user)) {
-            $user->addPosition($this);
+            $user->setPosition($this);
             $this->users[] = $user;
         }
-        return $this;
     }
-    public function removeUser(User $user): self
+    public function removeUser(UserPosition $user): void
     {
         $this->users->removeElement($user);
     }
