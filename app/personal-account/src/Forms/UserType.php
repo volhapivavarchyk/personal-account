@@ -225,7 +225,7 @@ class UserType extends AbstractType
                     'label' => 'user.group',
                     'label_translation_parameters' => [],
                     'translation_domain' => 'forms',
-                    'class' => StudentsGroup::class,
+                    'class' => StudentGroup::class,
                     'mapped' => false,
                     'choice_label' => 'name',
                     'required' => false,

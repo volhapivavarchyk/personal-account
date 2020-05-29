@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user_studentsgroup")
+ * @ORM\Table(name="user_studentgroup")
  */
-class UserStudentsGroup
+class UserStudentGroup
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
@@ -21,15 +21,15 @@ class UserStudentsGroup
     /** @ORM\Column(type="string", length=128) **/
     protected $reasonDemote;
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="studentsGroups")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="studentGroups")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
     /**
-     * @ORM\ManyToOne(targetEntity="StudentsGroup", inversedBy="users")
-     * @ORM\JoinColumn(name="studentsgroup_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="users")
+     * @ORM\JoinColumn(name="studentgroup_id", referencedColumnName="id", nullable=false)
      */
-    protected $studentsGroup;
+    protected $studentGroup;
 
     /**
      * $id getter
@@ -112,20 +112,20 @@ class UserStudentsGroup
     }
 
     /**
-     * $group getter
-     * @return StudentsGroup $studentsGroup
+     * $studentGroup getter
+     * @return StudentGroup $studentGroup
      */
-    public function getStudentsGroup(): StudentsGroup
+    public function getStudentGroup(): StudentGroup
     {
-        return $this->studentsGroup;
+        return $this->studentGroup;
     }
     /**
      * $group setter
-     * @param StudentsGroup $studentsGroup
+     * @param StudentGroup $studentGroup
      * @return void
      */
-    public function setStudentsGroup(StudentsGroup $studentsGroup): void
+    public function setStudentGroup(StudentGroup $studentGroup): void
     {
-        $this->studentsGroup = $studentsGroup;
+        $this->studentGroup = $studentGroup;
     }
 }

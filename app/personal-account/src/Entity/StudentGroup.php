@@ -8,20 +8,20 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="studentsgroup", indexes={@ORM\Index(name="search_idx", columns={"name"})})
+ * @ORM\Table(name="studentgroup", indexes={@ORM\Index(name="search_idx", columns={"name"})})
  */
-class StudentsGroup implements \Serializable
+class StudentGroup implements \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
     /** @ORM\Column(length=128) **/
     protected $name;
     /**
-     * @ORM\OneToMany(targetEntity="UserStudentsGroup", mappedBy="studentsGroup")
+     * @ORM\OneToMany(targetEntity="UserStudentGroup", mappedBy="studentGroup")
      */
     protected $users;
     /**
-     * @ORM\ManyToOne(targetEntity="Speciality", inversedBy="groups")
+     * @ORM\ManyToOne(targetEntity="Speciality", inversedBy="studentGroups")
      * @ORM\JoinColumn(name="speciality_id", referencedColumnName="id", nullable=true)
      */
     protected $speciality;
@@ -64,17 +64,17 @@ class StudentsGroup implements \Serializable
         return $this->users;
     }
     /**
-     * @param UserStudentsGroup $user
+     * @param UserStudentGroup $user
      * @return void
      */
-    public function addUser(UserStudentsGroup $user): void
+    public function addUser(UserStudentGroup $user): void
     {
         if (!$this->users->contains($user)) {
-            $user->addStudentsGroup($this);
+            $user->addStudentGroup($this);
             $this->users[] = $user;
         }
     }
-    public function removeUser(UserStudentsGroup $user): void
+    public function removeUser(UserStudentGroup $user): void
     {
         $this->users->removeElement($user);
     }

@@ -41,9 +41,9 @@ class User implements UserInterface, \Serializable
      */
     protected $positions;
     /**
-     * @ORM\OneToMany(targetEntity="UserStudentsGroup", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="UserStudentGroup", mappedBy="user")
      */
-    protected $studentsGroups;
+    protected $studentGroups;
     /**
      * @ORM\OneToMany(targetEntity="Interest", mappedBy="user")
      */
@@ -64,7 +64,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->positions = new ArrayCollection();
-        $this->studentsGroups = new ArrayCollection();
+        $this->studentGroups = new ArrayCollection();
         $this->interests = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->messages = new ArrayCollection();
@@ -229,19 +229,19 @@ class User implements UserInterface, \Serializable
     {
         $this->positions->removeElement($position);
     }
-    public function getStudentsGroups(): Collection
+    public function getStudentGroups(): Collection
     {
-        return $this->studentsGroups;
+        return $this->studentGroups;
     }
-    public function addStudentsGroup(UserStudentsGroup $studentsGroup): void
+    public function addStudentGroup(UserStudentGroup $studentGroup): void
     {
-        if (!$this->studentsGroups->contains($studentsGroup)) {
-            $this->studentsGroups[] = $studentsGroup;
+        if (!$this->studentGroups->contains($studentGroup)) {
+            $this->studentGroups[] = $studentGroup;
         }
     }
-    public function removeStudentsGroup(UserStudentsGroup $studentsGroup): void
+    public function removeStudentGroup(UserStudentGroup $studentGroup): void
     {
-        $this->studentsGroups->removeElement($studentsGroup);
+        $this->studentGroups->removeElement($studentGroup);
     }
 
     public function getInterests(): Collection

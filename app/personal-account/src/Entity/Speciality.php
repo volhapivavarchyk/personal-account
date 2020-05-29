@@ -21,9 +21,9 @@ class Speciality implements \Serializable
     /** @ORM\Column(length=64) **/
     protected $code;
     /**
-     * @ORM\OneToMany(targetEntity="StudentsGroup", mappedBy="speciality")
+     * @ORM\OneToMany(targetEntity="StudentGroup", mappedBy="speciality")
      */
-    protected $studentsGroups;
+    protected $studentGroups;
     /**
      * @ORM\ManyToOne(targetEntity="Faculty", inversedBy="specialities")
      * @ORM\JoinColumn(name="faculty_id", referencedColumnName="id", nullable=true)
@@ -32,7 +32,7 @@ class Speciality implements \Serializable
 
     public function __construct()
     {
-        $this->groups = new ArrayCollection();
+        $this->studentGroups = new ArrayCollection();
     }
     /**
      * $id getter
@@ -94,27 +94,27 @@ class Speciality implements \Serializable
         $this->code = $code;
     }
     /**
-     * $studentsGroups getter
-     * @return Collection|null $studentsGroups
+     * $studentGroups getter
+     * @return Collection|null $studentGroups
      */
-    public function getStudentsGroups(): ?Collection
+    public function getStudentGroups(): ?Collection
     {
-        return $this->studentsGroups;
+        return $this->studentGroups;
     }
     /**
-     * @param StudentsGroup $studentsGroup
+     * @param StudentGroup $studentGroup
      * @return void
      */
-    public function addStudentsGroup(StudentsGroup $studentsGroup): void
+    public function addStudentGroup(StudentGroup $studentGroup): void
     {
-        if (!$this->studentsGroups->contains($studentsGroup)) {
-            $studentsGroup->setSpeciality($this);
-            $this->studentsGroups[] = $studentsGroup;
+        if (!$this->studentGroups->contains($studentGroup)) {
+            $studentGroup->setSpeciality($this);
+            $this->studentGroups[] = $studentGroup;
         }
     }
-    public function removeStudentsGroup(StudentsGroup $studentsGroup): self
+    public function removeStudentGroup(StudentGroup $studentGroup): self
     {
-        $this->studentsGroups->removeElement($studentsGroup);
+        $this->studentGroups->removeElement($studentGroup);
     }
     /**
      * $faculty getter
