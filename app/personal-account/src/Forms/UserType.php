@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints\{Length, Regex};
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use VP\PersonalAccount\Entity\Department;
 use VP\PersonalAccount\Entity\Faculty;
-use VP\PersonalAccount\Entity\Group;
+use VP\PersonalAccount\Entity\StudentsGroup;
 use VP\PersonalAccount\Entity\Speciality;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\Role;
@@ -225,7 +225,7 @@ class UserType extends AbstractType
                     'label' => 'user.group',
                     'label_translation_parameters' => [],
                     'translation_domain' => 'forms',
-                    'class' => Group::class,
+                    'class' => StudentsGroup::class,
                     'mapped' => false,
                     'choice_label' => 'name',
                     'required' => false,
@@ -315,7 +315,6 @@ class UserType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Сохранить',
-
             ]);
     }
 

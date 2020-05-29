@@ -21,9 +21,9 @@ class Speciality implements \Serializable
     /** @ORM\Column(length=64) **/
     protected $code;
     /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="speciality")
+     * @ORM\OneToMany(targetEntity="StudentsGroup", mappedBy="speciality")
      */
-    protected $groups;
+    protected $studentsGroups;
     /**
      * @ORM\ManyToOne(targetEntity="Faculty", inversedBy="specialities")
      * @ORM\JoinColumn(name="faculty_id", referencedColumnName="id", nullable=true)
@@ -94,28 +94,27 @@ class Speciality implements \Serializable
         $this->code = $code;
     }
     /**
-     * $groups getter
-     * @return Collection|null $groups
+     * $studentsGroups getter
+     * @return Collection|null $studentsGroups
      */
-    public function getGroups(): ?Collection
+    public function getStudentsGroups(): ?Collection
     {
-        return $this->groups;
+        return $this->studentsGroups;
     }
     /**
-     * @param Group $group
-     * @return Group
+     * @param StudentsGroup $studentsGroup
+     * @return void
      */
-    public function addGroup(Group $group): self
+    public function addStudentsGroup(StudentsGroup $studentsGroup): void
     {
-        if (!$this->groups->contains($group)) {
-            $group->setSpeciality($this);
-            $this->groups[] = $group;
+        if (!$this->studentsGroups->contains($studentsGroup)) {
+            $studentsGroup->setSpeciality($this);
+            $this->studentsGroups[] = $studentsGroup;
         }
-        return $this;
     }
-    public function removeGroup(Group $group): self
+    public function removeStudentsGroup(StudentsGroup $studentsGroup): self
     {
-        $this->groups->removeElement($group);
+        $this->studentsGroups->removeElement($studentsGroup);
     }
     /**
      * $faculty getter
