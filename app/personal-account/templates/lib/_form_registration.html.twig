@@ -119,21 +119,21 @@
 
                                     {# ############################################################ #}
                                     {# Блок информации о пользователе типа "Студент университета"   #}
-                                    <div id="student-faculty" class="form-group col text-dark invisible">
+                                    <div id="student-faculty" class="form-group col text-dark">
                                         <legend>{{'user.faculty'|trans({},'forms')|raw}}</legend>
                                         {{ form_widget(formregistration.faculty) }}
                                         <small>{{ form_help(formregistration.faculty) }}</small>
                                         {{ form_errors(formregistration.faculty) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
-                                    <div id="student-speciality" class="form-group col text-dark invisible">
+                                    <div id="student-speciality" class="form-group col text-dark">
                                         <legend>{{'user.speciality'|trans({},'forms')|raw}}</legend>
                                         {{ form_widget(formregistration.speciality) }}
                                         <small>{{ form_help(formregistration.speciality) }}</small>
                                         {{ form_errors(formregistration.speciality) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
-                                    <div id="student-group" class="form-group col text-dark invisible">
+                                    <div id="student-group" class="form-group col text-dark">
                                         <legend>{{'user.group'|trans({},'forms')|raw}}</legend>
                                         {{ form_widget(formregistration.group) }}
                                         <small>{{ form_help(formregistration.group) }}</small>

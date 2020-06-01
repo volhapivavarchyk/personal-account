@@ -56,12 +56,9 @@ class SecurityController extends AbstractController
     public function registration(Request $request): Response
     {
         // initialize a department id for choosing positions
-        $idDepartment = null;
-        $isAjax = $request->isXmlHttpRequest();
-        if ($isAjax) {
-            $idDepartment = $request->request->get('department');
-           // return new Response('This is ajax response '.$request->request->get('department'));
-        }
+        $idDepartment = $request->request->get('department') ? $request->request->get('department') : null;
+        $idFaculty = $request->request->get('faculty') ? $request->request->get('faculty') : null;
+        $idSpeciality = $request->request->get('speciality') ? $request->request->get('speciality') : null;
 
         $user = new User();
         $defaultUserKind = $this->getDoctrine()
@@ -77,7 +74,9 @@ class SecurityController extends AbstractController
             UserType::class,
             $user,
             [
-                'id_department' => $idDepartment
+                'id_department' => $idDepartment,
+                'id_faculty' => $idFaculty,
+                'id_speciality' => $idSpeciality,
             ]);
         $registrationForm->handleRequest($request);
 

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints\{Length, Regex};
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use VP\PersonalAccount\Entity\Department;
 use VP\PersonalAccount\Entity\Faculty;
-use VP\PersonalAccount\Entity\StudentsGroup;
+use VP\PersonalAccount\Entity\StudentGroup;
 use VP\PersonalAccount\Entity\Speciality;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\Role;

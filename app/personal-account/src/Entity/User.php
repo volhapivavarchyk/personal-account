@@ -7,6 +7,7 @@ namespace VP\PersonalAccount\Entity;
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use VP\PersonalAccount\Entity\UserStudentGroup;
 
 /**
  * @ORM\Entity

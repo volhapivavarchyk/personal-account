@@ -62,22 +62,55 @@ let ready = $(document).ready(function() {
 
     $('#user_department').change(function() {
         let $form = $(this).closest('form');
-        console.log($form);
         let data = {};
         //data[$('#user_department').attr('name')] = $('#user_department').val();
         data['department'] = $('#user_department').val();
-        console.log('22');
-
-        console.log(data);
 
         $.ajax({
             url : $form.attr('action'),
             type : $form.attr('method'),
             data : data,
             success : function(html) {
-                console.log(html);
                 $('#user_positions').replaceWith(
                     $(html).find('#user_positions')
+                );
+            }
+        });
+    });
+
+    $('#user_faculty').change(function() {
+        let $form = $(this).closest('form');
+        let data = {};
+        data['faculty'] = $('#user_faculty').val();
+        data['speciality'] = null;
+
+        $.ajax({
+            url : $form.attr('action'),
+            type : $form.attr('method'),
+            data : data,
+            success : function(html) {
+                $('#user_speciality').replaceWith(
+                    $(html).find('#user_speciality')
+                );
+                $('#user_group').replaceWith(
+                    $(html).find('#user_group')
+                );
+            }
+        });
+    });
+
+    $('#user_speciality').change(function() {
+        let $form = $(this).closest('form');
+        let data = {};
+        data['speciality'] = $('#user_speciality').val();
+
+        $.ajax({
+            url : $form.attr('action'),
+            type : $form.attr('method'),
+            data : data,
+            success : function(html) {
+                $('#user_group').replaceWith(
+                    $(html).find('#user_group')
                 );
             }
         });
