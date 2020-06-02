@@ -92,6 +92,7 @@ let ready = $(document).ready(function() {
                 $('#user_speciality').replaceWith(
                     $(html).find('#user_speciality')
                 );
+                console.log($('#user_speciality'));
                 $('#user_group').replaceWith(
                     $(html).find('#user_group')
                 );
@@ -99,7 +100,7 @@ let ready = $(document).ready(function() {
         });
     });
 
-    $('#user_speciality').change(function() {
+    $('body').on('change', '#user_speciality', function() {
         let $form = $(this).closest('form');
         let data = {};
         data['speciality'] = $('#user_speciality').val();
@@ -114,6 +115,32 @@ let ready = $(document).ready(function() {
                 );
             }
         });
+    });
+
+    $('input[name="user[userkind]"]').on('click', function() {
+        let val = $('input[name="user[userkind]"]:checked').val();
+        switch(val) {
+            case '2':
+                $('#colleague-department').addClass('invisible');
+                $('#colleague-position').addClass('invisible');
+                $('#student-faculty').removeClass('invisible');
+                $('#student-speciality').removeClass('invisible');
+                $('#student-group').removeClass('invisible');
+                break;
+            case '3':
+                $('#colleague-department').removeClass('invisible');
+                $('#colleague-position').removeClass('invisible');
+                $('#student-faculty').addClass('invisible');
+                $('#student-speciality').addClass('invisible');
+                $('#student-group').addClass('invisible');
+                break;
+            case '4':
+                $('#colleague-department').addClass('invisible');
+                $('#colleague-position').addClass('invisible');
+                $('#student-faculty').addClass('invisible');
+                $('#student-speciality').addClass('invisible');
+                $('#student-group').addClass('invisible');
+        }
     });
 
     let wow = new WOW.WOW(

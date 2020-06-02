@@ -7,27 +7,50 @@ namespace VP\PersonalAccount\Entity;
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use VP\PersonalAccount\Entity\UserStudentGroup;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user", indexes={@ORM\Index(name="search_idx", columns={"email", "firstname", "lastname"})})
+ * @UniqueEntity(fields="username", message="Username already taken")
+ * @UniqueEntity(fields="email", message="Email already taken")
  */
 class User implements UserInterface, \Serializable
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
-    /** @ORM\Column(length=128) **/
+    /**
+     * @ORM\Column(length=128, unique=true)
+     * @Assert\NotBlank()
+     */
     protected $username;
-    /** @ORM\Column(type="string", length=128) **/
+    /**
+     * @ORM\Column(type="string", length=128)
+     * @Assert\NotBlank()
+     */
     protected $password;
-    /** @ORM\Column(length=64) **/
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    protected $passwordRepeat;
+    /**
+     * @ORM\Column(length=64)
+     * @Assert\NotBlank()
+     */
     protected $firstname;
-    /** @ORM\Column(length=64) **/
+    /**
+     * @ORM\Column(length=64)
+     * @Assert\NotBlank()
+     */
     protected $lastname;
     /** @ORM\Column(length=64) **/
     protected $patronymic;
-    /** @ORM\Column(length=128) **/
+    /**
+     * @ORM\Column(length=128)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
     protected $email;
     /**
      * @ORM\ManyToOne(targetEntity="UserKind", inversedBy="users")
@@ -115,6 +138,23 @@ class User implements UserInterface, \Serializable
     public function setPassword(string $password)
     {
         $this->password = password_hash($password);
+    }
+    /**
+     * $passwordRepeat getter
+     * @return string $passwordRepeat
+     */
+    public function getPasswordRepeat(): ?string
+    {
+        return $this->passwordRepeat;
+    }
+    /**
+     * $passwordRepeat setter
+     * @param string $passwordRepeat
+     * @return void
+     */
+    public function setPasswordRepeat(string $passwordRepeat)
+    {
+        $this->passwordRepeat = password_hash($passwordRepeat);
     }
 
     public function getFirstname(): ?string

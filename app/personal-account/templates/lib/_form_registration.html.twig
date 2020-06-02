@@ -26,6 +26,13 @@
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
                                     <div class="form-group col text-dark">
+                                        <legend>{{'user.password_repeat'|trans({},'forms')|raw}}</legend>
+                                        {{ form_widget(formregistration.passwordRepeat) }}
+                                        <small>{{ form_help(formregistration.passwordRepeat) }}</small>
+                                        {{ form_errors(formregistration.passwordRepeat) }}
+                                        <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
+                                    </div>
+                                    <div class="form-group col text-dark">
                                         <legend>{{'user.email'|trans({},'forms')|raw}}</legend>
 {#                                        {{ form_label(formregistration.email) }}#}
                                         {{ form_widget(formregistration.email) }}
@@ -119,21 +126,21 @@
 
                                     {# ############################################################ #}
                                     {# Блок информации о пользователе типа "Студент университета"   #}
-                                    <div id="student-faculty" class="form-group col text-dark">
+                                    <div id="student-faculty" class="form-group col text-dark invisible">
                                         <legend>{{'user.faculty'|trans({},'forms')|raw}}</legend>
                                         {{ form_widget(formregistration.faculty) }}
                                         <small>{{ form_help(formregistration.faculty) }}</small>
                                         {{ form_errors(formregistration.faculty) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
-                                    <div id="student-speciality" class="form-group col text-dark">
+                                    <div id="student-speciality" class="form-group col text-dark invisible">
                                         <legend>{{'user.speciality'|trans({},'forms')|raw}}</legend>
                                         {{ form_widget(formregistration.speciality) }}
                                         <small>{{ form_help(formregistration.speciality) }}</small>
                                         {{ form_errors(formregistration.speciality) }}
                                         <div class="valid-tooltip">Введите имя пользователя. Должно содержать 3 и более символов</div>
                                     </div>
-                                    <div id="student-group" class="form-group col text-dark">
+                                    <div id="student-group" class="form-group col text-dark invisible">
                                         <legend>{{'user.group'|trans({},'forms')|raw}}</legend>
                                         {{ form_widget(formregistration.group) }}
                                         <small>{{ form_help(formregistration.group) }}</small>

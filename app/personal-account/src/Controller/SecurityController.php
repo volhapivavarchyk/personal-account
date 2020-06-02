@@ -58,6 +58,7 @@ class SecurityController extends AbstractController
         // initialize a department id for choosing positions
         $idDepartment = $request->request->get('department') ? $request->request->get('department') : null;
         $idFaculty = $request->request->get('faculty') ? $request->request->get('faculty') : null;
+
         $idSpeciality = $request->request->get('speciality') ? $request->request->get('speciality') : null;
 
         $user = new User();

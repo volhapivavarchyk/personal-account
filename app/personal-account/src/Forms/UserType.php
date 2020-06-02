@@ -66,6 +66,15 @@ class UserType extends AbstractType
                     'placeholder' => '******',
                 ],
             ])
+            ->add('passwordRepeat', PasswordType::class, [
+                'label' => 'user.password_repeat',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => '******',
+                ],
+            ])
             ->add('firstname', TextType::class, [
                 'label' => 'user.firstname',
                 'translation_domain' => 'forms',
@@ -193,6 +202,7 @@ class UserType extends AbstractType
                 'translation_domain' => 'forms',
                 'class' => Faculty::class,
                 'mapped' => false,
+                'choice_label' => 'name',
                 'required' => false,
                 'multiple' => false,
                 'expanded' => false,
@@ -213,7 +223,7 @@ class UserType extends AbstractType
                     'query_builder' => function(EntityRepository $er) use ($options) {
                         $qb = $er->createQueryBuilder('f');
                         $idFaculty = $options['id_faculty'];
-                        $qb->where('f.faculty = ?1')->setParameter(1, $idFaculty);
+//                        $qb->where('f.faculty = ?1')->setParameter(1, $idFaculty);
                         return $qb;
                     },
                     'placeholder' => '-- выберите специальность --',
