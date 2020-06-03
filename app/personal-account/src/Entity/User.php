@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
@@ -24,6 +25,12 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank()
      */
     protected $username;
+    /**
+     * @ORM\Column(length=128)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    protected $email;
     /**
      * @ORM\Column(type="string", length=128)
      * @Assert\NotBlank()
@@ -46,12 +53,6 @@ class User implements UserInterface, \Serializable
     protected $lastname;
     /** @ORM\Column(length=64) **/
     protected $patronymic;
-    /**
-     * @ORM\Column(length=128)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    protected $email;
     /**
      * @ORM\ManyToOne(targetEntity="UserKind", inversedBy="users")
      */

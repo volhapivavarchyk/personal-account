@@ -14,6 +14,8 @@ import WOW from 'wowjs/dist/wow.js';
 let ready = $(document).ready(function() {
     let $navbar = $(".navbar-auth");
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     $(window).scroll(function () {
         if ($(this).scrollTop() > 1) {
             $navbar.addClass("top-nav-collapse");

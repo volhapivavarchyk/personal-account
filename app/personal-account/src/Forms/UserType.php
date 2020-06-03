@@ -42,19 +42,34 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'IvanovI',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => 'Имя пользователя должно состоять из букв латинского алфавита, цифр и симвлов. Должно содержать не менее 3 символов',
                 ],
                 'constraints' => [
                     new Length([
                         'min' => 3,
                         'minMessage' => 'Это значение слишком короткое. Оно должно иметь 3 или более символов',
-                        'max' => 120,
-                        'maxMessage' => 'Это значение слишком длинное. Оно должно иметь 120 или менее символов',
+                        'max' => 128,
+                        'maxMessage' => 'Это значение слишком длинное. Оно должно иметь 128 или менее символов',
                     ]),
                     new Regex([
                         'pattern' => '/[A-Za-z0-9\s]*/',
                         'match' => true,
                         'message' => 'Имя пользователя должно содержать буквы латинского алфавита, цифры и символы'
                     ]),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'user.email',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'mailbox@hostname',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => 'Пример: oit@barsu.by',
                 ],
             ])
             ->add('password', PasswordType::class, [
@@ -64,6 +79,24 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => '******',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => 'Пароль должен состоять из букв латинского алфавита, цифр и специальных симвлов. 
+                        Должен содержать не менее 6 символов. 
+                        Обязательно наличие строчных и прописных символов',
+                ],
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Введенное значение слишком короткое. Должно состоять из 6 или более символов',
+                        'max' => 128,
+                        'maxMessage' => 'Введенное значение слишком длинное. Должно состоять из 128 или менее символов',
+                    ]),
+                    new Regex([
+                        'pattern' => '/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g',
+                        'match' => true,
+                        'message' => 'Пароль должен состоять из букв латинского алфавита, цифр и специальных симвлов. Обязательно наличие строчных и прописных символов'
+                    ]),
                 ],
             ])
             ->add('passwordRepeat', PasswordType::class, [
@@ -73,6 +106,9 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => '******',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => 'В поле необходимо ввести строку полностью совпадающую с введенным выше паролем',
                 ],
             ])
             ->add('firstname', TextType::class, [
@@ -136,15 +172,6 @@ class UserType extends AbstractType
                         'match' => true,
                         'message' => 'Имя пользователя должно содержать буквы и цифры'
                     ]),
-                ],
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'user.email',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'required' => true,
-                'attr' => [
-                    'placeholder' => 'mailbox@hostname',
                 ],
             ]);
         $builder
