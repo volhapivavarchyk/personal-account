@@ -1,7 +1,8 @@
 user:
   username: Имя пользователя
-  password: Пароль
-  password_repeat: Повтор пароля
+  password_all: Пароль
+  password: Введите пароль
+  password_repeat: Повторите пароль
   firstname: Имя
   lastname: Фамилия
   patronymic: Отчество

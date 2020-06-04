@@ -40,7 +40,7 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
-    protected $passwordRepeat;
+    protected $plainPassword;
     /**
      * @ORM\Column(length=64)
      * @Assert\NotBlank()
@@ -141,21 +141,21 @@ class User implements UserInterface, \Serializable
         $this->password = password_hash($password);
     }
     /**
-     * $passwordRepeat getter
-     * @return string $passwordRepeat
+     * $plainPassword getter
+     * @return string $plainPassword
      */
-    public function getPasswordRepeat(): ?string
+    public function getPlainPassword(): ?string
     {
-        return $this->passwordRepeat;
+        return $this->plainPassword;
     }
     /**
-     * $passwordRepeat setter
-     * @param string $passwordRepeat
+     * $password setter
+     * @param string $password
      * @return void
      */
-    public function setPasswordRepeat(string $passwordRepeat)
+    public function setPlainPassword(string $password)
     {
-        $this->passwordRepeat = password_hash($passwordRepeat);
+        $this->plainPassword = password_hash($password);
     }
 
     public function getFirstname(): ?string

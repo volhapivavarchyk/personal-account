@@ -6,7 +6,12 @@ namespace VP\PersonalAccount\Forms;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Core\Type\{TextType, PasswordType, EmailType, CollectionType, SubmitType};
+use Symfony\Component\Form\Extension\Core\Type\{RepeatedType,
+    TextType,
+    PasswordType,
+    EmailType,
+    CollectionType,
+    SubmitType};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\{Length, Regex};
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -44,14 +49,15 @@ class UserType extends AbstractType
                     'placeholder' => 'IvanovI',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
-                    'title' => 'Имя пользователя должно состоять из букв латинского алфавита, цифр и симвлов. Должно содержать не менее 3 символов',
+                    'data-title' => "Имя пользователя должно состоять из <b> букв латинского алфавита</b>, <b>цифр</b> и <b>симвлов</b>. Должно содержать <b>не менее 3 символов</b>",
+                    'data-html' => 'true',
                 ],
                 'constraints' => [
                     new Length([
                         'min' => 3,
-                        'minMessage' => 'Это значение слишком короткое. Оно должно иметь 3 или более символов',
+                        'minMessage' => 'Имя пользователя должно содержать не менее 3 символов',
                         'max' => 128,
-                        'maxMessage' => 'Это значение слишком длинное. Оно должно иметь 128 или менее символов',
+                        'maxMessage' => 'Имя пользователя должно содержать не более 128 символов',
                     ]),
                     new Regex([
                         'pattern' => '/[A-Za-z0-9\s]*/',
@@ -69,46 +75,50 @@ class UserType extends AbstractType
                     'placeholder' => 'mailbox@hostname',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
-                    'title' => 'Пример: oit@barsu.by',
+                    'data-title' => 'Пример: oit@barsu.by',
                 ],
             ])
-            ->add('password', PasswordType::class, [
-                'label' => 'user.password',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'required' => true,
-                'attr' => [
-                    'placeholder' => '******',
-                    'data-toggle' => 'tooltip',
-                    'data-placement' => 'left',
-                    'title' => 'Пароль должен состоять из букв латинского алфавита, цифр и специальных симвлов. 
-                        Должен содержать не менее 6 символов. 
-                        Обязательно наличие строчных и прописных символов',
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'label' => 'user.password',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'required' => true,
+                    'attr' => [
+                        'placeholder' => '******',
+                        'data-toggle' => 'tooltip',
+                        'data-placement' => 'left',
+                        'data-title' => 'Пароль должен состоять из <b>букв латинского алфавита</b>, <b>цифр</b> и <b>специальных симвлов</b>.
+                        Должен содержать <b>не менее 6 символов</b>.
+                        Обязательно <b>наличие строчных и прописных символов</b>',
+                        'data-html' => 'true',
+                    ],
+                    'constraints' => [
+                        new Length([
+                            'min' => 6,
+                            'minMessage' => 'Пароль должен содержать не менее 6 символов',
+                            'max' => 128,
+                            'maxMessage' => 'Пароль должен содержать не более 128 символов',
+                        ]),
+                        new Regex([
+                            'pattern' => '/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g',
+                            'match' => true,
+                            'message' => 'Пароль должен состоять из букв латинского алфавита, цифр и специальных симвлов. Обязательно наличие строчных и прописных символов'
+                        ]),
+                    ],
                 ],
-                'constraints' => [
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Введенное значение слишком короткое. Должно состоять из 6 или более символов',
-                        'max' => 128,
-                        'maxMessage' => 'Введенное значение слишком длинное. Должно состоять из 128 или менее символов',
-                    ]),
-                    new Regex([
-                        'pattern' => '/(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g',
-                        'match' => true,
-                        'message' => 'Пароль должен состоять из букв латинского алфавита, цифр и специальных симвлов. Обязательно наличие строчных и прописных символов'
-                    ]),
-                ],
-            ])
-            ->add('passwordRepeat', PasswordType::class, [
-                'label' => 'user.password_repeat',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'required' => true,
-                'attr' => [
-                    'placeholder' => '******',
-                    'data-toggle' => 'tooltip',
-                    'data-placement' => 'left',
-                    'title' => 'В поле необходимо ввести строку полностью совпадающую с введенным выше паролем',
+                'second_options' => [
+                    'label' => 'user.password_repeat',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'required' => true,
+                    'attr' => [
+                        'placeholder' => '******',
+                        'data-toggle' => 'tooltip',
+                        'data-placement' => 'left',
+                        'data-title' => 'В поле необходимо ввести строку полностью совпадающую с введенным паролем',
+                    ],
                 ],
             ])
             ->add('firstname', TextType::class, [
@@ -117,18 +127,22 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Иван',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Имя на русском языке должно состоять из <b>букв русского алфавита</b>',
+                    'data-html' => 'true',
                 ],
                 'constraints' => [
                     new Length([
                         'min' => 3,
-                        'minMessage' => 'Это значение слишком короткое. Оно должно иметь 3 или более символов',
-                        'max' => 120,
-                        'maxMessage' => 'Это значение слишком длинное. Оно должно иметь 120 или менее символов',
+                        'minMessage' => 'Имя должно содержать не менее 3 символов',
+                        'max' => 128,
+                        'maxMessage' => 'Имя должно содержать не более 128 символов',
                     ]),
                     new Regex([
                         'pattern' => '/[A-Za-zА-Яа-я0-9\s]*/',
                         'match' => true,
-                        'message' => 'Фамилия должно содержать буквы'
+                        'message' => 'Имя на русском языке должно состоять из букв русского алфавита'
                     ]),
                 ],
             ])
@@ -138,18 +152,22 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Иванов',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Фамилия на русском языке должна состоять из <b>букв русского алфавита</b>',
+                    'data-html' => 'true',
                 ],
                 'constraints' => [
                     new Length([
                         'min' => 3,
-                        'minMessage' => 'Это значение слишком короткое. Оно должно иметь 3 или более символов',
+                        'minMessage' => 'Фамилия должна содержать не менее 3 символов',
                         'max' => 120,
-                        'maxMessage' => 'Это значение слишком длинное. Оно должно иметь 120 или менее символов',
+                        'maxMessage' => 'Фамилия должна содержать не более 128 символов',
                     ]),
                     new Regex([
                         'pattern' => '/[A-Za-zА-Яа-я0-9\s]*/',
                         'match' => true,
-                        'message' => 'Имя пользователя должно содержать буквы и цифры'
+                        'message' => 'Фамилия на русском языке должна состоять из букв русского алфавита'
                     ]),
                 ],
             ])
@@ -159,141 +177,26 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Иванович',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Отчество на русском языке должно состоять из <b>букв русского алфавита</b>',
+                    'data-html' => 'true',
                 ],
                 'constraints' => [
                     new Length([
                         'min' => 3,
-                        'minMessage' => 'Это значение слишком короткое. Оно должно иметь 3 или более символов',
+                        'minMessage' => 'Отчество должно содержать не менее 3 символов',
                         'max' => 120,
-                        'maxMessage' => 'Это значение слишком длинное. Оно должно иметь 120 или менее символов',
+                        'maxMessage' => 'Отчество должно содержать не более 128 символов',
                     ]),
                     new Regex([
                         'pattern' => '/[A-Za-zА-Яа-я0-9\s]*/',
                         'match' => true,
-                        'message' => 'Имя пользователя должно содержать буквы и цифры'
+                        'message' => 'Отчество на русском языке должно состоять из букв русского алфавита'
                     ]),
                 ],
             ]);
         $builder
-            ->add('department', EntityTreeType::class, [
-                'label' => 'user.department',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'class' => Department::class,
-                'mapped' => false,
-                'required' => false,
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder' => '-- выберите подразделение --',
-            ])
-//          $builder->add('department', EntityType::class, [
-//                'label' => 'user.department',
-//                'label_translation_parameters' => [],
-//                'translation_domain' => 'forms',
-//                'class' => Department::class,
-//                'mapped' => false,
-//                'choice_label' => 'name',
-//                'required' => false,
-//                'multiple' => false,
-//                'expanded' => false,
-//                'required'   => false,
-//                'query_builder' => function(DepartmentRepository $repo) {
-//                    return $repo-> getDepartmentOwnershipChain(2);
-//                }
-//            ]);
-            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
-                $form = $event->getForm();
-                $form->add('positions', EntityType::class, [
-                    'label' => 'user.positions',
-                    'label_translation_parameters' => [],
-                    'translation_domain' => 'forms',
-                    'class' => Position::class,
-                    'mapped' => false,
-                    'choice_label' => 'name',
-                    'required' => false,
-                    'multiple' => false,
-                    'expanded' => false,
-                    'query_builder' => function(EntityRepository $er) use ($options) {
-                        $qb = $er->createQueryBuilder('p');
-                        $idDepartment = $options['id_department'];
-                        $qb->where('p.department = ?1')->setParameter(1, $idDepartment);
-                        return $qb;
-                    },
-                    'placeholder' => '-- выберите должность --',
-                ]);
-            });
-        $builder
-            ->add('faculty', EntityType::class, [
-                'label' => 'user.faculty',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'class' => Faculty::class,
-                'mapped' => false,
-                'choice_label' => 'name',
-                'required' => false,
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder' => '-- выберите факультет --',
-            ])
-            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
-                $form = $event->getForm();
-                $form->add('speciality', EntityType::class, [
-                    'label' => 'user.speciality',
-                    'label_translation_parameters' => [],
-                    'translation_domain' => 'forms',
-                    'class' => Speciality::class,
-                    'mapped' => false,
-                    'choice_label' => 'name',
-                    'required' => false,
-                    'multiple' => false,
-                    'expanded' => false,
-                    'query_builder' => function(EntityRepository $er) use ($options) {
-                        $qb = $er->createQueryBuilder('f');
-                        $idFaculty = $options['id_faculty'];
-//                        $qb->where('f.faculty = ?1')->setParameter(1, $idFaculty);
-                        return $qb;
-                    },
-                    'placeholder' => '-- выберите специальность --',
-                ]);
-            })
-            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
-                $form = $event->getForm();
-                $form->add('group', EntityType::class, [
-                    'label' => 'user.group',
-                    'label_translation_parameters' => [],
-                    'translation_domain' => 'forms',
-                    'class' => StudentGroup::class,
-                    'mapped' => false,
-                    'choice_label' => 'name',
-                    'required' => false,
-                    'multiple' => false,
-                    'expanded' => false,
-                    'query_builder' => function(EntityRepository $er) use ($options) {
-                        $qb = $er->createQueryBuilder('g');
-                        $idSpeciality = $options['id_speciality'];
-                        $qb->where('g.speciality = ?1')->setParameter(1, $idSpeciality);
-                        return $qb;
-                    },
-                    'placeholder' => '-- выберите группу --',
-                ]);
-            });
-        $builder
-            ->add('interests', EntityType::class, [
-                'label' => 'user.interests',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'class' => Interest::class,
-                'mapped' => false,
-                'choice_label' => 'name',
-                'choice_attr' => function($choice, $key, $value) {
-                    return ['class' => 'custom-control-input'];
-                },
-                'required' => false,
-                'multiple' => true,
-                'expanded' => true,
-                'attr' => ['class' => 'custom-control custom-radio'],
-                'label_attr' => ['class' => 'custom-control-label'],
-            ])
             ->add('userkind', EntityType::class, [
                 'label' => 'user.kind',
                 'label_translation_parameters' => [],
@@ -318,7 +221,12 @@ class UserType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
-                'attr' => ['class' => 'custom-control custom-radio'],
+                'attr' => [
+                    'class' => 'custom-control custom-radio',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Тип пользователя ...',
+                ],
                 'label_attr' => ['class' => 'custom-control-label'],
             ])
             ->add('roles', EntityType::class, [
@@ -347,9 +255,150 @@ class UserType extends AbstractType
                     );
                     return $qb;
                 },
-                'attr' => ['class' => 'custom-control custom-radio'],
+                'attr' => [
+                    'class' => 'custom-control custom-radio',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Роль пользователя ...',
+                ],
                 'label_attr' => ['class' => 'custom-control-label'],
+            ]);
+        $builder
+            ->add('department', EntityTreeType::class, [
+                'label' => 'user.department',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Department::class,
+                'mapped' => false,
+                'required' => false,
+                'multiple' => false,
+                'expanded' => false,
+                'placeholder' => '-- выберите подразделение --',
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Подразделение университета, в котором работает сотрудник',
+                ],
             ])
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                $form->add('positions', EntityType::class, [
+                    'label' => 'user.positions',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'class' => Position::class,
+                    'mapped' => false,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function(EntityRepository $er) use ($options) {
+                        $qb = $er->createQueryBuilder('p');
+                        $idDepartment = $options['id_department'];
+                        $qb->where('p.department = ?1')->setParameter(1, $idDepartment);
+                        return $qb;
+                    },
+                    'placeholder' => '-- выберите должность --',
+                    'attr' => [
+                        'data-toggle' => 'tooltip',
+                        'data-placement' => 'left',
+                        'data-title' => 'Должность сотрудника университета',
+                    ],
+                ]);
+            });
+        $builder
+            ->add('faculty', EntityType::class, [
+                'label' => 'user.faculty',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Faculty::class,
+                'mapped' => false,
+                'choice_label' => 'name',
+                'required' => false,
+                'multiple' => false,
+                'expanded' => false,
+                'placeholder' => '-- выберите факультет --',
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Факультет, на котором учится студент',
+                ],
+            ])
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                $form->add('speciality', EntityType::class, [
+                    'label' => 'user.speciality',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'class' => Speciality::class,
+                    'mapped' => false,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function(EntityRepository $er) use ($options) {
+                        $qb = $er->createQueryBuilder('f');
+                        $idFaculty = $options['id_faculty'];
+                        $qb->where('f.faculty = ?1')->setParameter(1, $idFaculty);
+                        return $qb;
+                    },
+                    'placeholder' => '-- выберите специальность --',
+                    'attr' => [
+                        'data-toggle' => 'tooltip',
+                        'data-placement' => 'left',
+                        'data-title' => 'Специальность, на которой учится студент',
+                    ],
+                ]);
+            })
+            -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                $form->add('group', EntityType::class, [
+                    'label' => 'user.group',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'class' => StudentGroup::class,
+                    'mapped' => false,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function(EntityRepository $er) use ($options) {
+                        $qb = $er->createQueryBuilder('g');
+                        $idSpeciality = $options['id_speciality'];
+                        $qb->where('g.speciality = ?1')->setParameter(1, $idSpeciality);
+                        return $qb;
+                    },
+                    'placeholder' => '-- выберите группу --',
+                    'attr' => [
+                        'data-toggle' => 'tooltip',
+                        'data-placement' => 'left',
+                        'data-title' => 'Группа, в которой учится студент',
+                    ],
+                ]);
+            });
+        $builder
+            ->add('interests', EntityType::class, [
+                'label' => 'user.interests',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Interest::class,
+                'mapped' => false,
+                'choice_label' => 'name',
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'attr' => [
+                    'class' => 'custom-control custom-radio',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Перечеь интересов пользователя. Можно выбрать множество',
+                ],
+                'label_attr' => ['class' => 'custom-control-label'],
+            ]);
+        $builder
             ->add('submit', SubmitType::class, [
                 'label' => 'Сохранить',
             ]);

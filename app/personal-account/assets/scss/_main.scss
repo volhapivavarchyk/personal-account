@@ -7,6 +7,10 @@ hr {
   };
   margin: 10px 10px 15px;
 }
+label.required:not(.form-check-label):after {
+  content: " *";
+  color: red;
+}
 .invisible {
   display: none;
 }
