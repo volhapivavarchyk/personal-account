@@ -18,6 +18,10 @@ $color-very-dark-blue: (0, 30, 93);
 $color-dark-blue: (0, 72, 144);
 $color-black: (0, 0, 0);
 
+$color-gray: #868e96;
+$color-gray-dark: #373a3c;
+$color-gray-light: #d1dde5;
+
 @import "~bootswatch/dist/cosmo/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/cosmo/bootswatch";

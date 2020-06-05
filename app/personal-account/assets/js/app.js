@@ -1,7 +1,5 @@
 import '../scss/app.scss';
 
-// loads the Bootstrap jQuery plugins
-//import 'bootstrap/js/dist/dropdown.js';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/transition.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/alert.js';
@@ -9,12 +7,13 @@ import 'bootstrap-sass/assets/javascripts/bootstrap/collapse.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/dropdown.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/modal.js';
 import 'jquery';
+import 'popper.js/dist/popper.js';
 import WOW from 'wowjs/dist/wow.js';
 
 let ready = $(document).ready(function() {
     let $navbar = $(".navbar-auth");
 
-    $('[data-toggle="tooltip"]').tooltip();
+    $('body').tooltip({selector: '[data-toggle="tooltip"]'});
 
     $(window).scroll(function () {
         if ($(this).scrollTop() > 1) {
@@ -62,10 +61,9 @@ let ready = $(document).ready(function() {
         $('#btn-help')[0].blur();
     });
 
-    $('#user_department').change(function() {
+    $('body').on('change', '#user_department', function() {
         let $form = $(this).closest('form');
         let data = {};
-        //data[$('#user_department').attr('name')] = $('#user_department').val();
         data['department'] = $('#user_department').val();
 
         $.ajax({
@@ -73,14 +71,13 @@ let ready = $(document).ready(function() {
             type : $form.attr('method'),
             data : data,
             success : function(html) {
-                $('#user_positions').replaceWith(
-                    $(html).find('#user_positions')
-                );
+                $('[data-toggle="tooltip"]').tooltip('hide');
+                $('#user_positions').replaceWith($(html).find('#user_positions'));
             }
         });
     });
 
-    $('#user_faculty').change(function() {
+    $('body').on('change', '#user_faculty', function() {
         let $form = $(this).closest('form');
         let data = {};
         data['faculty'] = $('#user_faculty').val();
@@ -91,10 +88,10 @@ let ready = $(document).ready(function() {
             type : $form.attr('method'),
             data : data,
             success : function(html) {
+                $('[data-toggle="tooltip"]').tooltip('hide');
                 $('#user_speciality').replaceWith(
                     $(html).find('#user_speciality')
                 );
-                console.log($('#user_speciality'));
                 $('#user_group').replaceWith(
                     $(html).find('#user_group')
                 );
@@ -112,6 +109,7 @@ let ready = $(document).ready(function() {
             type : $form.attr('method'),
             data : data,
             success : function(html) {
+                $('[data-toggle="tooltip"]').tooltip('hide');
                 $('#user_group').replaceWith(
                     $(html).find('#user_group')
                 );
@@ -162,3 +160,7 @@ let ready = $(document).ready(function() {
     wow.init();
     console.log(wow);
 });
+
+// $(document).ajaxComplete(function() {
+//     $('[data-toggle="tooltip"]').tooltip();
+// });
