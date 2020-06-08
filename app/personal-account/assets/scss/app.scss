@@ -17,10 +17,11 @@ $color-bright-blue: (39, 128, 227);
 $color-very-dark-blue: (0, 30, 93);
 $color-dark-blue: (0, 72, 144);
 $color-black: (0, 0, 0);
+$color-gray: (134, 142, 150);
+$color-gray-mid-light: (219, 220, 221);
 
-$color-gray: #868e96;
 $color-gray-dark: #373a3c;
-$color-gray-light: #d1dde5;
+$color-gray-light: #f8f9fa;
 
 @import "~bootswatch/dist/cosmo/variables";
 @import "~bootstrap/scss/bootstrap";

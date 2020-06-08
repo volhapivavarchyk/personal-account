@@ -82,9 +82,23 @@ class SecurityController extends AbstractController
         $registrationForm->handleRequest($request);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
-            $user = $registrationForm->getData();
-
-            return $this->redirectToRoute('user-success');
+            $recaptchaResponse = $request->request->get('g-recaptcha-response');
+            if (!empty($recaptchaResponse)) {
+                $captchaUrl= $_ENV['PERSONAL_ACCOUNT_CAPTCHA_KEY'];
+                $captchaSecret = $_ENV['PERSONAL_ACCOUNT_CAPTCHA_SECRET'];
+                $url = $captchaUrl . "?secret="
+                    . $captchaSecret . "&response="
+                    . $recaptchaResponse . "&remoteip="
+                    . $this->request->server->get('REMOTE_ADDR');
+                $rsp = file_get_contents($url);
+                $captchaData = json_decode($rsp, true);
+                if ($captchaData['success']) {
+                    // add user to DB and redirect to success route
+                    $user = $registrationForm->getData();
+                    var_dump($user);
+                    return $this->redirectToRoute('user-success');
+                }
+            }
         }
 
         return $this->render(
@@ -92,6 +106,7 @@ class SecurityController extends AbstractController
             [
                 'formregistration' => $registrationForm->createView(),
                 'error' => '',
+                'captchaKey' => $_ENV['PERSONAL_ACCOUNT_CAPTCHA_KEY'],
             ]);
     }
 

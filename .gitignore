@@ -1,6 +1,7 @@
 .idea
 .env
 ngrok.exe
+captcha.docx
 docker/mysql/*
 docker/nginx/site.conf
 app/personal-account/node_modules/

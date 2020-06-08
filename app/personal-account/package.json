@@ -28,6 +28,7 @@
     "bootstrap": "^4.4.1",
     "bootstrap-sass": "^3.4.1",
     "bootswatch": "^4.4.1",
+    "google-recaptcha": "^1.1.0",
     "wowjs": "^1.1.3"
   }
 }

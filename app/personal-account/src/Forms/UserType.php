@@ -11,9 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\{RepeatedType,
     PasswordType,
     EmailType,
     CollectionType,
-    SubmitType};
+    SubmitType,
+    CheckboxType};
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\{Length, Regex};
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use VP\PersonalAccount\Entity\Department;
 use VP\PersonalAccount\Entity\Faculty;
@@ -394,11 +396,18 @@ class UserType extends AbstractType
                     'class' => 'custom-control custom-radio',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
-                    'data-title' => 'Перечеь интересов пользователя. Можно выбрать множество',
+                    'data-title' => 'Перечень интересов пользователя. Можно выбрать множество',
                 ],
                 'label_attr' => ['class' => 'custom-control-label'],
             ]);
         $builder
+            ->add('termsAccepted', CheckboxType::class, array(
+                'label' => 'user.terms-accepted',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'mapped' => false,
+                'constraints' => new IsTrue(),
+            ))
             ->add('submit', SubmitType::class, [
                 'label' => 'Сохранить',
             ]);

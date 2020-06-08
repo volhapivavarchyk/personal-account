@@ -1,19 +1,19 @@
 /* CSS modifies Bootstrap 4*/
 .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {
-  border-top-color: $color-gray-light; /* цвет стрелочки (по умолчанию #000)*/
+  border-top-color: get-color-with-alpha($color-gray-mid-light, 0.7); /* цвет стрелочки (по умолчанию #000)*/
 }
 .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {
-  border-right-color: $color-gray-light; /* цвет стрелочки (по умолчанию #000)*/
+  border-right-color: get-color-with-alpha($color-gray-mid-light, 0.7); /* цвет стрелочки (по умолчанию #000)*/
 }
 .bs-tooltip-bottom .arrow::before, .bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
-  border-bottom-color: $color-gray-light; /* цвет стрелочки (по умолчанию #000) */
+  border-bottom-color: get-color-with-alpha($color-gray-mid-light, 0.7); /* цвет стрелочки (по умолчанию #000) */
 }
 .bs-tooltip-left .arrow::before, .bs-tooltip-auto[x-placement^="left"] .arrow::before {
-  border-left-color: $color-gray-light; /* цвет стрелочки (по умолчанию #000) */
+  border-left-color: get-color-with-alpha($color-gray-mid-light, 0.7); /* цвет стрелочки (по умолчанию #000) */
 }
 .tooltip-inner {
   max-width: 250px; /* максимальная ширина подсказки (по умолчанию 200px) */
   color: $color-gray-dark; /* цвет шрифта */
-  background-color:  $color-gray-light; /* цвет фона (по умолчанию #000) */
+  background-color:  get-color-with-alpha($color-gray-mid-light, 0.7); /* цвет фона (по умолчанию #000) */
   border-radius: 0.25rem; /* радиус скругдения углов */
 }
