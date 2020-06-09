@@ -7,8 +7,8 @@ hr {
   };
   margin: 10px 10px 15px;
 }
-label.required:not(.form-check-label):after {
-  content: " *";
+label.required:not(.form-check-label):before {
+  content: "* ";
   color: red;
 }
 .invisible {

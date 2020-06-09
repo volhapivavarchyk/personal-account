@@ -21,6 +21,7 @@ use VP\PersonalAccount\Entity\Position;
 use VP\PersonalAccount\Entity\Interest;
 //use VP\PersonalAccount\Repository\UserKindRepository;
 //use VP\PersonalAccount\Repository\RoleRepository;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
@@ -53,8 +54,11 @@ class SecurityController extends AbstractController
     /**
      * @Route("/registration", defaults={"_fragment" = "header-registration"}, name="registration", methods={"GET", "POST"})
      */
-    public function registration(Request $request): Response
+    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        // helper vars
+        $captchaError = '';
+
         // initialize a department id for choosing positions
         $idDepartment = $request->request->get('department') ? $request->request->get('department') : null;
         $idFaculty = $request->request->get('faculty') ? $request->request->get('faculty') : null;
@@ -84,20 +88,33 @@ class SecurityController extends AbstractController
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
             $recaptchaResponse = $request->request->get('g-recaptcha-response');
             if (!empty($recaptchaResponse)) {
-                $captchaUrl= $_ENV['PERSONAL_ACCOUNT_CAPTCHA_KEY'];
-                $captchaSecret = $_ENV['PERSONAL_ACCOUNT_CAPTCHA_SECRET'];
-                $url = $captchaUrl . "?secret="
-                    . $captchaSecret . "&response="
-                    . $recaptchaResponse . "&remoteip="
-                    . $this->request->server->get('REMOTE_ADDR');
-                $rsp = file_get_contents($url);
-                $captchaData = json_decode($rsp, true);
-                if ($captchaData['success']) {
+                $curl = curl_init();
+                curl_setopt_array($curl, [
+                    CURLOPT_RETURNTRANSFER => 1,
+                    CURLOPT_URL => $_ENV['PERSONAL_ACCOUNT_CAPTCHA_URL'],
+                    CURLOPT_POST => 1,
+                    CURLOPT_POSTFIELDS => array(
+                        'secret' => $_ENV['PERSONAL_ACCOUNT_CAPTCHA_SECRET'],
+                        'response' => $recaptchaResponse,
+                    )
+                ]);
+                $response = curl_exec($curl);
+                curl_close($curl);
+                if (strpos($response, '"success": true') !== false) {
                     // add user to DB and redirect to success route
-                    $user = $registrationForm->getData();
-                    var_dump($user);
-                    return $this->redirectToRoute('user-success');
+                    //$user = $registrationForm->getData();
+                    $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                    $user->setPassword($password);
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($user);
+                    $em->flash();
+                    //return $this->redirectToRoute('user-success');
+                } else {
+                    $captchaError = 'Не верно введена captcha';
                 }
+            } else {
+                $captchaError = 'Не введена captcha';
             }
         }
 
@@ -106,6 +123,7 @@ class SecurityController extends AbstractController
             [
                 'formregistration' => $registrationForm->createView(),
                 'error' => '',
+                'captchaError' => $captchaError,
                 'captchaKey' => $_ENV['PERSONAL_ACCOUNT_CAPTCHA_KEY'],
             ]);
     }

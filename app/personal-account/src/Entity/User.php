@@ -33,7 +33,6 @@ class User implements UserInterface, \Serializable
     protected $email;
     /**
      * @ORM\Column(type="string", length=128)
-     * @Assert\NotBlank()
      */
     protected $password;
     /**
@@ -138,7 +137,8 @@ class User implements UserInterface, \Serializable
      */
     public function setPassword(string $password)
     {
-        $this->password = password_hash($password);
+//        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $password;
     }
     /**
      * $plainPassword getter
@@ -155,7 +155,8 @@ class User implements UserInterface, \Serializable
      */
     public function setPlainPassword(string $password)
     {
-        $this->plainPassword = password_hash($password);
+//        $this->plainPassword = password_hash($password, PASSWORD_DEFAULT);
+        $this->plainPassword = $password;
     }
 
     public function getFirstname(): ?string
