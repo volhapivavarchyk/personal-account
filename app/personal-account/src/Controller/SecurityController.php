@@ -13,10 +13,12 @@ use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension as FormHttpFoundationExtension;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Validator\Validation;
+use VP\PersonalAccount\Entity\UserPosition;
 use VP\PersonalAccount\Forms\UserType;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\UserKind;
 use VP\PersonalAccount\Entity\Role;
+use VP\PersonalAccount\Entity\UserStudentGroup;
 use VP\PersonalAccount\Entity\Position;
 use VP\PersonalAccount\Entity\Interest;
 //use VP\PersonalAccount\Repository\UserKindRepository;
@@ -59,10 +61,14 @@ class SecurityController extends AbstractController
         // helper vars
         $captchaError = '';
 
+//        $isAjax = $request->isXmlHttpRequest();
+//        if ($isAjax) {
+//            return new Response('This is ajax response '.$request->request->get('department'));
+//        }
+
         // initialize a department id for choosing positions
         $idDepartment = $request->request->get('department') ? $request->request->get('department') : null;
         $idFaculty = $request->request->get('faculty') ? $request->request->get('faculty') : null;
-
         $idSpeciality = $request->request->get('speciality') ? $request->request->get('speciality') : null;
 
         $user = new User();
@@ -84,7 +90,6 @@ class SecurityController extends AbstractController
                 'id_speciality' => $idSpeciality,
             ]);
         $registrationForm->handleRequest($request);
-
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
             $recaptchaResponse = $request->request->get('g-recaptcha-response');
             if (!empty($recaptchaResponse)) {
@@ -106,9 +111,24 @@ class SecurityController extends AbstractController
                     $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                     $user->setPassword($password);
 
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($user);
-                    $em->flash();
+//                    $em = $this->getDoctrine()->getManager();
+//                    $em->persist($user);
+//                    $em->flush();
+//                    if (strcmp($user->getUserKind()->getName(),$_ENV['EMPLOYEE']) > 0) {
+//                        $userPosition = new UserPosition();
+//                        $userPosition->setPosition();
+//                        $userPosition->setUser($user);
+//                        $userPosition->setDateStart();
+//                        $em->persist($userPosition);
+//                        $em->flush();
+//                    } elseif (strcmp($user->getUserKind()->getName(),$_ENV['STUDENT']) > 0) {
+//                        $userStudentGroup = new UserStudentGroup();
+//                        $userStudentGroup->setStudentGroup();
+//                        $userStudentGroup->setUser($user);
+//                        $userStudentGroup->setDateStart();
+//                        $em->persist($userStudentGroup);
+//                        $em->flush();
+//                    }
                     //return $this->redirectToRoute('user-success');
                 } else {
                     $captchaError = 'Не верно введена captcha';

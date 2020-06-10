@@ -66,11 +66,15 @@ let ready = $(document).ready(function() {
         let data = {};
         data['department'] = $('#user_department').val();
 
+        console.log(data['department']);
+
         $.ajax({
             url : $form.attr('action'),
             type : $form.attr('method'),
             data : data,
             success : function(html) {
+                console.log('mmmmmmmmmmmmmmmm');
+                console.log($('#user_positions'));
                 $('[data-toggle="tooltip"]').tooltip('hide');
                 $('#user_positions').replaceWith($(html).find('#user_positions'));
             }
