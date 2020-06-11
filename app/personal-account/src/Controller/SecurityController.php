@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension as F
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Validator\Validation;
 use VP\PersonalAccount\Entity\UserPosition;
-use VP\PersonalAccount\Forms\UserType;
+use VP\PersonalAccount\Forms\UserRegistrationType;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\UserKind;
 use VP\PersonalAccount\Entity\Role;
@@ -82,7 +82,7 @@ class SecurityController extends AbstractController
         $user->setRole($defaultRole);
 
         $registrationForm = $this->createForm(
-            UserType::class,
+            UserRegistrationType::class,
             $user,
             [
                 'id_department' => $idDepartment,

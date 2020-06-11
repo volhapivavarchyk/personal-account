@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace VP\PersonalAccount\Forms;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -32,13 +33,17 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class UserType extends AbstractType
+class UserRegistrationType extends AbstractType
 {
     private $tokenStorage;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    private $em;
+
+    public function __construct(TokenStorageInterface $tokenStorage, EntityManager $em)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->em = $em;
+
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -378,29 +383,6 @@ class UserType extends AbstractType
                     ],
                 ]);
             })
-            ->get('faculty')->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($options) {
-                $form = $event->getForm()->getParent();
-                $faculty= $event->getForm()->getData();
-                $specialities = $faculty === null ? [] : $faculty->getSpecialities();
-                $form->add('speciality', EntityType::class, [
-                    'label' => 'user.speciality',
-                    'label_translation_parameters' => [],
-                    'translation_domain' => 'forms',
-                    'class' => Speciality::class,
-                    'mapped' => false,
-                    'choice_label' => 'name',
-                    'required' => false,
-                    'multiple' => false,
-                    'expanded' => false,
-                    'choices' => $specialities,
-                    'placeholder' => '-- выберите специальность --',
-                    'attr' => [
-                        'data-toggle' => 'tooltip',
-                        'data-placement' => 'left',
-                        'data-title' => 'Специальность, на которой учится студент',
-                    ],
-                ]);
-            })
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
                 $form->add('group', EntityType::class, [
@@ -426,30 +408,55 @@ class UserType extends AbstractType
                         'data-title' => 'Группа, в которой учится студент',
                     ],
                 ]);
-            })
-            ->get('speciality')->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($options) {
-                $form = $event->getForm()->getParent();
-                $speciality= $event->getForm()->getData();
-                $studentGroups = $speciality === null ? [] : $speciality->getStudentGroups();
-                $form->add('group', EntityType::class, [
-                    'label' => 'user.group',
-                    'label_translation_parameters' => [],
-                    'translation_domain' => 'forms',
-                    'class' => StudentGroup::class,
-                    'mapped' => false,
-                    'choice_label' => 'name',
-                    'required' => false,
-                    'multiple' => false,
-                    'expanded' => false,
-                    'choices' => $studentGroups,
-                    'placeholder' => '-- выберите группу --',
-                    'attr' => [
-                        'data-toggle' => 'tooltip',
-                        'data-placement' => 'left',
-                        'data-title' => 'Группа, в которой учится студент',
-                    ],
-                ]);
             });
+        $builder
+            ->get('faculty')->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($options) {
+                $form = $event->getForm()->getParent();
+                $faculty= $event->getForm()->getData();
+                $specialities = $faculty === null ? [] : $faculty->getSpecialities();
+                $form
+                    ->add('speciality', EntityType::class, [
+                        'label' => 'user.speciality',
+                        'label_translation_parameters' => [],
+                        'translation_domain' => 'forms',
+                        'class' => Speciality::class,
+                        'mapped' => false,
+                        'choice_label' => 'name',
+                        'required' => false,
+                        'multiple' => false,
+                        'expanded' => false,
+                        'choices' => $specialities,
+                        'placeholder' => '-- выберите специальность --',
+                        'attr' => [
+                            'data-toggle' => 'tooltip',
+                            'data-placement' => 'left',
+                            'data-title' => 'Специальность, на которой учится студент',
+                        ],
+                    ]);
+            });
+//            ->get('speciality')->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($options) {
+//                $form = $event->getForm()->getParent();
+//                $speciality= $event->getForm()->getData();
+//                $studentGroups = $speciality === null ? [] : $speciality->getStudentGroups();
+//                $form->add('group', EntityType::class, [
+//                    'label' => 'user.group',
+//                    'label_translation_parameters' => [],
+//                    'translation_domain' => 'forms',
+//                    'class' => StudentGroup::class,
+//                    'mapped' => false,
+//                    'choice_label' => 'name',
+//                    'required' => false,
+//                    'multiple' => false,
+//                    'expanded' => false,
+//                    'choices' => $studentGroups,
+//                    'placeholder' => '-- выберите группу --',
+//                    'attr' => [
+//                        'data-toggle' => 'tooltip',
+//                        'data-placement' => 'left',
+//                        'data-title' => 'Группа, в которой учится студент',
+//                    ],
+//                ]);
+//            });
         $builder
             ->add('interests', EntityType::class, [
                 'label' => 'user.interests',
