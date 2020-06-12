@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension as F
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Validator\Validation;
 use VP\PersonalAccount\Entity\UserPosition;
-use VP\PersonalAccount\Forms\UserRegistrationType;
+use VP\PersonalAccount\Forms\UserType;
 use VP\PersonalAccount\Entity\User;
 use VP\PersonalAccount\Entity\UserKind;
 use VP\PersonalAccount\Entity\Role;
@@ -71,6 +71,8 @@ class SecurityController extends AbstractController
         $idFaculty = $request->request->get('faculty') ? $request->request->get('faculty') : null;
         $idSpeciality = $request->request->get('speciality') ? $request->request->get('speciality') : null;
 
+        var_dump($request->request->get('user'));
+
         $user = new User();
         $defaultUserKind = $this->getDoctrine()
             ->getRepository(UserKind::class)
@@ -82,12 +84,13 @@ class SecurityController extends AbstractController
         $user->setRole($defaultRole);
 
         $registrationForm = $this->createForm(
-            UserRegistrationType::class,
+            UserType::class,
             $user,
             [
                 'id_department' => $idDepartment,
                 'id_faculty' => $idFaculty,
                 'id_speciality' => $idSpeciality,
+                'parameters' => $request->request->get('user'),
             ]);
         $registrationForm->handleRequest($request);
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {

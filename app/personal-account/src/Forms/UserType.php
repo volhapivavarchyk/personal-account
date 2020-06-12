@@ -32,18 +32,15 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use VP\PersonalAccount\Forms\EventListener\AddSpecialityFieldSubscriber;
 
-class UserRegistrationType extends AbstractType
+class UserType extends AbstractType
 {
     private $tokenStorage;
 
-    private $em;
-
-    public function __construct(TokenStorageInterface $tokenStorage, EntityManager $em)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->em = $em;
-
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -356,7 +353,9 @@ class UserRegistrationType extends AbstractType
                     'data-placement' => 'left',
                     'data-title' => 'Факультет, на котором учится студент',
                 ],
-            ])
+            ]);
+        $builder
+//            ->addEventSubscriber(new AddSpecialityFieldSubscriber());
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
                 $form->add('speciality', EntityType::class, [
@@ -383,6 +382,33 @@ class UserRegistrationType extends AbstractType
                     ],
                 ]);
             })
+            ->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                $form->add('speciality', EntityType::class, [
+                    'label' => 'user.speciality',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'class' => Speciality::class,
+                    'mapped' => false,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function(EntityRepository $er) use ($options) {
+                        $qb = $er->createQueryBuilder('f');
+                        $idFaculty = $options['parameters']['faculty'];
+                        $qb->where('f.faculty = ?1')->setParameter(1, $idFaculty);
+                        return $qb;
+                    },
+                    'placeholder' => '-- выберите специальность --',
+                    'attr' => [
+                        'data-toggle' => 'tooltip',
+                        'data-placement' => 'left',
+                        'data-title' => 'Специальность, на которой учится студент',
+                    ],
+                ]);
+            });
+        $builder
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
                 $form->add('group', EntityType::class, [
@@ -408,55 +434,33 @@ class UserRegistrationType extends AbstractType
                         'data-title' => 'Группа, в которой учится студент',
                     ],
                 ]);
+            })
+            ->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                $form->add('group', EntityType::class, [
+                    'label' => 'user.group',
+                    'label_translation_parameters' => [],
+                    'translation_domain' => 'forms',
+                    'class' => StudentGroup::class,
+                    'mapped' => false,
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function(EntityRepository $er) use ($options) {
+                        $qb = $er->createQueryBuilder('g');
+                        $idSpeciality = $options['parameters']['speciality'];
+                        $qb->where('g.speciality = ?1')->setParameter(1, $idSpeciality);
+                        return $qb;
+                    },
+                    'placeholder' => '-- выберите группу --',
+                    'attr' => [
+                        'data-toggle' => 'tooltip',
+                        'data-placement' => 'left',
+                        'data-title' => 'Группа, в которой учится студент',
+                    ],
+                ]);
             });
-        $builder
-            ->get('faculty')->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($options) {
-                $form = $event->getForm()->getParent();
-                $faculty= $event->getForm()->getData();
-                $specialities = $faculty === null ? [] : $faculty->getSpecialities();
-                $form
-                    ->add('speciality', EntityType::class, [
-                        'label' => 'user.speciality',
-                        'label_translation_parameters' => [],
-                        'translation_domain' => 'forms',
-                        'class' => Speciality::class,
-                        'mapped' => false,
-                        'choice_label' => 'name',
-                        'required' => false,
-                        'multiple' => false,
-                        'expanded' => false,
-                        'choices' => $specialities,
-                        'placeholder' => '-- выберите специальность --',
-                        'attr' => [
-                            'data-toggle' => 'tooltip',
-                            'data-placement' => 'left',
-                            'data-title' => 'Специальность, на которой учится студент',
-                        ],
-                    ]);
-            });
-//            ->get('speciality')->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($options) {
-//                $form = $event->getForm()->getParent();
-//                $speciality= $event->getForm()->getData();
-//                $studentGroups = $speciality === null ? [] : $speciality->getStudentGroups();
-//                $form->add('group', EntityType::class, [
-//                    'label' => 'user.group',
-//                    'label_translation_parameters' => [],
-//                    'translation_domain' => 'forms',
-//                    'class' => StudentGroup::class,
-//                    'mapped' => false,
-//                    'choice_label' => 'name',
-//                    'required' => false,
-//                    'multiple' => false,
-//                    'expanded' => false,
-//                    'choices' => $studentGroups,
-//                    'placeholder' => '-- выберите группу --',
-//                    'attr' => [
-//                        'data-toggle' => 'tooltip',
-//                        'data-placement' => 'left',
-//                        'data-title' => 'Группа, в которой учится студент',
-//                    ],
-//                ]);
-//            });
         $builder
             ->add('interests', EntityType::class, [
                 'label' => 'user.interests',
@@ -499,6 +503,7 @@ class UserRegistrationType extends AbstractType
             'id_department' => null,
             'id_faculty' => null,
             'id_speciality' => null,
+            'parameters' => [],
         ]);
     }
 }
