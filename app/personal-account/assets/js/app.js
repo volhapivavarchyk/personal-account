@@ -14,6 +14,9 @@ let ready = $(document).ready(function() {
     let $navbar = $(".navbar-auth");
 
     $('body').tooltip({selector: '[data-toggle="tooltip"]'});
+    $('.js-datepicker').datepicker({
+        format: 'dd-mm-yyyy'
+    });
 
     $(window).scroll(function () {
         if ($(this).scrollTop() > 1) {

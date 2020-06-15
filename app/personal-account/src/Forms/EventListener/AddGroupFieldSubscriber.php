@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace VP\PersonalAccount\Forms\EventListener;
 
-use VP\PersonalAccount\Entity\Speciality;
+use VP\PersonalAccount\Entity\StudentGroup;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\{FormEvent, FormEvents, FormInterface};
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class AddSpecialityFieldSubscriber implements EventSubscriberInterface
+class AddGroupFieldSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
@@ -19,28 +19,28 @@ class AddSpecialityFieldSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function addSpecialityForm(FormInterface $form, $idFaculty)
+    public function addSpecialityForm(FormInterface $form, $idSpeciality)
     {
-        $form->add('speciality', EntityType::class, [
-            'label' => 'user.speciality',
+        $form->add('group', EntityType::class, [
+            'label' => 'user.group',
             'label_translation_parameters' => [],
             'translation_domain' => 'forms',
-            'class' => Speciality::class,
+            'class' => StudentGroup::class,
             'mapped' => false,
             'choice_label' => 'name',
             'required' => false,
             'multiple' => false,
             'expanded' => false,
-            'query_builder' => function(EntityRepository $er) use ($idFaculty) {
-                $qb = $er->createQueryBuilder('f');
-                $qb->where('f.faculty = ?1')->setParameter(1, $idFaculty);
+            'query_builder' => function(EntityRepository $er) use ($idSpeciality) {
+                $qb = $er->createQueryBuilder('g');
+                $qb->where('g.speciality = ?1')->setParameter(1, $idSpeciality);
                 return $qb;
             },
-            'placeholder' => '-- выберите специальность --',
+            'placeholder' => '-- выберите группу --',
             'attr' => [
                 'data-toggle' => 'tooltip',
                 'data-placement' => 'left',
-                'data-title' => 'Специальность, на которой учится студент',
+                'data-title' => 'Группа, в которой учится студент',
             ],
         ]);
     }
@@ -48,14 +48,14 @@ class AddSpecialityFieldSubscriber implements EventSubscriberInterface
     public function preSetData(FormEvent $event)
     {
         $form = $event->getForm();
-        $idFaculty = $event->getForm()->getConfig()->getOptions()['id_faculty'];
-        $this->addSpecialityForm($form, $idFaculty);
+        $idSpeciality = $event->getForm()->getConfig()->getOptions()['id_speciality'];
+        $this->addSpecialityForm($form, $idSpeciality);
     }
 
     public function preSubmit(FormEvent $event)
     {
         $form = $event->getForm();
-        $idFaculty = $event->getForm()->getConfig()->getOptions()['parameters']['faculty'];
-        $this->addSpecialityForm($form, $idFaculty);
+        $idSpeciality = $event->getForm()->getConfig()->getOptions()['parameters']['speciality'];
+        $this->addSpecialityForm($form, $idSpeciality);
     }
 }

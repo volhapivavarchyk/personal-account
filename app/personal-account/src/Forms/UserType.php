@@ -3,36 +3,44 @@ declare(strict_types=1);
 
 namespace VP\PersonalAccount\Forms;
 
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Core\Type\{RepeatedType,
-    TextType,
-    PasswordType,
-    EmailType,
-    CollectionType,
-    SubmitType,
-    CheckboxType};
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\{Length, Regex};
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use VP\PersonalAccount\Entity\Department;
-use VP\PersonalAccount\Entity\Faculty;
-use VP\PersonalAccount\Entity\StudentGroup;
-use VP\PersonalAccount\Entity\Speciality;
-use VP\PersonalAccount\Entity\User;
-use VP\PersonalAccount\Entity\Role;
-use VP\PersonalAccount\Entity\Interest;
-use VP\PersonalAccount\Entity\Position;
-use VP\PersonalAccount\Entity\UserKind;
-use VP\PersonalAccount\Repository\DepartmentRepository;
+use VP\PersonalAccount\Forms\EventListener\{
+    AddPositionFieldSubscriber,
+    AddSpecialityFieldSubscriber,
+    AddGroupFieldSubscriber,
+};
+use VP\PersonalAccount\Entity\{
+    Department,
+    Faculty,
+    Interest,
+    Position,
+    Role,
+    User,
+    UserKind,
+};
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\{
+    AbstractType,
+    FormBuilderInterface,
+    FormEvent,
+    FormEvents,
+};
+use Symfony\Component\Form\Extension\Core\Type\{
+    CheckboxType,
+    DateType,
+    EmailType,
+    PasswordType,
+    RepeatedType,
+    SubmitType,
+    TextType,
+};
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use VP\PersonalAccount\Forms\EventListener\AddSpecialityFieldSubscriber;
+use Symfony\Component\Validator\Constraints\{
+    Length,
+    Regex,
+    IsTrue,
+};
 
 class UserType extends AbstractType
 {
@@ -285,6 +293,76 @@ class UserType extends AbstractType
                     'data-title' => 'Подразделение университета, в котором работает сотрудник',
                 ],
             ])
+            ->addEventSubscriber(new AddPositionFieldSubscriber())
+            ->add('dateStart', DateType::class, [
+                'label' => 'user.date-start',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'mapped' => false,
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'dd-mm-yyyy',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker'],
+            ]);
+        $builder
+            ->add('faculty', EntityType::class, [
+                'label' => 'user.faculty',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Faculty::class,
+                'mapped' => false,
+                'choice_label' => 'name',
+                'required' => false,
+                'multiple' => false,
+                'expanded' => false,
+                'placeholder' => '-- выберите факультет --',
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Факультет, на котором учится студент',
+                ],
+            ])
+            ->addEventSubscriber(new AddSpecialityFieldSubscriber())
+            ->addEventSubscriber(new AddGroupFieldSubscriber());
+        $builder
+            ->add('interests', EntityType::class, [
+                'label' => 'user.interests',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'class' => Interest::class,
+                'mapped' => false,
+                'choice_label' => 'name',
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'attr' => [
+                    'class' => 'custom-control custom-radio',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Перечень интересов пользователя. Можно выбрать множество',
+                ],
+                'label_attr' => ['class' => 'custom-control-label'],
+            ]);
+        $builder
+            ->add('termsAccepted', CheckboxType::class, array(
+                'label' => 'user.terms-accepted',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'mapped' => false,
+                'constraints' => new IsTrue(),
+            ))
+            ->add('submit', SubmitType::class, [
+                'label' => 'Сохранить',
+            ]);
+    }
+
+    protected function addPositionField(FormBuilderInterface $builder, array $options)
+    {
+        $builder
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
                 $form->add('positions', EntityType::class, [
@@ -336,26 +414,11 @@ class UserType extends AbstractType
                     ],
                 ]);
             });
+
+    }
+    protected function addSpecialityField(FormBuilderInterface $builder, array $options)
+    {
         $builder
-            ->add('faculty', EntityType::class, [
-                'label' => 'user.faculty',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'class' => Faculty::class,
-                'mapped' => false,
-                'choice_label' => 'name',
-                'required' => false,
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder' => '-- выберите факультет --',
-                'attr' => [
-                    'data-toggle' => 'tooltip',
-                    'data-placement' => 'left',
-                    'data-title' => 'Факультет, на котором учится студент',
-                ],
-            ]);
-        $builder
-//            ->addEventSubscriber(new AddSpecialityFieldSubscriber());
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
                 $form->add('speciality', EntityType::class, [
@@ -408,6 +471,10 @@ class UserType extends AbstractType
                     ],
                 ]);
             });
+    }
+
+    protected function addGroupField(FormBuilderInterface $builder, array $options)
+    {
         $builder
             -> addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($options) {
                 $form = $event->getForm();
@@ -461,39 +528,6 @@ class UserType extends AbstractType
                     ],
                 ]);
             });
-        $builder
-            ->add('interests', EntityType::class, [
-                'label' => 'user.interests',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'class' => Interest::class,
-                'mapped' => false,
-                'choice_label' => 'name',
-                'choice_attr' => function($choice, $key, $value) {
-                    return ['class' => 'custom-control-input'];
-                },
-                'required' => false,
-                'multiple' => true,
-                'expanded' => true,
-                'attr' => [
-                    'class' => 'custom-control custom-radio',
-                    'data-toggle' => 'tooltip',
-                    'data-placement' => 'left',
-                    'data-title' => 'Перечень интересов пользователя. Можно выбрать множество',
-                ],
-                'label_attr' => ['class' => 'custom-control-label'],
-            ]);
-        $builder
-            ->add('termsAccepted', CheckboxType::class, array(
-                'label' => 'user.terms-accepted',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'mapped' => false,
-                'constraints' => new IsTrue(),
-            ))
-            ->add('submit', SubmitType::class, [
-                'label' => 'Сохранить',
-            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -507,4 +541,3 @@ class UserType extends AbstractType
         ]);
     }
 }
-
