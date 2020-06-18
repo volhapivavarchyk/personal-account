@@ -5,14 +5,13 @@
     "bloodhound-js": "^1.2.3",
     "bootstrap-tagsinput": "^0.7.1",
     "core-js": "^3.0.0",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "highlight.js": "^9.12.0",
     "imports-loader": "^0.8.0",
     "jquery": "^3.3.1",
     "lato-font": "^3.0.0",
     "node-sass": "^4.9.3",
     "popper.js": "^1.16.1",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "7.3.1",
     "typeahead.js": "^0.11.1",
     "webpack-notifier": "^1.8.0"
   },
@@ -26,7 +25,9 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "bootstrap-datepicker": "^1.9.0",
     "bootstrap-sass": "^3.4.1",
+    "bootstrap-sass-datepicker": "^1.0.0",
     "bootswatch": "^4.4.1",
     "google-recaptcha": "^1.1.0",
     "wowjs": "^1.1.3"

@@ -293,18 +293,7 @@ class UserType extends AbstractType
                     'data-title' => 'Подразделение университета, в котором работает сотрудник',
                 ],
             ])
-            ->addEventSubscriber(new AddPositionFieldSubscriber())
-            ->add('dateStart', DateType::class, [
-                'label' => 'user.date-start',
-                'label_translation_parameters' => [],
-                'translation_domain' => 'forms',
-                'mapped' => false,
-                'required' => false,
-                'widget' => 'single_text',
-                'format' => 'dd-mm-yyyy',
-                'html5' => false,
-                'attr' => ['class' => 'js-datepicker'],
-            ]);
+            ->addEventSubscriber(new AddPositionFieldSubscriber());
         $builder
             ->add('faculty', EntityType::class, [
                 'label' => 'user.faculty',

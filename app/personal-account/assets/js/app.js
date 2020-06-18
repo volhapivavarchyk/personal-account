@@ -1,6 +1,7 @@
 import '../scss/app.scss';
 
 import 'bootstrap/dist/js/bootstrap.js';
+import 'bootstrap-sass-datepicker/js/bootstrap-sass-datepicker.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/transition.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/alert.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/collapse.js';
@@ -14,8 +15,13 @@ let ready = $(document).ready(function() {
     let $navbar = $(".navbar-auth");
 
     $('body').tooltip({selector: '[data-toggle="tooltip"]'});
+
     $('.js-datepicker').datepicker({
-        format: 'dd-mm-yyyy'
+        todayHighlight: true,
+        format: 'dd-mm-yyyy',
+        todayBtn: true,
+        clearBtn: true,
+        language: "ru"
     });
 
     $(window).scroll(function () {
@@ -76,8 +82,6 @@ let ready = $(document).ready(function() {
             type : $form.attr('method'),
             data : data,
             success : function(html) {
-                console.log('mmmmmmmmmmmmmmmm');
-                console.log($('#user_positions'));
                 $('[data-toggle="tooltip"]').tooltip('hide');
                 $('#user_positions').replaceWith($(html).find('#user_positions'));
             }
@@ -130,23 +134,29 @@ let ready = $(document).ready(function() {
             case '2':
                 $('#colleague-department').addClass('invisible');
                 $('#colleague-position').addClass('invisible');
+                $('#colleague-date-start').addClass('invisible');
                 $('#student-faculty').removeClass('invisible');
                 $('#student-speciality').removeClass('invisible');
                 $('#student-group').removeClass('invisible');
+                $('#student-date-start').removeClass('invisible');
                 break;
             case '3':
                 $('#colleague-department').removeClass('invisible');
                 $('#colleague-position').removeClass('invisible');
+                $('#colleague-date-start').removeClass('invisible');
                 $('#student-faculty').addClass('invisible');
                 $('#student-speciality').addClass('invisible');
                 $('#student-group').addClass('invisible');
+                $('#student-date-start').addClass('invisible');
                 break;
             case '4':
                 $('#colleague-department').addClass('invisible');
                 $('#colleague-position').addClass('invisible');
+                $('#colleague-date-start').addClass('invisible');
                 $('#student-faculty').addClass('invisible');
                 $('#student-speciality').addClass('invisible');
                 $('#student-group').addClass('invisible');
+                $('#student-date-start').addClass('invisible');
         }
     });
 
@@ -165,9 +175,4 @@ let ready = $(document).ready(function() {
         }
     );
     wow.init();
-    console.log(wow);
 });
-
-// $(document).ajaxComplete(function() {
-//     $('[data-toggle="tooltip"]').tooltip();
-// });

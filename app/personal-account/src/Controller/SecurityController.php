@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace VP\PersonalAccount\Controller;
 
+use \DateTime;
 use VP\PersonalAccount\Entity\{
     Position,
     User,
@@ -13,6 +14,7 @@ use VP\PersonalAccount\Entity\{
     UserStudentGroup,
 };
 use VP\PersonalAccount\Forms\UserType;
+use VP\PersonalAccount\Repository\RoleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,11 +63,6 @@ class SecurityController extends AbstractController
         // helper vars
         $captchaError = '';
 
-//        $isAjax = $request->isXmlHttpRequest();
-//        if ($isAjax) {
-//            return new Response('This is ajax response '.$request->request->get('department'));
-//        }
-
         $idDepartment = $request->request->get('department') ? $request->request->get('department') : null;
         $idFaculty = $request->request->get('faculty') ? $request->request->get('faculty') : null;
         $idSpeciality = $request->request->get('speciality') ? $request->request->get('speciality') : null;
@@ -109,30 +106,35 @@ class SecurityController extends AbstractController
                 $response = curl_exec($curl);
                 curl_close($curl);
                 if (strpos($response, '"success": true') !== false) {
+                    $em = $this->getDoctrine()->getManager();
                     // add user to DB and redirect to success route
-                    //$user = $registrationForm->getData();
+//                    $user = $registrationForm->getData();
                     $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                     $user->setPassword($password);
-
-                    $em = $this->getDoctrine()->getManager();
-//                    $em->persist($user);
-//                    $em->flush();
+                    $userKind = $em->find(UserKind::class, $request->request->get('user')['userkind']);
+                    $user->setUserKind($userKind);
+                    $role = $em->getRepository(Role::class)->findOneBy(['name' => $request->request->get('user')['roles']]);
+                    $user->setRole($role);
+                    $em->persist($user);
+                    $em->flush();
                     if (strcmp($user->getUserKind()->getName(),$_ENV['EMPLOYEE']) === 0) {
                         $position = $em->find(Position::class, $request->request->get('user')['positions']);
                         $userPosition = new UserPosition();
                         $userPosition->setPosition($position);
                         $userPosition->setUser($user);
-                        $userPosition->setDateStart();
-//                        $em->persist($userPosition);
-//                        $em->flush();
+                        $dateStart = new \DateTime($request->request->get('user')['dateStartPosition']);
+                        $userPosition->setDateStart($dateStart);
+                        $em->persist($userPosition);
+                        $em->flush();
                     } elseif (strcmp($user->getUserKind()->getName(),$_ENV['STUDENT']) === 0) {
-                        $studentGroup = $em->find(Position::class, $request->request->get('user')['group']);
+                        $studentGroup = $em->find(StudentGroup::class, $request->request->get('user')['group']);
                         $userStudentGroup = new UserStudentGroup();
                         $userStudentGroup->setStudentGroup($studentGroup);
                         $userStudentGroup->setUser($user);
-                        $userStudentGroup->setDateStart();
-//                        $em->persist($userStudentGroup);
-//                        $em->flush();
+                        $dateStart = new \DateTime($request->request->get('user')['dateStartSpeciality']);
+                        $userStudentGroup->setDateStart($dateStart);
+                        $em->persist($userStudentGroup);
+                        $em->flush();
                     }
                     //return $this->redirectToRoute('user-success');
                 } else {
@@ -152,6 +154,5 @@ class SecurityController extends AbstractController
                 'captchaKey' => $_ENV['PERSONAL_ACCOUNT_CAPTCHA_KEY'],
             ]);
     }
-
 }
 

@@ -67,6 +67,11 @@
                                         {{ form_widget(formregistration.roles, {'attr': {'class': 'custom-control custom-radio'}}) }}
                                         <small>{{ form_help(formregistration.roles) }}</small>
                                     </div>
+                                    <div class="form-group col text-dark">
+                                        <p class="mb-1">{{'user.interests'|trans({},'forms')|raw}}</p>
+                                        {{ form_widget(formregistration.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
+                                        <small>{{ form_help(formregistration.interests) }}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -85,6 +90,11 @@
                                         {{ form_label(formregistration.positions) }}
                                         {{ form_widget(formregistration.positions) }}
                                         <small>{{ form_help(formregistration.positions) }}</small>
+                                    </div>
+                                    <div id="colleague-date-start" class="form-group col text-dark {{ formregistration.userkind.vars.value == '2' ? 'invisible' }}">
+                                        {{ form_label(formregistration.dateStartPosition) }}
+                                        {{ form_widget(formregistration.dateStartPosition) }}
+                                        <small>{{ form_help(formregistration.dateStartPosition) }}</small>
                                     </div>
                                     {# ############################################################ #}
 
@@ -105,17 +115,12 @@
                                         {{ form_widget(formregistration.group) }}
                                         <small>{{ form_help(formregistration.group) }}</small>
                                     </div>
+                                    <div id="student-date-start" class="form-group col text-dark {{ formregistration.userkind.vars.value == '3' ? 'invisible' }}">
+                                        {{ form_label(formregistration.dateStartSpeciality) }}
+                                        {{ form_widget(formregistration.dateStartSpeciality) }}
+                                        <small>{{ form_help(formregistration.dateStartSpeciality) }}</small>
+                                    </div>
                                     {# ############################################################ #}
-                                    <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.dateStart) }}
-                                        {{ form_widget(formregistration.dateStart) }}
-                                        <small>{{ form_help(formregistration.dateStart) }}</small>
-                                    </div>
-                                    <div class="form-group col text-dark">
-                                        <p class="mb-1">{{'user.interests'|trans({},'forms')|raw}}</p>
-                                        {{ form_widget(formregistration.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
-                                        <small>{{ form_help(formregistration.interests) }}</small>
-                                    </div>
                                 </div>
                             </div>
                         </div>

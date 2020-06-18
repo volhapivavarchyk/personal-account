@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace VP\PersonalAccount\Entity;
 
+use \DateTime;
 use Doctrine\Common\Collections\{ArrayCollection, Collection};
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -14,11 +16,18 @@ class UserPosition
 {
     /** @ORM\Id @ORM\Column(name="id", type="integer", unique=true, nullable=true) @ORM\GeneratedValue**/
     protected $id;
-    /** @ORM\Column(type="datetime") **/
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime
+     * @var string A "dd-mm-yyyy" formatted value
+     */
     protected $dateStart;
-    /** @ORM\Column(type="datetime") **/
+    /** @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime
+     * @var string A "dd-mm-yyyy" formatted value
+     */
     protected $dateEnd;
-    /** @ORM\Column(type="string", length=128) **/
+    /** @ORM\Column(type="string", length=128, nullable=true) **/
     protected $reasonDemote;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="positions")
@@ -71,7 +80,7 @@ class UserPosition
      * @param DateTime $dateEnd
      * @return void
      */
-    public function setDateEnd(DateTime $dateEnd): void
+    public function setDateEnd(DateTime $dateEnd = null): void
     {
         $this->dateEnd = $dateEnd;
     }
