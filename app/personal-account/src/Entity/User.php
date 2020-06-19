@@ -49,8 +49,20 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank()
      */
     protected $lastname;
-    /** @ORM\Column(length=64) **/
+    /** @ORM\Column(length=64, nullable=true) **/
     protected $patronymic;
+    /**
+     * @ORM\Column(length=64, nullable=true)
+     * @Assert\NotBlank()
+     */
+    protected $enFirstname;
+    /**
+     * @ORM\Column(length=64, nullable=true)
+     * @Assert\NotBlank()
+     */
+    protected $enLastname;
+    /** @ORM\Column(length=64, nullable=true) **/
+    protected $enPatronymic;
     /**
      * @ORM\ManyToOne(targetEntity="UserKind", inversedBy="users")
      */
@@ -83,6 +95,10 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
     private $apiToken;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
 
     public function __construct()
     {
@@ -100,10 +116,6 @@ class User implements UserInterface, \Serializable
     {
         return $this->idUser;
     }
-    /**
-     * $firstname getter
-     * @return string $firstname
-     */
     /**
      * $username getter
      * @return string $login
@@ -157,7 +169,10 @@ class User implements UserInterface, \Serializable
 //        $this->plainPassword = password_hash($password, PASSWORD_DEFAULT);
         $this->plainPassword = $password;
     }
-
+    /**
+     * $firstname getter
+     * @return string $this->firstname
+     */
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -204,6 +219,57 @@ class User implements UserInterface, \Serializable
     public function setPatronymic(string $patronymic)
     {
         $this->patronymic = $patronymic;
+    }
+    /**
+     * $enFirstname getter
+     * @return string $this->enFirstname
+     */
+    public function getEnFirstname(): ?string
+    {
+        return $this->enFirstname;
+    }
+    /**
+     * $enFirstname setter
+     * @param string $enFirstname
+     * @return void
+     */
+    public function setEnFirstname(string $enFirstname)
+    {
+        $this->enFirstname = $enFirstname;
+    }
+    /**
+     * $enLastname getter
+     * @return string $enLastname
+     */
+    public function getEnLastname(): ?string
+    {
+        return $this->enLastname;
+    }
+    /**
+     * $enLastname setter
+     * @param string $enLastname
+     * @return void
+     */
+    public function setEnLastname(string $enLastname)
+    {
+        $this->enLastname = $enLastname;
+    }
+    /**
+     * $enPatronymic getter
+     * @return string $enPatronymic
+     */
+    public function getEnPatronymic(): ?string
+    {
+        return $this->enPatronymic;
+    }
+    /**
+     * $enPatronymic setter
+     * @param string $enPatronymic
+     * @return void
+     */
+    public function setEnPatronymic(string $enPatronymic)
+    {
+        $this->enPatronymic = $enPatronymic;
     }
     /**
      * $email getter
@@ -331,6 +397,41 @@ class User implements UserInterface, \Serializable
     {
         $this->messages->removeElement($message);
     }
+    /**
+     * $apiToken getter
+     * @return string $apiToken
+     */
+    public function getApiToken(): string
+    {
+        return $this->apiToken;
+    }
+    /**
+     * $apiToken setter
+     * @param integer $apiToken
+     * @return void
+     */
+    public function setАpiToken(integer $apiToken): void
+    {
+        $this->$apiToken = $$apiToken;
+    }
+    /**
+     * $status getter
+     * @return integer $status
+     */
+    public function getStatus(): integer
+    {
+        return $this->status;
+    }
+    /**
+     * $status setter
+     * @param integer $status
+     * @return void
+     */
+    public function setStatus(integer $status): void
+    {
+        $this->status = $status;
+    }
+
     /**
      * @inheritDoc
      */

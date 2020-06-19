@@ -108,16 +108,16 @@ class SecurityController extends AbstractController
                 if (strpos($response, '"success": true') !== false) {
                     $em = $this->getDoctrine()->getManager();
                     // add user to DB and redirect to success route
-//                    $user = $registrationForm->getData();
                     $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                     $user->setPassword($password);
                     $userKind = $em->find(UserKind::class, $request->request->get('user')['userkind']);
                     $user->setUserKind($userKind);
                     $role = $em->getRepository(Role::class)->findOneBy(['name' => $request->request->get('user')['roles']]);
                     $user->setRole($role);
+                    $user->setStatus($_ENV['STATUS_INACTIVE']);
                     $em->persist($user);
                     $em->flush();
-                    if (strcmp($user->getUserKind()->getName(),$_ENV['EMPLOYEE']) === 0) {
+                    if (strcmp($user->getUserKind()->getName(),$_ENV['USER_EMPLOYEE']) === 0) {
                         $position = $em->find(Position::class, $request->request->get('user')['positions']);
                         $userPosition = new UserPosition();
                         $userPosition->setPosition($position);
@@ -126,7 +126,7 @@ class SecurityController extends AbstractController
                         $userPosition->setDateStart($dateStart);
                         $em->persist($userPosition);
                         $em->flush();
-                    } elseif (strcmp($user->getUserKind()->getName(),$_ENV['STUDENT']) === 0) {
+                    } elseif (strcmp($user->getUserKind()->getName(),$_ENV['USE_STUDENT']) === 0) {
                         $studentGroup = $em->find(StudentGroup::class, $request->request->get('user')['group']);
                         $userStudentGroup = new UserStudentGroup();
                         $userStudentGroup->setStudentGroup($studentGroup);

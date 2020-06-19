@@ -57,7 +57,12 @@ class AddPositionFieldSubscriber implements EventSubscriberInterface
                 'format' => 'dd-mm-yyyy',
                 'html5' => false,
                 'placeholder' => 'Выберите значение',
-                'attr' => ['class' => 'js-datepicker'],
+                'attr' => [
+                    'class' => 'js-datepicker',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Дата начала работы в должности',
+                ],
             ]);
     }
 

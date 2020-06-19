@@ -133,7 +133,8 @@ class UserType extends AbstractType
                         'data-title' => 'В поле необходимо ввести строку полностью совпадающую с введенным паролем',
                     ],
                 ],
-            ])
+            ]);
+        $builder
             ->add('firstname', TextType::class, [
                 'label' => 'user.firstname',
                 'translation_domain' => 'forms',
@@ -187,7 +188,7 @@ class UserType extends AbstractType
             ->add('patronymic', TextType::class, [
                 'label' => 'user.patronymic',
                 'translation_domain' => 'forms',
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Иванович',
                     'data-toggle' => 'tooltip',
@@ -206,6 +207,82 @@ class UserType extends AbstractType
                         'pattern' => '/[А-Яа-я0-9\s]*/',
                         'match' => true,
                         'message' => 'Отчество на русском языке должно состоять из букв русского алфавита'
+                    ]),
+                ],
+            ]);
+        $builder
+            ->add('enFirstname', TextType::class, [
+                'label' => 'user.en-firstname',
+                'translation_domain' => 'forms',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Ivan',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Имя на английском языке должно состоять из <b>букв английского алфавита</b>',
+                    'data-html' => 'true',
+                ],
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Имя должно содержать не менее 3 символов',
+                        'max' => 128,
+                        'maxMessage' => 'Имя должно содержать не более 128 символов',
+                    ]),
+                    new Regex([
+                        'pattern' => '/[A-Za-z0-9\s]*/',
+                        'match' => true,
+                        'message' => 'Имя на английском языке должно состоять из букв английского алфавита'
+                    ]),
+                ],
+            ])
+            ->add('enLastname', TextType::class, [
+                'label' => 'user.en-lastname',
+                'translation_domain' => 'forms',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Ivanov',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Фамилия на английском языке должна состоять из <b>букв английского алфавита</b>',
+                    'data-html' => 'true',
+                ],
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Фамилия должна содержать не менее 3 символов',
+                        'max' => 120,
+                        'maxMessage' => 'Фамилия должна содержать не более 128 символов',
+                    ]),
+                    new Regex([
+                        'pattern' => '/[A-Za-z0-9\s]*/',
+                        'match' => true,
+                        'message' => 'Фамилия на английском языке должна состоять из букв английского алфавита'
+                    ]),
+                ],
+            ])
+            ->add('enPatronymic', TextType::class, [
+                'label' => 'user.en-patronymic',
+                'translation_domain' => 'forms',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Ivanovich',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Отчество на английском языке должно состоять из <b>букв английского алфавита</b>',
+                    'data-html' => 'true',
+                ],
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Отчество должно содержать не менее 3 символов',
+                        'max' => 120,
+                        'maxMessage' => 'Отчество должно содержать не более 128 символов',
+                    ]),
+                    new Regex([
+                        'pattern' => '/[A-Za-z0-9\s]*/',
+                        'match' => true,
+                        'message' => 'Отчество на английском языке должно состоять из букв английского алфавита'
                     ]),
                 ],
             ]);
@@ -259,6 +336,7 @@ class UserType extends AbstractType
                 },
                 'data' => $options['data']->getRole(),
                 'required' => true,
+                'disabled' => true,
                 'multiple' => false,
                 'expanded' => true,
                 'query_builder' => function(EntityRepository $er) {

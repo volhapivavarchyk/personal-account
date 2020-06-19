@@ -31,6 +31,28 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="card bg-light mb-3">
+                                <div class="card-header font-weight-bold">Роли</div>
+                                <div class="card-body">
+                                    <div class="form-group col text-dark">
+                                        <p class="mb-1">{{'user.kind'|trans({},'forms')|raw}}</p>
+                                        {{ form_widget(formregistration.userkind) }}
+                                        <small>{{ form_help(formregistration.userkind) }}</small>
+                                    </div>
+                                    <div class="form-group col text-dark">
+                                        <p class="mb-1">{{'user.roles'|trans({},'forms')|raw}}</p>
+                                        {{ form_widget(formregistration.roles, {'attr': {'class': 'custom-control custom-radio'}}) }}
+                                        <small>{{ form_help(formregistration.roles) }}</small>
+                                        <small class="form-text text-muted">
+                                            Если Ваша роль не соответствует выбранной по умолчанию, обратитесь к администратору по электронной почте admin@barsu.by
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card bg-light mb-3">
                                 <div class="card-header font-weight-bold">Фамилия, имя, отчество на русском языке</div>
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
@@ -51,33 +73,34 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-lg-6">
                             <div class="card bg-light mb-3">
-                                <div class="card-header font-weight-bold">Категория пользователя</div>
+                                <div class="card-header font-weight-bold">Фамилия, имя, отчество на английском языке</div>
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
-                                        <p class="mb-1">{{'user.kind'|trans({},'forms')|raw}}</p>
-                                        {{ form_widget(formregistration.userkind) }}
-                                        <small>{{ form_help(formregistration.userkind) }}</small>
+                                        {{ form_label(formregistration.enLastname) }}
+                                        {{ form_widget(formregistration.enLastname) }}
+                                        <small>{{ form_help(formregistration.enLastname) }}</small>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        <p class="mb-1">{{'user.roles'|trans({},'forms')|raw}}</p>
-                                        {{ form_widget(formregistration.roles, {'attr': {'class': 'custom-control custom-radio'}}) }}
-                                        <small>{{ form_help(formregistration.roles) }}</small>
+                                        {{ form_label(formregistration.enFirstname) }}
+                                        {{ form_widget(formregistration.enFirstname) }}
+                                        <small>{{ form_help(formregistration.enFirstname) }}</small>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        <p class="mb-1">{{'user.interests'|trans({},'forms')|raw}}</p>
-                                        {{ form_widget(formregistration.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
-                                        <small>{{ form_help(formregistration.interests) }}</small>
+                                        {{ form_label(formregistration.enPatronymic) }}
+                                        {{ form_widget(formregistration.enPatronymic) }}
+                                        <small>{{ form_help(formregistration.enPatronymic) }}</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="card bg-light mb-3">
-                                <div class="card-header font-weight-bold">Информация о пользователе</div>
+                                <div class="card-header font-weight-bold">Место работы/учебы</div>
                                 <div class="card-body">
                                     {# ############################################################ #}
                                     {# Блок информации о пользователе типа "Сотрудник университета" #}
@@ -121,6 +144,18 @@
                                         <small>{{ form_help(formregistration.dateStartSpeciality) }}</small>
                                     </div>
                                     {# ############################################################ #}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card bg-light mb-3">
+                                <div class="card-header font-weight-bold">Сфера интересов</div>
+                                <div class="card-body">
+                                    <div class="form-group col text-dark">
+                                        <p class="mb-1">{{'user.interests'|trans({},'forms')|raw}}</p>
+                                        {{ form_widget(formregistration.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
+                                        <small>{{ form_help(formregistration.interests) }}</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -2,6 +2,7 @@ import '../scss/app.scss';
 
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap-sass-datepicker/js/bootstrap-sass-datepicker.js';
+import 'bootstrap-sass-datepicker/js/locales/bootstrap-datepicker.ru.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/transition.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/alert.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/collapse.js';
@@ -19,10 +20,13 @@ let ready = $(document).ready(function() {
     $('.js-datepicker').datepicker({
         todayHighlight: true,
         format: 'dd-mm-yyyy',
-        todayBtn: true,
         clearBtn: true,
-        language: "ru"
+        language : 'ru',
+        position: 'top left'
+    }).on('change', function(){
+        $('.datepicker').hide();
     });
+    //$.datepicker.defaults($.fn.datepicker.dates['ru']);
 
     $(window).scroll(function () {
         if ($(this).scrollTop() > 1) {
