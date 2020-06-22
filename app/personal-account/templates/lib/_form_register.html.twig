@@ -1,10 +1,10 @@
-{% form_theme formregistration _self %}
+{% form_theme formRegister _self %}
 
 <div class="container my-1 my-lg-1 px-lg-2 mt-lg-3">
     <div class="row mx-lg-2">
-        <div id="contentFormRegistration" class="col py-2 px-lg-1">
-            <div id="form-registration">
-                {{ form_start(formregistration) }}
+        <div id="contentformRegister" class="col py-2 px-lg-1">
+            <div id="form-register">
+                {{ form_start(formRegister) }}
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="card bg-light mb-3">
@@ -12,19 +12,19 @@
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
 {#                                        <legend>{{'user.username'|trans({},'forms')|raw}}</legend>#}
-                                        <div>{{ form_label(formregistration.username) }}</div>
-                                        {{ form_widget(formregistration.username) }}
-                                        <small>{{ form_help(formregistration.username) }}</small>
-{#                                        {{ form_errors(formregistration.username) }}#}
+                                        <div>{{ form_label(formRegister.username) }}</div>
+                                        {{ form_widget(formRegister.username) }}
+                                        <small>{{ form_help(formRegister.username) }}</small>
+{#                                        {{ form_errors(formRegister.username) }}#}
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.email) }}
-                                        {{ form_widget(formregistration.email) }}
-                                        <small>{{ form_help(formregistration.email) }}</small>
+                                        {{ form_label(formRegister.email) }}
+                                        {{ form_widget(formRegister.email) }}
+                                        <small>{{ form_help(formRegister.email) }}</small>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_widget(formregistration.plainPassword) }}
-                                        <small>{{ form_help(formregistration.plainPassword) }}</small>
+                                        {{ form_widget(formRegister.plainPassword) }}
+                                        <small>{{ form_help(formRegister.plainPassword) }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -35,13 +35,13 @@
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
                                         <p class="mb-1">{{'user.kind'|trans({},'forms')|raw}}</p>
-                                        {{ form_widget(formregistration.userkind) }}
-                                        <small>{{ form_help(formregistration.userkind) }}</small>
+                                        {{ form_widget(formRegister.userkind) }}
+                                        <small>{{ form_help(formRegister.userkind) }}</small>
                                     </div>
                                     <div class="form-group col text-dark">
                                         <p class="mb-1">{{'user.roles'|trans({},'forms')|raw}}</p>
-                                        {{ form_widget(formregistration.roles, {'attr': {'class': 'custom-control custom-radio'}}) }}
-                                        <small>{{ form_help(formregistration.roles) }}</small>
+                                        {{ form_widget(formRegister.roles, {'attr': {'class': 'custom-control custom-radio'}}) }}
+                                        <small>{{ form_help(formRegister.roles) }}</small>
                                         <small class="form-text text-muted">
                                             Если Ваша роль не соответствует выбранной по умолчанию, обратитесь к администратору по электронной почте admin@barsu.by
                                         </small>
@@ -56,19 +56,19 @@
                                 <div class="card-header font-weight-bold">Фамилия, имя, отчество на русском языке</div>
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.lastname) }}
-                                        {{ form_widget(formregistration.lastname) }}
-                                        <small>{{ form_help(formregistration.lastname) }}</small>
+                                        {{ form_label(formRegister.lastname) }}
+                                        {{ form_widget(formRegister.lastname) }}
+                                        <small>{{ form_help(formRegister.lastname) }}</small>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.firstname) }}
-                                        {{ form_widget(formregistration.firstname) }}
-                                        <small>{{ form_help(formregistration.firstname) }}</small>
+                                        {{ form_label(formRegister.firstname) }}
+                                        {{ form_widget(formRegister.firstname) }}
+                                        <small>{{ form_help(formRegister.firstname) }}</small>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.patronymic) }}
-                                        {{ form_widget(formregistration.patronymic) }}
-                                        <small>{{ form_help(formregistration.patronymic) }}</small>
+                                        {{ form_label(formRegister.patronymic) }}
+                                        {{ form_widget(formRegister.patronymic) }}
+                                        <small>{{ form_help(formRegister.patronymic) }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -78,19 +78,19 @@
                                 <div class="card-header font-weight-bold">Фамилия, имя, отчество на английском языке</div>
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.enLastname) }}
-                                        {{ form_widget(formregistration.enLastname) }}
-                                        <small>{{ form_help(formregistration.enLastname) }}</small>
+                                        {{ form_label(formRegister.enLastname) }}
+                                        {{ form_widget(formRegister.enLastname) }}
+                                        <small>{{ form_help(formRegister.enLastname) }}</small>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.enFirstname) }}
-                                        {{ form_widget(formregistration.enFirstname) }}
-                                        <small>{{ form_help(formregistration.enFirstname) }}</small>
+                                        {{ form_label(formRegister.enFirstname) }}
+                                        {{ form_widget(formRegister.enFirstname) }}
+                                        <small>{{ form_help(formRegister.enFirstname) }}</small>
                                     </div>
                                     <div class="form-group col text-dark">
-                                        {{ form_label(formregistration.enPatronymic) }}
-                                        {{ form_widget(formregistration.enPatronymic) }}
-                                        <small>{{ form_help(formregistration.enPatronymic) }}</small>
+                                        {{ form_label(formRegister.enPatronymic) }}
+                                        {{ form_widget(formRegister.enPatronymic) }}
+                                        <small>{{ form_help(formRegister.enPatronymic) }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -104,44 +104,44 @@
                                 <div class="card-body">
                                     {# ############################################################ #}
                                     {# Блок информации о пользователе типа "Сотрудник университета" #}
-                                    <div id="colleague-department" class="form-group col text-dark {{ formregistration.userkind.vars.value == '2' ? 'invisible' }} ">
-                                        {{ form_label(formregistration.department) }}
-                                        {{ form_widget(formregistration.department) }}
-                                        <small>{{ form_help(formregistration.department) }}</small>
+                                    <div id="colleague-department" class="form-group col text-dark {{ formRegister.userkind.vars.value == '2' ? 'invisible' }} ">
+                                        {{ form_label(formRegister.department) }}
+                                        {{ form_widget(formRegister.department) }}
+                                        <small>{{ form_help(formRegister.department) }}</small>
                                     </div>
-                                    <div id="colleague-position"  class="form-group col text-dark {{ formregistration.userkind.vars.value == '2' ? 'invisible' }} ">
-                                        {{ form_label(formregistration.positions) }}
-                                        {{ form_widget(formregistration.positions) }}
-                                        <small>{{ form_help(formregistration.positions) }}</small>
+                                    <div id="colleague-position"  class="form-group col text-dark {{ formRegister.userkind.vars.value == '2' ? 'invisible' }} ">
+                                        {{ form_label(formRegister.positions) }}
+                                        {{ form_widget(formRegister.positions) }}
+                                        <small>{{ form_help(formRegister.positions) }}</small>
                                     </div>
-                                    <div id="colleague-date-start" class="form-group col text-dark {{ formregistration.userkind.vars.value == '2' ? 'invisible' }}">
-                                        {{ form_label(formregistration.dateStartPosition) }}
-                                        {{ form_widget(formregistration.dateStartPosition) }}
-                                        <small>{{ form_help(formregistration.dateStartPosition) }}</small>
+                                    <div id="colleague-date-start" class="form-group col text-dark {{ formRegister.userkind.vars.value == '2' ? 'invisible' }}">
+                                        {{ form_label(formRegister.dateStartPosition) }}
+                                        {{ form_widget(formRegister.dateStartPosition) }}
+                                        <small>{{ form_help(formRegister.dateStartPosition) }}</small>
                                     </div>
                                     {# ############################################################ #}
 
                                     {# ############################################################ #}
                                     {# Блок информации о пользователе типа "Студент университета"   #}
-                                    <div id="student-faculty" class="form-group col text-dark {{ formregistration.userkind.vars.value == '3' ? 'invisible' }} ">
-                                        {{ form_label(formregistration.faculty) }}
-                                        {{ form_widget(formregistration.faculty) }}
-                                        <small>{{ form_help(formregistration.faculty) }}</small>
+                                    <div id="student-faculty" class="form-group col text-dark {{ formRegister.userkind.vars.value == '3' ? 'invisible' }} ">
+                                        {{ form_label(formRegister.faculty) }}
+                                        {{ form_widget(formRegister.faculty) }}
+                                        <small>{{ form_help(formRegister.faculty) }}</small>
                                     </div>
-                                    <div id="student-speciality" class="form-group col text-dark {{ formregistration.userkind.vars.value == '3' ? 'invisible' }} ">
-                                        {{ form_label(formregistration.speciality) }}
-                                        {{ form_widget(formregistration.speciality) }}
-                                        <small>{{ form_help(formregistration.speciality) }}</small>
+                                    <div id="student-speciality" class="form-group col text-dark {{ formRegister.userkind.vars.value == '3' ? 'invisible' }} ">
+                                        {{ form_label(formRegister.speciality) }}
+                                        {{ form_widget(formRegister.speciality) }}
+                                        <small>{{ form_help(formRegister.speciality) }}</small>
                                     </div>
-                                    <div id="student-group" class="form-group col text-dark {{ formregistration.userkind.vars.value == '3' ? 'invisible' }} ">
-                                        {{ form_label(formregistration.group) }}
-                                        {{ form_widget(formregistration.group) }}
-                                        <small>{{ form_help(formregistration.group) }}</small>
+                                    <div id="student-group" class="form-group col text-dark {{ formRegister.userkind.vars.value == '3' ? 'invisible' }} ">
+                                        {{ form_label(formRegister.group) }}
+                                        {{ form_widget(formRegister.group) }}
+                                        <small>{{ form_help(formRegister.group) }}</small>
                                     </div>
-                                    <div id="student-date-start" class="form-group col text-dark {{ formregistration.userkind.vars.value == '3' ? 'invisible' }}">
-                                        {{ form_label(formregistration.dateStartSpeciality) }}
-                                        {{ form_widget(formregistration.dateStartSpeciality) }}
-                                        <small>{{ form_help(formregistration.dateStartSpeciality) }}</small>
+                                    <div id="student-date-start" class="form-group col text-dark {{ formRegister.userkind.vars.value == '3' ? 'invisible' }}">
+                                        {{ form_label(formRegister.dateStartSpeciality) }}
+                                        {{ form_widget(formRegister.dateStartSpeciality) }}
+                                        <small>{{ form_help(formRegister.dateStartSpeciality) }}</small>
                                     </div>
                                     {# ############################################################ #}
                                 </div>
@@ -153,8 +153,8 @@
                                 <div class="card-body">
                                     <div class="form-group col text-dark">
                                         <p class="mb-1">{{'user.interests'|trans({},'forms')|raw}}</p>
-                                        {{ form_widget(formregistration.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
-                                        <small>{{ form_help(formregistration.interests) }}</small>
+                                        {{ form_widget(formRegister.interests, {'attr': {'class': 'custom-control custom-checkbox'}}) }}
+                                        <small>{{ form_help(formRegister.interests) }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                                 <p class="text-muted mt-1 mb-1">{{'user.agreement'|trans({},'forms')|raw}}</p>
                             </div>
                             <div class="form-group mx-3">
-                                {{ form_row(formregistration.termsAccepted)}}
+                                {{ form_row(formRegister.termsAccepted)}}
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                             <div class="text-danger" id="recaptchaError"></div>
                         </div>
                     </div>
-                {{ form_end(formregistration) }}
+                {{ form_end(formRegister) }}
             </div>
         </div>
     </div>

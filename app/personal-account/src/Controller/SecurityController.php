@@ -15,6 +15,7 @@ use VP\PersonalAccount\Entity\{
 };
 use VP\PersonalAccount\Forms\UserType;
 use VP\PersonalAccount\Repository\RoleRepository;
+use VP\PersonalAccount\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,9 +57,15 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/registration", defaults={"_fragment" = "header-registration"}, name="registration", methods={"GET", "POST"})
-     */
-    public function registration(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+     * @Route("/register", defaults={"_fragment" = "header-register"}, name="register", methods={"GET", "POST"})
+     * @param AuthenticationUtils $authenticationUtils
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param MailerService $mailerService
+     * @param \Swift_Mailer $mailer
+     * @return Response
+     * @throws \Exception     */
+    public function register(AuthenticationUtils $authenticationUtils, Request $request, UserPasswordEncoderInterface $passwordEncoder, MailerService $mailerService, \Swift_Mailer $mailer): Response
     {
         // helper vars
         $captchaError = '';
@@ -115,6 +122,7 @@ class SecurityController extends AbstractController
                     $role = $em->getRepository(Role::class)->findOneBy(['name' => $request->request->get('user')['roles']]);
                     $user->setRole($role);
                     $user->setStatus($_ENV['STATUS_INACTIVE']);
+                    $user->setConfirmationToken($this->generateToken());
                     $em->persist($user);
                     $em->flush();
                     if (strcmp($user->getUserKind()->getName(),$_ENV['USER_EMPLOYEE']) === 0) {
@@ -136,7 +144,22 @@ class SecurityController extends AbstractController
                         $em->persist($userStudentGroup);
                         $em->flush();
                     }
+
+                    $token = $user->getConfirmationToken();
+                    $email = $user->getEmail();
+                    $username = $user->getUsername();
+                    $mailerService->sendToken(
+                        $token,
+                        $email,
+                        $username,
+                        'security/registration.html.twig'
+                    );
+                    $this->addFlash(
+                        'user-error',
+                        'Ваша регистрация была подтверждена, вы получите подтверждение по электронной почте для активации вашей учетной записи и сможете войти в систему'
+                    );
                     //return $this->redirectToRoute('user-success');
+                    return $this->redirectToRoute('login');
                 } else {
                     $captchaError = 'Не верно введена captcha';
                 }
@@ -148,11 +171,68 @@ class SecurityController extends AbstractController
         return $this->render(
             'security/registration.html.twig',
             [
-                'formregistration' => $registrationForm->createView(),
+                'formRegister' => $registrationForm->createView(),
                 'error' => '',
                 'captchaError' => $captchaError,
                 'captchaKey' => $_ENV['PERSONAL_ACCOUNT_CAPTCHA_KEY'],
             ]);
+    }
+
+    /**
+     * @Route("/account/confirm/{token}/{username}", name="confirm_account")
+     * @param $token
+     * @param $username
+     * @return Response
+     */
+    public function confirmAccount($token, $username): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->findOneBy(['username' => $username]);
+        $tokenExist = $user->getConfirmationToken();
+        if($token === $tokenExist) {
+            $user->setConfirmationToken(null);
+            $user->setEnabled(true);
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('app_login');
+        } else {
+            return $this->render('registration/token-expire.html.twig');
+        }
+    }
+    /**
+     * @Route("/send-token-confirmation", name="send_confirmation_token")
+     * @param Request $request
+     * @param MailerService $mailerService
+     * @param \Swift_Mailer $mailer
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
+     */
+    public function sendConfirmationToken(Request $request, MailerService $mailerService, \Swift_Mailer $mailer): RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $email = $request->request->get('email');
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+        if($user === null) {
+            $this->addFlash('not-user-exist', 'Пользователь не найден');
+            return $this->redirectToRoute('app_register');
+        }
+        $user->setConfirmationToken($this->generateToken());
+        $em->persist($user);
+        $em->flush();
+        $token = $user->getConfirmationToken();
+        $email = $user->getEmail();
+        $username = $user->getUsername();
+        $mailerService->sendToken($mailer, $token, $email, $username, 'registration.html.twig');
+        return $this->redirectToRoute('app_login');
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    private function generateToken()
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 }
 

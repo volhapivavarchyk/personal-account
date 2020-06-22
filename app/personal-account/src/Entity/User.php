@@ -99,6 +99,10 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
     private $status;
+    /**
+     * @ORM\Column(length=20)
+     */
+    private $confirmationToken;
 
     public function __construct()
     {
@@ -307,13 +311,17 @@ class User implements UserInterface, \Serializable
         $this->userkind = $userkind;
     }
     /**
-     * $role getter
+     * $role getter as array
      * @return array|null $role
      */
     public function getRoles(): array
     {
         return $this->role == null ? ['ROLE_GUEST'] : [$this->role->getName()];
     }
+    /**
+     * $role getter
+     * @return Role $role
+     */
     public function getRole(): Role
     {
         return $this->role;
@@ -431,6 +439,23 @@ class User implements UserInterface, \Serializable
     {
         $this->status = $status;
     }
+    /**
+     * $confirmationToken getter
+     * @return string $confirmationToken
+     */
+    public function getConfirmationToken(): string
+    {
+        return $this->confirmationToken;
+    }
+    /**
+     * $confirmationToken setter
+     * @param string $confirmationToken
+     * @return void
+     */
+    public function setConfirmationToken(string $confirmationToken): void
+    {
+        $this->confirmationToken = $confirmationToken;
+    }
 
     /**
      * @inheritDoc
@@ -444,6 +469,7 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
+        $this->plainPassword = null;
     }
     /**
      * convert properties to array
