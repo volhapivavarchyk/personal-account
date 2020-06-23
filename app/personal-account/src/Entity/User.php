@@ -96,11 +96,11 @@ class User implements UserInterface, \Serializable
      */
     private $apiToken;
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(length=10)
      */
     private $status;
     /**
-     * @ORM\Column(length=20)
+     * @ORM\Column(length=100)
      */
     private $confirmationToken;
 
@@ -424,18 +424,18 @@ class User implements UserInterface, \Serializable
     }
     /**
      * $status getter
-     * @return integer $status
+     * @return string $status
      */
-    public function getStatus(): integer
+    public function getStatus(): string
     {
         return $this->status;
     }
     /**
      * $status setter
-     * @param integer $status
+     * @param string $status
      * @return void
      */
-    public function setStatus(integer $status): void
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }

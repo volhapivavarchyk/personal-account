@@ -12,9 +12,9 @@ class MailerService extends AbstractController
      */
     private $mailer;
 
-    public function __construct()
+    public function __construct(\Swift_Mailer $mailer)
     {
-        $this->mailer = new \Swift_Mailer();
+        $this->mailer = $mailer;
     }
 
     /**

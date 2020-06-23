@@ -119,10 +119,11 @@ class SecurityController extends AbstractController
                     $user->setPassword($password);
                     $userKind = $em->find(UserKind::class, $request->request->get('user')['userkind']);
                     $user->setUserKind($userKind);
-                    $role = $em->getRepository(Role::class)->findOneBy(['name' => $request->request->get('user')['roles']]);
-                    $user->setRole($role);
+//                    $role = $em->getRepository(Role::class)->findOneBy(['name' => $request->request->get('user')['roles']]);
+                    $user->setRole($defaultRole);
                     $user->setStatus($_ENV['STATUS_INACTIVE']);
-                    $user->setConfirmationToken($this->generateToken());
+                    $confirmationToken = $this->generateToken();
+                    $user->setConfirmationToken($confirmationToken);
                     $em->persist($user);
                     $em->flush();
                     if (strcmp($user->getUserKind()->getName(),$_ENV['USER_EMPLOYEE']) === 0) {
@@ -152,7 +153,7 @@ class SecurityController extends AbstractController
                         $token,
                         $email,
                         $username,
-                        'security/registration.html.twig'
+                        'registration.html.twig'
                     );
                     $this->addFlash(
                         'user-error',
