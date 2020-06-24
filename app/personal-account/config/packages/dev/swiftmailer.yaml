@@ -1,2 +1,9 @@
 swiftmailer:
   delivery_addresses: ['pivovarchyk@tut.by']
+  transport:  '%env(MAIL_GOOGLE_TRANSPORT)%'
+  encryption: '%env(MAIL_GOOGLE_ENCRYPTION)%'
+  auth_mode:  '%env(MAIL_AUTH_MODE)%'
+  host:       '%env(MAIL_GOOGLE_HOST)%'
+  username:   '%env(MAIL_GOOGLE_USERNAME)%'
+  password:   '%env(MAIL_GOOGLE_PASSWORD_DBL_AUTH)%'
+  port:       '%env(MAIL_GOOGLE_PORT)%'

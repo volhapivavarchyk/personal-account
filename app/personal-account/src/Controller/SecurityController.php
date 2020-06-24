@@ -124,8 +124,8 @@ class SecurityController extends AbstractController
                     $user->setStatus($_ENV['STATUS_INACTIVE']);
                     $confirmationToken = $this->generateToken();
                     $user->setConfirmationToken($confirmationToken);
-                    $em->persist($user);
-                    $em->flush();
+//                    $em->persist($user);
+//                    $em->flush();
                     if (strcmp($user->getUserKind()->getName(),$_ENV['USER_EMPLOYEE']) === 0) {
                         $position = $em->find(Position::class, $request->request->get('user')['positions']);
                         $userPosition = new UserPosition();
@@ -133,8 +133,8 @@ class SecurityController extends AbstractController
                         $userPosition->setUser($user);
                         $dateStart = new \DateTime($request->request->get('user')['dateStartPosition']);
                         $userPosition->setDateStart($dateStart);
-                        $em->persist($userPosition);
-                        $em->flush();
+//                        $em->persist($userPosition);
+//                        $em->flush();
                     } elseif (strcmp($user->getUserKind()->getName(),$_ENV['USE_STUDENT']) === 0) {
                         $studentGroup = $em->find(StudentGroup::class, $request->request->get('user')['group']);
                         $userStudentGroup = new UserStudentGroup();
@@ -142,8 +142,8 @@ class SecurityController extends AbstractController
                         $userStudentGroup->setUser($user);
                         $dateStart = new \DateTime($request->request->get('user')['dateStartSpeciality']);
                         $userStudentGroup->setDateStart($dateStart);
-                        $em->persist($userStudentGroup);
-                        $em->flush();
+//                        $em->persist($userStudentGroup);
+//                        $em->flush();
                     }
 
                     $token = $user->getConfirmationToken();
