@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <form method="post" action="{{ url('login') }}">
+                    <form method="post">
                         <div class="card bg-transparent mb-5 wow fadeIn mt-3" data-wow-delay="0.3s">
                             <div class="card-body text-center pt-4">
                                 <h2 class="card-title text-white pt-2">
@@ -60,6 +60,10 @@
                                 </div>
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                 <button class="btn btn-outline-white mt-3" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;Войти&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                <div class="list-inline text-center mt-2">
+                                    <a href="{{ url('forgotten_password') }}" class="btn btn-social">Восстановить пароль</a>
+                                    <a href="{{ url('reset_password') }}" class="btn btn-social">Сбросить пароль</a>
+                                </div>
                             </div>
                         </div>
                     </form>

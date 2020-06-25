@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+
+{% block header %}
+    <header>
+        {{ include('lib/_navbar.html.twig') }}
+        {{ include('lib/_form_authorize.html.twig') }}
+    </header>
+{% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container body-container mt-lg-4" id="header-registration">
+        <h3> CИстек срок действия кода авторизации. Пройдите повторно регистрацию.</h3>
+    </div>
+{% endblock %}

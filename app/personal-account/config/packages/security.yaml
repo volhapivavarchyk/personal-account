@@ -20,7 +20,7 @@ security:
             pattern: ^/
             form_login:
                 login_path: login
-                check_path: login
+                check_path: home
                 always_use_default_target_path: true
                 default_target_path: homepage
                 failure_path: login_failure

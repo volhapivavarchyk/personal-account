@@ -16,8 +16,6 @@ class UserController extends AbstractController
      */
     public function action(Request $request, int $module = 0, int $service = 0): Response
     {
-        var_dump($this->isGranted('IS_AUTHENTICATED_REMEMBERED'));
-        var_dump($this->isGranted('IS_AUTHENTICATED_FULLY'));
         return $this->render(
             'users/user.html.twig',
             [

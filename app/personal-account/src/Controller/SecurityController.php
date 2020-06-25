@@ -35,13 +35,16 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+//        if ($this->getUser()) {
+//            return $this->redirectToRoute('homepage');
+//        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render(
-            'security/security.html.twig',
+            'security/authorization.html.twig',
             [
                 'last_username' => $lastUsername,
                 'error'         => $error,
@@ -64,7 +67,8 @@ class SecurityController extends AbstractController
      * @param MailerService $mailerService
      * @param \Swift_Mailer $mailer
      * @return Response
-     * @throws \Exception     */
+     * @throws \Exception
+     */
     public function register(AuthenticationUtils $authenticationUtils, Request $request, UserPasswordEncoderInterface $passwordEncoder, MailerService $mailerService, \Swift_Mailer $mailer): Response
     {
         // helper vars
@@ -74,8 +78,6 @@ class SecurityController extends AbstractController
         $idFaculty = $request->request->get('faculty') ? $request->request->get('faculty') : null;
         $idSpeciality = $request->request->get('speciality') ? $request->request->get('speciality') : null;
         $parameters = $request->request->get('user') ? $request->request->get('user') : [];
-
-        //var_dump($request->request->get('user'));
 
         $user = new User();
         $defaultUserKind = $this->getDoctrine()
@@ -124,8 +126,8 @@ class SecurityController extends AbstractController
                     $user->setStatus($_ENV['STATUS_INACTIVE']);
                     $confirmationToken = $this->generateToken();
                     $user->setConfirmationToken($confirmationToken);
-//                    $em->persist($user);
-//                    $em->flush();
+                    $em->persist($user);
+                    $em->flush();
                     if (strcmp($user->getUserKind()->getName(),$_ENV['USER_EMPLOYEE']) === 0) {
                         $position = $em->find(Position::class, $request->request->get('user')['positions']);
                         $userPosition = new UserPosition();
@@ -133,8 +135,8 @@ class SecurityController extends AbstractController
                         $userPosition->setUser($user);
                         $dateStart = new \DateTime($request->request->get('user')['dateStartPosition']);
                         $userPosition->setDateStart($dateStart);
-//                        $em->persist($userPosition);
-//                        $em->flush();
+                        $em->persist($userPosition);
+                        $em->flush();
                     } elseif (strcmp($user->getUserKind()->getName(),$_ENV['USE_STUDENT']) === 0) {
                         $studentGroup = $em->find(StudentGroup::class, $request->request->get('user')['group']);
                         $userStudentGroup = new UserStudentGroup();
@@ -142,8 +144,8 @@ class SecurityController extends AbstractController
                         $userStudentGroup->setUser($user);
                         $dateStart = new \DateTime($request->request->get('user')['dateStartSpeciality']);
                         $userStudentGroup->setDateStart($dateStart);
-//                        $em->persist($userStudentGroup);
-//                        $em->flush();
+                        $em->persist($userStudentGroup);
+                        $em->flush();
                     }
 
                     $token = $user->getConfirmationToken();
@@ -153,11 +155,13 @@ class SecurityController extends AbstractController
                         $token,
                         $email,
                         $username,
-                        'registration.html.twig'
+                        'confirm_registration.html.twig'
                     );
                     $this->addFlash(
                         'user-error',
-                        'Ваша регистрация была подтверждена, вы получите подтверждение по электронной почте для активации вашей учетной записи и сможете войти в систему'
+                        'Вы успешно прошли регистрацию в системе. 
+                        Для активации Вашей учетной записи необходимо пройти по ссылке, отправленной на электронную почту. 
+                        После активации учетной записи Вы сможете войти в систему.'
                     );
                     //return $this->redirectToRoute('user-success');
                     return $this->redirectToRoute('login');
@@ -170,7 +174,7 @@ class SecurityController extends AbstractController
         }
 
         return $this->render(
-            'security/registration.html.twig',
+            'security/authorization.html.twig',
             [
                 'formRegister' => $registrationForm->createView(),
                 'error' => '',
@@ -191,13 +195,13 @@ class SecurityController extends AbstractController
         $user = $em->getRepository(User::class)->findOneBy(['username' => $username]);
         $tokenExist = $user->getConfirmationToken();
         if($token === $tokenExist) {
-            $user->setConfirmationToken(null);
-            $user->setEnabled(true);
+            $user->setConfirmationToken('');
+            $user->setStatus($_ENV['STATUS_ACTIVE']);
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('login');
         } else {
-            return $this->render('registration/token-expire.html.twig');
+            return $this->render('security/token-expire.html.twig');
         }
     }
     /**
@@ -215,7 +219,7 @@ class SecurityController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
         if($user === null) {
             $this->addFlash('not-user-exist', 'Пользователь не найден');
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('register');
         }
         $user->setConfirmationToken($this->generateToken());
         $em->persist($user);
@@ -224,7 +228,70 @@ class SecurityController extends AbstractController
         $email = $user->getEmail();
         $username = $user->getUsername();
         $mailerService->sendToken($mailer, $token, $email, $username, 'registration.html.twig');
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('login');
+    }
+    /**
+     * @Route("/mot-de-passe-oublier", name="forgotten_password")
+     * @param Request $request
+     * @param MailerService $mailerService
+     * @param \Swift_Mailer $mailer
+     * @return Response
+     * @throws \Exception
+     */
+    public function forgottenPassword(Request $request, MailerService $mailerService, \Swift_Mailer $mailer): Response
+    {
+        if($request->isMethod('POST')) {
+            $email = $request->get('email');
+            $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+            if($user === null) {
+                $this->addFlash('user-error', 'пользователя не существует');
+                return $this->redirectToRoute('app_register');
+            }
+            $user->setTokenPassword($this->generateToken());
+            $user->setCreatedTokenPasswordAt(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $token = $user->getTokenPassword();
+            $email = $user->getEmail();
+            $username = $user->getUsername();
+            $mailerService->sendToken($mailer, $token, $email, $username, 'forgotten_password.html.twig');
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('security/forgotten-password.html.twig');
+    }
+    /**
+     * @Route("/reset-password/{token}", defaults={"token" = ""}, name="reset_password")
+     * @param Request $request
+     * @param $token
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @return Response
+     */
+    public function resetPassword(Request $request, $token, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(ResetPasswordType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $em->getRepository(User::class)->findOneBy(['tokenPassword' => $token]);
+            if($user === null) {
+                $this->addFlash('not-user-exist', 'пользователя не существует');
+                return $this->redirectToRoute('app_register');
+            }
+            $user->setTokenPassword(null);
+            $user->setCreatedTokenPasswordAt(null);
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+            $em->flush();
+            return $this->redirectToRoute('app_login');
+        }
+        return $this->render('security/reset-password.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

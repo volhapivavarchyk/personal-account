@@ -6,6 +6,7 @@ parameters:
   app_locales: en|ru
   translation.fileTranslation: 'base.ru.yaml'
   translation.type: 'yaml'
+  security.exception_listener.class: VP\PersonalAccount\Security\Firewall\ExceptionListener
 
 services:
   # default configuration for services in *this* file
