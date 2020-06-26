@@ -3,6 +3,9 @@ user:
   password_all: Пароль
   password: Пароль
   password_repeat: Подтверждение пароля
+  password-old: Действующий пароль
+  password-new: Новый пароль
+  password-new-repeat: Подтверждение нового пароля
   firstname: Имя
   lastname: Фамилия
   patronymic: Отчество

@@ -9,8 +9,8 @@ security:
             algorithm: auto
     access_control:
         #- { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/personal, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN]}
-        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/ru/personal, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN]}
+        - { path: ^/ru/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,10 +20,10 @@ security:
             pattern: ^/
             form_login:
                 login_path: login
-                check_path: home
+                check_path: index
                 always_use_default_target_path: true
                 default_target_path: homepage
-                failure_path: login_failure
+                failure_path: login
                 #target_path_parameter: go_to
                 #failure_path_parameter: back_to
             logout:

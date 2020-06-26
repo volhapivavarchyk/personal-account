@@ -170,7 +170,6 @@ class User implements UserInterface, \Serializable
      */
     public function setPlainPassword(string $password)
     {
-//        $this->plainPassword = password_hash($password, PASSWORD_DEFAULT);
         $this->plainPassword = $password;
     }
     /**

@@ -14,6 +14,7 @@ use VP\PersonalAccount\Entity\{
     UserStudentGroup,
 };
 use VP\PersonalAccount\Forms\UserType;
+use VP\PersonalAccount\Forms\ResetPasswordType;
 use VP\PersonalAccount\Repository\RoleRepository;
 use VP\PersonalAccount\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -238,56 +239,65 @@ class SecurityController extends AbstractController
      * @return Response
      * @throws \Exception
      */
-    public function forgottenPassword(Request $request, MailerService $mailerService, \Swift_Mailer $mailer): Response
+    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailerService $mailerService, \Swift_Mailer $mailer): Response
     {
         if($request->isMethod('POST')) {
-            $email = $request->get('email');
-            $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
+            $username = $request->get('username');
+            $user = null;
+            $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $username]);
+            if($user === null) {
+                $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $username]);
+            }
             if($user === null) {
                 $this->addFlash('user-error', 'пользователя не существует');
-                return $this->redirectToRoute('app_register');
+                return $this->redirectToRoute('forgotten_password');
             }
-            $user->setTokenPassword($this->generateToken());
-            $user->setCreatedTokenPasswordAt(new \DateTime());
+            $token = $this->generateToken();
+            $user->setPlainPassword($token);
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $user->setPlainPassword('');
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $token = $user->getTokenPassword();
             $email = $user->getEmail();
             $username = $user->getUsername();
-            $mailerService->sendToken($mailer, $token, $email, $username, 'forgotten_password.html.twig');
-            return $this->redirectToRoute('home');
+            $mailerService->sendToken($token, $email, $username, 'forgotten_password.html.twig');
+            return $this->redirectToRoute('login');
         }
         return $this->render('security/forgotten-password.html.twig');
     }
     /**
      * @Route("/reset-password/{token}", defaults={"token" = ""}, name="reset_password")
      * @param Request $request
-     * @param $token
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      */
-    public function resetPassword(Request $request, $token, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function resetPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(ResetPasswordType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $em->getRepository(User::class)->findOneBy(['tokenPassword' => $token]);
-            if($user === null) {
-                $this->addFlash('not-user-exist', 'пользователя не существует');
-                return $this->redirectToRoute('app_register');
+            $user = $this->getUser();
+            var_dump($user);
+            if($user) {
+                if($passwordEncoder->isPasswordValid($user, $form->get('password')->getData())) {
+                    $user->setPlainPassword('');
+                    $user->setPassword(
+                        $passwordEncoder->encodePassword(
+                            $user,
+                            $form->get('plainPassword')->getData()
+                        )
+                    );
+                    $em->persist($user);
+                    $em->flush();
+                    return $this->redirectToRoute('login');
+                }
+            } else {
+                $this->addFlash('not-authorise-user', 'Вы не вошли в систему. Возможность доступна только для авторизованных пользователей.');
+                return $this->redirectToRoute('reset_password');
             }
-            $user->setTokenPassword(null);
-            $user->setCreatedTokenPasswordAt(null);
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-            $em->flush();
-            return $this->redirectToRoute('app_login');
         }
         return $this->render('security/reset-password.html.twig', [
             'form' => $form->createView()
