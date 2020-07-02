@@ -17,10 +17,6 @@ class IndexController extends AbstractController
      */
     public function show(Request $request): Response
     {
-        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('homepage');
-        } else {
-            return $this->redirectToRoute('login');
-        }
+        return $this->redirectToRoute('homepage');
     }
 }

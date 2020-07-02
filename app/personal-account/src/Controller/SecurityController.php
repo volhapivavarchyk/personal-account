@@ -36,19 +36,18 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-//        if ($this->getUser()) {
-//            return $this->redirectToRoute('homepage');
-//        }
-        // get the login error if there is one
+
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+        if ($error !== null) {
+            $this->addFlash('user-error', $error->getMessage());
+        }
         return $this->render(
             'security/authorization.html.twig',
             [
                 'last_username' => $lastUsername,
-                'error'         => $error,
             ]);
     }
 
@@ -74,7 +73,6 @@ class SecurityController extends AbstractController
     {
         // helper vars
         $captchaError = '';
-
         $idDepartment = $request->request->get('department') ? $request->request->get('department') : null;
         $idFaculty = $request->request->get('faculty') ? $request->request->get('faculty') : null;
         $idSpeciality = $request->request->get('speciality') ? $request->request->get('speciality') : null;
@@ -159,7 +157,7 @@ class SecurityController extends AbstractController
                         'confirm_registration.html.twig'
                     );
                     $this->addFlash(
-                        'user-error',
+                        'user-success',
                         'Вы успешно прошли регистрацию в системе. 
                         Для активации Вашей учетной записи необходимо пройти по ссылке, отправленной на электронную почту. 
                         После активации учетной записи Вы сможете войти в систему.'
@@ -175,7 +173,7 @@ class SecurityController extends AbstractController
         }
 
         return $this->render(
-            'security/authorization.html.twig',
+            'security/registration.html.twig',
             [
                 'formRegister' => $registrationForm->createView(),
                 'error' => '',
@@ -205,6 +203,7 @@ class SecurityController extends AbstractController
             return $this->render('security/token-expire.html.twig');
         }
     }
+
     /**
      * @Route("/send-token-confirmation", name="send_confirmation_token")
      * @param Request $request
@@ -231,8 +230,9 @@ class SecurityController extends AbstractController
         $mailerService->sendToken($mailer, $token, $email, $username, 'registration.html.twig');
         return $this->redirectToRoute('login');
     }
+
     /**
-     * @Route("/mot-de-passe-oublier", name="forgotten_password")
+     * @Route("/forgotten-password", name="forgotten_password")
      * @param Request $request
      * @param MailerService $mailerService
      * @param \Swift_Mailer $mailer
@@ -249,7 +249,7 @@ class SecurityController extends AbstractController
                 $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $username]);
             }
             if($user === null) {
-                $this->addFlash('user-error', 'пользователя не существует');
+                $this->addFlash('user-error', 'Пользователя не существует');
                 return $this->redirectToRoute('forgotten_password');
             }
             $token = $this->generateToken();
@@ -263,6 +263,7 @@ class SecurityController extends AbstractController
             $email = $user->getEmail();
             $username = $user->getUsername();
             $mailerService->sendToken($token, $email, $username, 'forgotten_password.html.twig');
+            $this->addFlash('user-success', 'На адрес электронной почты выслан новый пароль. В случае необходимости пароль можно сменить в настройках личного кабинета');
             return $this->redirectToRoute('login');
         }
         return $this->render('security/forgotten-password.html.twig');
@@ -280,7 +281,6 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
-            var_dump($user);
             if($user) {
                 if($passwordEncoder->isPasswordValid($user, $form->get('password')->getData())) {
                     $user->setPlainPassword('');
@@ -292,7 +292,8 @@ class SecurityController extends AbstractController
                     );
                     $em->persist($user);
                     $em->flush();
-                    return $this->redirectToRoute('login');
+                    $this->addFlash('user-success', 'Пароль успешно изменен');
+                    return $this->redirectToRoute('homepage');
                 }
             } else {
                 $this->addFlash('not-authorise-user', 'Вы не вошли в систему. Возможность доступна только для авторизованных пользователей.');

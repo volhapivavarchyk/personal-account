@@ -17,6 +17,27 @@ let ready = $(document).ready(function() {
 
     $('body').tooltip({selector: '[data-toggle="tooltip"]'});
 
+    if ($("#container-forgotten-password").length || $("#container-reset-password").length) {
+        $navbar.addClass("top-nav-collapse");
+    } else {
+        if ($navbar.offset().top > 10) {
+            $navbar.addClass("top-nav-collapse");
+        }
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 1) {
+                $navbar.addClass("top-nav-collapse");
+            } else {
+                $navbar.removeClass("top-nav-collapse");
+            }
+        });
+    }
+    /*
+    $(window).scroll(function() {
+        let scrolledY = $(window).scrollTop();
+        $('.authorize-background').css('background-position', 'center '+ ((scrolledY)) + 'px');
+    });
+    */
+
     $('.js-datepicker').datepicker({
         todayHighlight: true,
         format: 'dd-mm-yyyy',
@@ -28,19 +49,6 @@ let ready = $(document).ready(function() {
     });
     //$.datepicker.defaults($.fn.datepicker.dates['ru']);
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 1) {
-            $navbar.addClass("top-nav-collapse");
-        } else {
-            $navbar.removeClass("top-nav-collapse");
-        }
-    });
-    /*
-    $(window).scroll(function() {
-        let scrolledY = $(window).scrollTop();
-        $('.authorize-background').css('background-position', 'center '+ ((scrolledY)) + 'px');
-    });
-    */
     $('#btn-info-module').click(function (){
         for (let i = 0; i<$('.info-module').length; i++) {
             $('.info-module')[i].classList.toggle('d-none');
