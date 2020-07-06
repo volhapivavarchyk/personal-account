@@ -66,19 +66,26 @@
                     </form>
                 </div>
             </div>
-            <div class="row pb-lg-5">
-                <div class="col-12">
-                    <div class="card bg-transparent mb-5 wow fadeIn mt-3" data-wow-delay="0.3s">
-                        {% for label, messages in app.flashes %}
-                            {% for message in messages %}
-                                <div class="text-danger">
-                                    <p>{{ message }}</p>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="row pb-lg-5">
+                        <div class="col-12">
+                            <div class="card bg-transparent mb-5 wow fadeIn mt-3" data-wow-delay="0.3s">
+                                {% if label == "user-error" %}
+                                    {% set class_message = "text-danger-light" %}
+                                {% elseif  label == "user-success" %}
+                                    {% set class_message = "text-success-light" %}
+                                {% else %}
+                                    {% set class_message = "text-info-light" %}
+                                {% endif %}
+                                <div class="{{ class_message }} px-2 pt-2 pb-1">
+                                    {{ message }}
                                 </div>
-                            {% endfor %}
-                        {% endfor %}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
 </div>

@@ -81,3 +81,12 @@ div {
     opacity: 1.0;
   }
 }
+.text-danger-light {
+  color: get-color-with-alpha($color-red-light, 1.0);
+}
+.text-success-light {
+  color: get-color-with-alpha($color-green-light, 1.0);
+}
+.text-info-light {
+  color: get-color-with-alpha($color-purple-light, 1.0);
+}

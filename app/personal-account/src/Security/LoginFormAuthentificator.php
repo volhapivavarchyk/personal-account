@@ -73,13 +73,16 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator implements
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Username could not be found.');
+            throw new CustomUserMessageAuthenticationException('Пользователь с указанным именем не найден');
         }
         return $user;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        if (!$this->passwordEncoder->isPasswordValid($user, $credentials['password'])) {
+            throw new CustomUserMessageAuthenticationException('Неверный пароль');
+        }
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
