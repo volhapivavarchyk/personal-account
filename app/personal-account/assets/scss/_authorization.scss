@@ -90,3 +90,13 @@ div {
 .text-info-light {
   color: get-color-with-alpha($color-purple-light, 1.0);
 }
+@-webkit-keyframes autofill {
+  to {
+    color: inherit;
+    background: transparent !important;
+  }
+}
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}

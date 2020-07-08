@@ -15,7 +15,6 @@ use VP\PersonalAccount\Entity\{
 };
 use VP\PersonalAccount\Forms\UserType;
 use VP\PersonalAccount\Forms\ResetPasswordType;
-use VP\PersonalAccount\Repository\RoleRepository;
 use VP\PersonalAccount\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,11 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-//use Symfony\Bridge\Twig\Extension\HttpFoundationExtension;
-//use Symfony\Component\Form\Forms;
-//use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension as FormHttpFoundationExtension;
-//use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
-//use Symfony\Component\Validator\Validation;
 
 class SecurityController extends AbstractController
 {
@@ -38,12 +32,13 @@ class SecurityController extends AbstractController
     {
 
         $error = $authenticationUtils->getLastAuthenticationError();
-
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
         if ($error !== null) {
             $this->addFlash('user-error', $error->getMessage());
         }
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
         return $this->render(
             'security/authorization.html.twig',
             [

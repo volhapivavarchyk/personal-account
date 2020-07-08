@@ -210,11 +210,11 @@
     </nav>
     <div class="tab-content bg-light mx-3 info-module" id="nav-tabContent">
         {# Расписание занятие #}
-        {{ include('lib/modules/_schedule.html.twig') }}
+        {{ include('users/modules/_schedule.html.twig') }}
         {# Аттестация студентов #}
-        {{ include('lib/modules/_attestation.html.twig') }}
+        {{ include('users/modules/_attestation.html.twig') }}
         {# Видеоконференции, вебинары #}
-        {{ include('lib/modules/_webinar.html.twig') }}
+        {{ include('users/modules/_webinar.html.twig') }}
     </div>
 {% endif %}
 
@@ -224,7 +224,7 @@
 {% if module == 1 and service == 2 %}
     <nav class="mx-3 mt-3 info-module">
         <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active mx-1" id="nav-elib-tab" data-toggle="tab" href="#nav-elib" role="tab" aria-controls="nav-elib" aria-selected="true">Электронный каталог</a>
+            <a class="nav-item nav-link active mx-1" id="nav-eusers-tab" data-toggle="tab" href="#nav-eusers" role="tab" aria-controls="nav-eusers" aria-selected="true">Электронный каталог</a>
             <a class="nav-item nav-link mx-1" id="nav-repository-tab" data-toggle="tab" href="#nav-repository" role="tab" aria-controls="nav-repository" aria-selected="false">Репозиторий</a>
             <a class="nav-item nav-link mx-1" id="nav-warehouse-tab" data-toggle="tab" href="#nav-warehouse" role="tab" aria-controls="nav-warehouse" aria-selected="false">Хранилище электронных ресурсов</a>
             <a class="nav-item nav-link mx-1" id="nav-department-site-tab" data-toggle="tab" href="#nav-department-site" role="tab" aria-controls="nav-department-site" aria-selected="false">Сайты кафедр</a>
@@ -233,15 +233,15 @@
     </nav>
     <div class="tab-content bg-light mx-3 info-module" id="nav-tabContent">
         {# Электронный каталог библиотеки #}
-        {{ include('lib/modules/_elib.html.twig') }}
+        {{ include('users/modules/_elib.html.twig') }}
         {# Репозиторий #}
-        {{ include('lib/modules/_repository.html.twig') }}
+        {{ include('users/modules/_repository.html.twig') }}
         {# Хранилище электронных ресурсов #}
-        {{ include('lib/modules/_warehouse.html.twig') }}
+        {{ include('users/modules/_warehouse.html.twig') }}
         {# Сайты кафедр #}
-        {{ include('lib/modules/_department_site.html.twig') }}
+        {{ include('users/modules/_department_site.html.twig') }}
         {# СУО "Moodle" #}
-        {{ include('lib/modules/_moodle.html.twig') }}
+        {{ include('users/modules/_moodle.html.twig') }}
     </div>
 {% endif %}
 
@@ -257,8 +257,8 @@
     </nav>
     <div class="tab-content bg-light mx-3 info-module" id="nav-tabContent">
         {# Инофрмационный ресурс "Абитуриент барГУ" #}
-        {{ include('lib/modules/_ir_entrant.html.twig') }}
+        {{ include('users/modules/_ir_entrant.html.twig') }}
         {# Автоматизированная система "Абитуриент" #}
-        {{ include('lib/modules/_as_entrant.html.twig') }}
+        {{ include('users/modules/_as_entrant.html.twig') }}
     </div>
 {% endif %}
