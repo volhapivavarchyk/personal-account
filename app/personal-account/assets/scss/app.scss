@@ -1,31 +1,3 @@
-// setting the value of this variable to an empty data URL is the only working solution
-// to load the Bootswatch web fonts locally and avoid loading them from Google servers
-// see https://github.com/thomaspark/bootswatch/issues/55#issuecomment-298093182
-$web-font-path: 'data:text/css;base64,';
-
-// Make sure the bootstrap-sass and lato fonts are resolved correctly
-//$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-$lato-font-path: '~lato-font/fonts';
-
-//my variables
-$font: "Source Sans Pro", Calibri, Candara, Arial, sans-serif;
-
-$color-white: (255, 255, 255);
-$color-grayish-blue: (169, 189, 200);
-$color-slightly-desaturated-blue: (126, 123, 215);
-$color-bright-blue: (39, 128, 227);
-$color-very-dark-blue: (0, 30, 93);
-$color-dark-blue: (0, 72, 144);
-$color-black: (0, 0, 0);
-$color-gray: (134, 142, 150);
-$color-gray-mid-light: (219, 220, 221);
-$color-red-light: (255, 153, 175);
-$color-green-light: (178, 225, 162);
-$color-purple-light: (214, 186, 227);
-
-$color-gray-dark: #373a3c;
-$color-gray-light: #f8f9fa;
-
 @import "~bootswatch/dist/cosmo/variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-sass-datepicker/css/datepicker.css";
@@ -34,14 +6,17 @@ $color-gray-light: #f8f9fa;
 @import "~@fortawesome/fontawesome-free/css/v4-shims.css";
 @import "~highlight.js/styles/solarized-light.css";
 @import "~wowjs/css/libs/animate.css";
+//@import "~admin-lte/dist/css/adminlte.css";
+
+@import '_variables';
+@import 'mixins/_mixins_main';
+
+@import 'main';
+@import '_authorization';
+@import '_user';
+@import '_bootstrap_modify';
 
 // pick the Lato fonts individually to avoid importing the entire font family
 @import '~lato-font/scss/public-api';
 @include lato-include-font('normal');
 @include lato-include-font('bold');
-
-@import 'extend';
-@import 'main';
-@import '_authorization';
-@import '_user';
-@import '_bootstrap_modify';

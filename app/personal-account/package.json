@@ -24,6 +24,7 @@
     "build": "encore production --progress"
   },
   "dependencies": {
+    "admin-lte": "3.0",
     "bootstrap": "^4.4.1",
     "bootstrap-datepicker": "^1.9.0",
     "bootstrap-sass": "^3.4.1",

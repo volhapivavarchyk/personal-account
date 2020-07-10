@@ -17,7 +17,7 @@ class UserController extends AbstractController
     public function action(Request $request, int $module = 0, int $service = 0): Response
     {
         return $this->render(
-            'users/user.html.twig',
+            'users/user-v2.html.twig',
             [
                 'module' => $module,
                 'service' => $service

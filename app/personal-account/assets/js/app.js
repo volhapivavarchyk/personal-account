@@ -8,6 +8,7 @@ import 'bootstrap-sass/assets/javascripts/bootstrap/alert.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/collapse.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/dropdown.js';
 import 'bootstrap-sass/assets/javascripts/bootstrap/modal.js';
+// import 'admin-lte/dist/js/adminlte';
 import 'jquery';
 import 'popper.js/dist/popper.js';
 import WOW from 'wowjs/dist/wow.js';

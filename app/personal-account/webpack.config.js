@@ -10,8 +10,6 @@ Encore
     //.setManifestKeyPrefix('build/')
 
     .addEntry('app', './assets/js/app.js')
-    .addEntry('login', './assets/js/login.js')
-    .addEntry('admin', './assets/js/admin.js')
 
     .splitEntryChunks()
 
