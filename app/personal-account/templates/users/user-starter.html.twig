@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'user' %}
+
+{% block header %}
+{% endblock %}
+
+{% block footer %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-start">
+            <div class="col-xl-2 col-lg-3 col-md-4 pr-0 ">
+                {{ include('users/lib/_user-starter-links.html.twig') }}
+            </div>
+            <div class="col-xl-10 col-lg-9 col-md-8 pl-0">
+                {{ include('users/lib/_user-starter-content.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

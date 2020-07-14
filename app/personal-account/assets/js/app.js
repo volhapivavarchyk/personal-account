@@ -1,4 +1,5 @@
 import '../scss/app.scss';
+import './admin/AdminLTE';
 
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap-sass-datepicker/js/bootstrap-sass-datepicker.js';

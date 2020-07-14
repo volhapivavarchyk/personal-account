@@ -1,23 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body_id 'user' %}
+{% block body_class 'sidebar_mini' %}
 
 {% block header %}
-    <header>
-    </header>
 {% endblock %}
 
-{% block footer %}{{ parent() }}{% endblock %}
+{% block footer %}
+{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="row justify-content-center align-items-start">
-            <div class="col-xl-2 col-lg-3 col-md-4 pr-0 ">
-                {{ include('users/_user_links.html.twig') }}
-            </div>
-            <div class="col-xl-10 col-lg-9 col-md-8 pl-0">
-                {{ include('users/_user_content.html.twig') }}
-            </div>
-        </div>
+    <div class="wrapper">
+        {{ include('users/lib/_user-navbar.html.twig') }}
+        {{ include('users/lib/_user-sidebar.html.twig') }}
+        {{ include('users/lib/_user-content.html.twig') }}
+        {{ include('users/lib/_user-content.html.twig') }}
+
+        {{ include('users/lib/_user-footer.html.twig') }}
     </div>
 {% endblock %}
