@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body_id 'user' %}
-{% block body_class 'sidebar_mini' %}
+{% block body_class 'sidebar-mini' %}
 
 {% block header %}
 {% endblock %}
@@ -14,7 +14,7 @@
         {{ include('users/lib/_user-navbar.html.twig') }}
         {{ include('users/lib/_user-sidebar.html.twig') }}
         {{ include('users/lib/_user-content.html.twig') }}
-        {{ include('users/lib/_user-content.html.twig') }}
+        {{ include('users/lib/_user-sidebar-control.html.twig') }}
 
         {{ include('users/lib/_user-footer.html.twig') }}
     </div>

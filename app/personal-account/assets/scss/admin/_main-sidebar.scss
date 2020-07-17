@@ -38,6 +38,10 @@
     border-bottom: 1px solid $gray-300;
   }
 
+  [class*='sidebar-blue'] & {
+    border-bottom: 1px solid $blue;
+  }
+
   &,
   .info {
     overflow: hidden;
@@ -322,6 +326,129 @@
             &,
             &.active {
               border-color: $sidebar-light-submenu-active-bg;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+[class*='sidebar-darkblue-'] {
+  // Sidebar background color
+  background-color: $sidebar-darkblue-bg;
+
+  // User Panel (resides in the sidebar)
+  .user-panel {
+    a:hover {
+      color: $sidebar-darkblue-hover-color;
+    }
+
+    .status {
+      background: $sidebar-darkblue-hover-bg;
+      color: $sidebar-darkblue-color;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: darken($sidebar-darkblue-hover-bg, 3%);
+        color: $sidebar-darkblue-hover-color;
+      }
+    }
+
+    .dropdown-menu {
+      @include box-shadow(0 2px 4px rgba(0, 0, 0, .4));
+      border-color: darken($sidebar-darkblue-hover-bg, 5%);
+    }
+
+    .dropdown-item {
+      color: $body-color;
+    }
+  }
+
+  // Sidebar Menu. First level links
+  .nav-sidebar > .nav-item {
+    // links
+    > .nav-link {
+      // border-left: 3px solid transparent;
+      &:active,
+      &:focus {
+        color: $sidebar-darkblue-color;
+      }
+    }
+
+    // Hover and active states
+    &.menu-open > .nav-link,
+    &:hover > .nav-link {
+      background-color: $sidebar-darkblue-hover-bg;
+      color: $sidebar-darkblue-hover-color;
+    }
+
+    > .nav-link.active {
+      color: $sidebar-darkblue-active-color;
+
+      @if $enable-shadows {
+        box-shadow: map-get($elevations, 1);
+      }
+    }
+
+    // First Level Submenu
+    > .nav-treeview {
+      background: $sidebar-darkblue-submenu-bg;
+    }
+  }
+
+  // Section Heading
+  .nav-header {
+    background: inherit;
+    color: darken($sidebar-darkblue-color, 5%);
+  }
+
+  // All links within the sidebar menu
+  .sidebar {
+    a {
+      color: $sidebar-darkblue-color;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  // All submenus
+  .nav-treeview {
+    > .nav-item {
+      > .nav-link {
+        color: $sidebar-darkblue-submenu-color;
+      }
+
+      > .nav-link.active {
+        &,
+        &:hover {
+          background-color: $sidebar-darkblue-submenu-active-bg;
+          color: $sidebar-darkblue-submenu-active-color;
+        }
+      }
+
+      > .nav-link:hover {
+        background-color: $sidebar-darkblue-submenu-hover-bg;
+      }
+    }
+  }
+
+  // Flat style
+  .nav-flat {
+    .nav-item {
+      .nav-treeview {
+        .nav-treeview {
+          border-color: $sidebar-darkblue-submenu-active-bg;
+        }
+
+        > .nav-item {
+          > .nav-link {
+            &,
+            &.active {
+              border-color: $sidebar-darkblue-submenu-active-bg;
             }
           }
         }

@@ -6,7 +6,7 @@
 {% block header %}
     <header>
         {{ include('lib/_navbar.html.twig') }}
-        {{ include('security/_form_authorize.html.twig') }}
+        {{ include('security/lib/_form-authorize.html.twig') }}
     </header>
 {% endblock %}
 {% block footer %}{{ parent() }}{% endblock %}
@@ -17,6 +17,6 @@
     </div>
 
     <div class="container body-container" id="container-registration">
-        {{ include('security/_form_register.html.twig') }}
+        {{ include('security/lib/_form-register.html.twig') }}
     </div>
 {% endblock %}

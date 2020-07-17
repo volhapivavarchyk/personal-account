@@ -5,6 +5,9 @@
 // COLORS
 // --------------------------------------------------------
 $blue: #0073b7 !default;
+//$darkblue: #3886ca !default;
+//$darkblue: #1e6eb3 !default;
+$darkblue: #004890 !default;
 $lightblue: #3c8dbc !default;
 $navy: #001f3f !default;
 $teal: #39cccc !default;
@@ -117,6 +120,20 @@ $sidebar-dark-submenu-hover-bg: $sidebar-dark-hover-bg !default;
 $sidebar-dark-submenu-active-color: $sidebar-dark-bg !default;
 $sidebar-dark-submenu-active-bg: hsla(100, 100%, 100%, 0.9) !default;
 $sidebar-dark-header-color: $white !default;
+
+// Blue sidebar
+$sidebar-darkblue-bg: $darkblue !default;
+$sidebar-darkblue-hover-bg: hsla(100, 100%, 100%, 0.1) !default;
+$sidebar-darkblue-color: #C2C7D0 !default;
+$sidebar-darkblue-hover-color: $white !default;
+$sidebar-darkblue-active-color: $white !default;
+$sidebar-darkblue-submenu-bg: transparent !default;
+$sidebar-darkblue-submenu-color: #C2C7D0 !default;
+$sidebar-darkblue-submenu-hover-color: $white !default;
+$sidebar-darkblue-submenu-hover-bg: $sidebar-darkblue-hover-bg !default;
+$sidebar-darkblue-submenu-active-color: $sidebar-darkblue-bg !default;
+$sidebar-darkblue-submenu-active-bg: hsla(100, 100%, 100%, 0.9) !default;
+$sidebar-darkblue-header-color: $white !default;
 
 // Light sidebar
 $sidebar-light-bg: $white !default;

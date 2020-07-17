@@ -9,7 +9,6 @@
 //@import "~admin-lte/dist/css/adminlte.css";
 
 @import '_variables';
-//@import '_variables_components';
 @import 'mixins/_mixins_main';
 
 @import 'main';
@@ -17,9 +16,6 @@
 @import '_user';
 @import '_bootstrap_modify';
 @import 'admin/adminlte';
-//@import '_layouts';
-//@import '_navbar';
-//@import '_bars';
 
 // pick the Lato fonts individually to avoid importing the entire font family
 @import '~lato-font/scss/public-api';
