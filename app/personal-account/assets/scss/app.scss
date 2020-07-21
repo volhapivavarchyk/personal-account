@@ -8,13 +8,7 @@
 @import "~wowjs/css/libs/animate.css";
 //@import "~admin-lte/dist/css/adminlte.css";
 
-@import '_variables';
-@import 'mixins/_mixins_main';
-
-@import 'main';
-@import '_authorization';
-@import '_user';
-@import '_bootstrap_modify';
+@import 'personal-account/personal-account';
 @import 'admin/adminlte';
 
 // pick the Lato fonts individually to avoid importing the entire font family
