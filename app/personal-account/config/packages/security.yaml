@@ -11,6 +11,7 @@ security:
         #- { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/ru/personal, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN]}
         - { path: ^/ru/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/ru/temp, roles: IS_AUTHENTICATED_ANONYMOUSLY}
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

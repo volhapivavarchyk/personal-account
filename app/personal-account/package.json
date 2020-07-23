@@ -30,6 +30,7 @@
     "bootstrap-sass": "^3.4.1",
     "bootstrap-sass-datepicker": "^1.0.0",
     "bootswatch": "^4.4.1",
+    "fork-awesome": "ForkAwesome/Fork-Awesome",
     "google-recaptcha": "^1.1.0",
     "wowjs": "^1.1.3"
   }

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace VP\PersonalAccount\Controller;
@@ -23,5 +22,12 @@ class UserController extends AbstractController
                 'service' => $service
             ]
         );
+    }
+    /**
+     * @Route("/temp", methods="GET|POST", name="temp")
+     */
+    public function action_temp(Request $request): Response
+    {
+        return $this->render('temp.html.twig', []);
     }
 }
