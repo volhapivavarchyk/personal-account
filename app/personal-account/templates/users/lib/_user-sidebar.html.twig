@@ -19,7 +19,7 @@
             <div class="info">
                 <a href="#" class="d-block">Иван Жуков</a>
             </div>
-            <div>
+            <div style="position: absolute;right: -.5rem">
                 <a href="{{ url('logout') }}" class="btn btn-level-0"><i class="fas fa-sign-out-alt"></i></a>
             </div>
 
@@ -382,7 +382,7 @@
                 <li class="nav-header">ИС "УНИВЕРСИТЕТ"</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-circle nav-icon"></i>
+                        <i class="far fa-handshake nav-icon"></i>
                         <p>
                             {{ 'link.service_3_1'|trans({},'user')|raw }}
                             <i class="right fas fa-angle-left"></i>
@@ -405,7 +405,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-circle"></i>
+                        <i class="nav-icon fa fa-user-graduate"></i>
                         <p>
                             {{ 'link.service_3_2'|trans({},'user')|raw }}
                             <i class="right fas fa-angle-left"></i>
@@ -470,7 +470,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-circle"></i>
+                        <i class="nav-icon fas fa-atom"></i>
                         <p>
                             {{ 'link.service_3_3'|trans({},'user')|raw }}
                         </p>
@@ -479,13 +479,13 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-circle nav-icon"></i>
+                        <i class="fas fa-theater-masks nav-icon"></i>
                         <p>{{ 'link.service_3_4'|trans({},'user')|raw }}</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-circle nav-icon"></i>
+                        <i class="fas fa-chart-line nav-icon"></i>
                         <p>{{ 'link.service_3_5'|trans({},'user')|raw }}</p>
                     </a>
                 </li>
@@ -509,6 +509,13 @@
                     </a>
                 </li>
             </ul>
+            <div class="card-body text-center">
+                <a href="#" class="btn btn-social"><span class="fa fa-facebook"></span></a>
+                <a href="#" class="btn btn-social"><span class="fa fa-google"></span></a>
+                <a href="#" class="btn btn-social"><span class="fa fa-instagram"></span></a>
+                <a href="#" class="btn btn-social"><span class="fa fa-linkedin"></span></a>
+                <a href="#" class="btn btn-social"><span class="fa fa-vk"></span></a>
+            </div>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
