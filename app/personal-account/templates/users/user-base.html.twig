@@ -14,7 +14,7 @@
         {{ include('users/lib/_user-navbar.html.twig') }}
 
         {{ include('users/lib/_user-sidebar.html.twig') }}
-        {{ include('users/lib/_user-' ~ module ~ '.html.twig') }}
+        {% block main %}{% endblock %}
         {{ include('users/lib/_user-sidebar-control.html.twig') }}
 
         {{ include('users/lib/_user-footer.html.twig') }}

@@ -6,7 +6,7 @@ namespace VP\PersonalAccount\Forms;
 use VP\PersonalAccount\Forms\EventListener\{
     AddPositionFieldSubscriber,
     AddSpecialityFieldSubscriber,
-    AddGroupFieldSubscriber,
+    AddGroupFieldSubscriber
 };
 use VP\PersonalAccount\Entity\{
     Department,
@@ -15,7 +15,7 @@ use VP\PersonalAccount\Entity\{
     Position,
     Role,
     User,
-    UserKind,
+    UserKind
 };
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,7 +23,7 @@ use Symfony\Component\Form\{
     AbstractType,
     FormBuilderInterface,
     FormEvent,
-    FormEvents,
+    FormEvents
 };
 use Symfony\Component\Form\Extension\Core\Type\{
     CheckboxType,
@@ -32,14 +32,14 @@ use Symfony\Component\Form\Extension\Core\Type\{
     PasswordType,
     RepeatedType,
     SubmitType,
-    TextType,
+    TextType
 };
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Constraints\{
     Length,
     Regex,
-    IsTrue,
+    IsTrue
 };
 
 class UserType extends AbstractType

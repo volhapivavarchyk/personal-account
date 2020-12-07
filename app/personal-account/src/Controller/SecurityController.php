@@ -11,7 +11,7 @@ use VP\PersonalAccount\Entity\{
     Role,
     UserPosition,
     StudentGroup,
-    UserStudentGroup,
+    UserStudentGroup
 };
 use VP\PersonalAccount\Forms\UserType;
 use VP\PersonalAccount\Forms\ResetPasswordType;

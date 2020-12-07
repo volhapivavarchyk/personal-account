@@ -1,0 +1,118 @@
+{% form_theme data _self %}
+
+<div class="container my-1 my-lg-1 px-lg-2 mt-lg-3">
+    <div class="row mx-lg-2">
+        <div id="contentdata" class="col py-2 px-lg-1">
+            <div id="form-register">
+                {{ form_start(data) }}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header font-weight-bold">Авторизационные данные</div>
+                            <div class="card-body">
+                                <div class="form-group col text-dark">
+                                    {#                                        <legend>{{'user.username'|trans({},'forms')|raw}}</legend>#}
+                                    <div>{{ form_label(data.username) }}</div>
+                                    {{ form_widget(data.username) }}
+                                    <small>{{ form_help(data.username) }}</small>
+                                    {#                                        {{ form_errors(data.username) }}#}
+                                </div>
+                                <div class="form-group col text-dark">
+                                    {{ form_label(data.email) }}
+                                    {{ form_widget(data.email) }}
+                                    <small>{{ form_help(data.email) }}</small>
+                                </div>
+                                <div class="form-group col text-dark">
+                                    {{ form_widget(data.plainPassword) }}
+                                    <small>{{ form_help(data.plainPassword) }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header font-weight-bold">Роли</div>
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header font-weight-bold">Фамилия, имя, отчество на русском языке</div>
+                            <div class="card-body">
+                                <div class="form-group col text-dark">
+                                    {{ form_label(data.lastname) }}
+                                    {{ form_widget(data.lastname) }}
+                                    <small>{{ form_help(data.lastname) }}</small>
+                                </div>
+                                <div class="form-group col text-dark">
+                                    {{ form_label(data.firstname) }}
+                                    {{ form_widget(data.firstname) }}
+                                    <small>{{ form_help(data.firstname) }}</small>
+                                </div>
+                                <div class="form-group col text-dark">
+                                    {{ form_label(data.patronymic) }}
+                                    {{ form_widget(data.patronymic) }}
+                                    <small>{{ form_help(data.patronymic) }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header font-weight-bold">Фамилия, имя, отчество на английском языке</div>
+                            <div class="card-body">
+                                <div class="form-group col text-dark">
+                                    {{ form_label(data.enLastname) }}
+                                    {{ form_widget(data.enLastname) }}
+                                    <small>{{ form_help(data.enLastname) }}</small>
+                                </div>
+                                <div class="form-group col text-dark">
+                                    {{ form_label(data.enFirstname) }}
+                                    {{ form_widget(data.enFirstname) }}
+                                    <small>{{ form_help(data.enFirstname) }}</small>
+                                </div>
+                                <div class="form-group col text-dark">
+                                    {{ form_label(data.enPatronymic) }}
+                                    {{ form_widget(data.enPatronymic) }}
+                                    <small>{{ form_help(data.enPatronymic) }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header font-weight-bold">Место работы/учебы</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header font-weight-bold">Сфера интересов</div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div>
+                            <p class="text-muted mt-1 mb-1">
+                                {{'user.download-contract'|trans({},'forms')|raw}}
+                                <a href="" class="text-primary">скачать</a>/<a href="" class="text-primary">посмотреть</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+                {{ form_end(data) }}
+            </div>
+        </div>
+    </div>
+</div>
