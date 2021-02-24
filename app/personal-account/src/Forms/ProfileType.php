@@ -26,6 +26,7 @@ use Symfony\Component\Form\{
     FormEvents
 };
 use Symfony\Component\Form\Extension\Core\Type\{CheckboxType,
+    ChoiceType,
     CollectionType,
     DateType,
     EmailType,
@@ -174,17 +175,186 @@ class ProfileType extends AbstractType
                     'data-html' => 'true',
                 ],
             ]);
-//        $builder
-//            ->add('userkind', CollectionType::class, [
-//                'label' => 'user.userkind',
-//                'label_translation_parameters' => [],
-//                'entry_type' => UserKindType::class,
-//                'entry_options' => ['label' => 'тип пользователя'],
-//                'by_reference' => false,
-//                'prototype' => true,
-//                'allow_add' => true,
-//            ]);
-
+        $builder
+            ->add('userkind', ChoiceType::class, [
+                'choices' => [
+                    'Студент университета' => 2,
+                    'Сотрудник университета' => 3,
+                    'Гость' => 4,
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Тип пользователя ...',
+                ],
+                'disabled' => true,
+            ])
+            ->add('role', ChoiceType::class, [
+                'choices' => [
+                    'Пользователь' => 1,
+                    'Гость' => 2,
+                    'Администратор' => 3,
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Роль пользователя ...',
+                ],
+                'disabled' => true,
+            ]);
+        $builder
+            ->add('userkind', ChoiceType::class, [
+                'choices' => [
+                    'Студент университета' => 2,
+                    'Сотрудник университета' => 3,
+                    'Гость' => 4,
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Тип пользователя ...',
+                ],
+                'disabled' => true,
+            ])
+            ->add('role', ChoiceType::class, [
+                'choices' => [
+                    'Пользователь' => 1,
+                    'Гость' => 2,
+                    'Администратор' => 3,
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Роль пользователя ...',
+                ],
+                'disabled' => true,
+            ]);
+        $builder
+            ->add('faculty', ChoiceType::class, [
+                'choices' => [
+                    'Инженерный факультет' => 1,
+                    'Факультет славянских и германских языков' => 2,
+                    'Факультет педагогики и психологии' => 3,
+                    'Факультет экономики и права' => 4,
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Факультет',
+                ],
+                'disabled' => true,
+                'mapped' => false,
+            ])
+            ->add('speciality', ChoiceType::class, [
+                'choices' => [
+                    'ТОСП' => 1,
+                    'ИСТ' => 2,
+                    'ТМ' => 3
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Специальность',
+                ],
+                'disabled' => true,
+                'mapped' => false,
+            ])
+            ->add('group', ChoiceType::class, [
+                'choices' => [
+                    'ТОСП 11' => 1,
+                    'ТОСП 12' => 2,
+                    'ИСТ 11' => 3
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'custom-control-input'];
+                },
+                'attr' => [
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Группа',
+                ],
+                'disabled' => true,
+                'mapped' => false,
+            ])
+            ->add('dateStartSpeciality', DateType::class, [
+                'label' => 'user.date-start-speciality',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'required' => false,
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'format' => 'd-m-yy',
+                'html5' => false,
+                'placeholder' => 'Выберите значение',
+                'attr' => [
+                    'class' => 'js-datepicker',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'data-title' => 'Дата начала обучения по специальности',
+                ],
+                'mapped' => false,
+                'disabled' => true,
+                'data' => new \DateTime('2020-09-01'),
+            ]);
+        $builder
+            ->add('interest1', CheckboxType::class, array(
+                'label' => 'Программирование',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'mapped' => false,
+                'attr' => [
+                    'checked' => 'checked',
+                ],
+            ))
+            ->add('interest2', CheckboxType::class, array(
+                'label' => 'Искусственный интеллект',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'mapped' => false,
+            ))
+            ->add('interest3', CheckboxType::class, array(
+                'label' => 'Иностранные языки',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'mapped' => false,
+                'attr' => [
+                    'checked' => 'checked',
+                ],
+            ))
+            ->add('interest4', CheckboxType::class, array(
+                'label' => 'Экономика',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'mapped' => false,
+            ))
+            ->add('interest5', CheckboxType::class, array(
+                'label' => 'Литература',
+                'label_translation_parameters' => [],
+                'translation_domain' => 'forms',
+                'mapped' => false,
+            ));
+        $builder
+            ->add('submit', SubmitType::class, [
+                'label' => 'Применить',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

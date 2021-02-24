@@ -45,6 +45,14 @@ class UserKind implements Serializable
         return $this->name;
     }
     /**
+     * $users getter
+     * @return Collection $users
+     */
+    public function getUsers(): ?Collection
+    {
+        return $this->users;
+    }
+    /**
      * $name setter
      * @param string $name
      * @return void

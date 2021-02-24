@@ -368,7 +368,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
-                    'data-title' => 'Подразделение университета, в котором работает сотрудник',
+                    'data-title' => 'Подразделение',
                 ],
             ])
             ->addEventSubscriber(new AddPositionFieldSubscriber());
@@ -387,7 +387,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
-                    'data-title' => 'Факультет, на котором учится студент',
+                    'data-title' => 'Факультет',
                 ],
             ])
             ->addEventSubscriber(new AddSpecialityFieldSubscriber())
@@ -452,7 +452,7 @@ class UserType extends AbstractType
                     'attr' => [
                         'data-toggle' => 'tooltip',
                         'data-placement' => 'left',
-                        'data-title' => 'Должность сотрудника университета',
+                        'data-title' => 'Должность',
                     ],
                 ]);
             });
@@ -477,7 +477,7 @@ class UserType extends AbstractType
                     'attr' => [
                         'data-toggle' => 'tooltip',
                         'data-placement' => 'left',
-                        'data-title' => 'Должность сотрудника университета',
+                        'data-title' => 'Должность',
                     ],
                 ]);
             });
@@ -508,7 +508,7 @@ class UserType extends AbstractType
                     'attr' => [
                         'data-toggle' => 'tooltip',
                         'data-placement' => 'left',
-                        'data-title' => 'Специальность, на которой учится студент',
+                        'data-title' => 'Специальность',
                     ],
                 ]);
             })
@@ -534,7 +534,7 @@ class UserType extends AbstractType
                     'attr' => [
                         'data-toggle' => 'tooltip',
                         'data-placement' => 'left',
-                        'data-title' => 'Специальность, на которой учится студент',
+                        'data-title' => 'Специальность',
                     ],
                 ]);
             });
@@ -565,7 +565,7 @@ class UserType extends AbstractType
                     'attr' => [
                         'data-toggle' => 'tooltip',
                         'data-placement' => 'left',
-                        'data-title' => 'Группа, в которой учится студент',
+                        'data-title' => 'Группа',
                     ],
                 ]);
             })
@@ -591,7 +591,7 @@ class UserType extends AbstractType
                     'attr' => [
                         'data-toggle' => 'tooltip',
                         'data-placement' => 'left',
-                        'data-title' => 'Группа, в которой учится студент',
+                        'data-title' => 'Группа',
                     ],
                 ]);
             });

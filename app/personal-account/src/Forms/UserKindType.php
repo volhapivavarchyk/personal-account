@@ -21,7 +21,7 @@ class UserKindType extends AbstractType
                 'translation_domain' => 'forms',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'наименование вида пользователя',
+                    'placeholder' => 'вид пользователя',
                 ],
             ]);
     }

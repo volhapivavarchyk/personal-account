@@ -32,7 +32,7 @@
                     <a href="pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Оперативно
+                            Главная
                             <span class="right badge badge-danger">New</span>
                         </p>
                     </a>
@@ -41,29 +41,29 @@
                     <a href="#" class="nav-link">
                         <i class="fa fa-tablet nav-icon"></i>
                         <p>
-                            Сервисы
+                            Мои сервисы
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./index.html" class="nav-link">
-                                <i class="fas fa-chalkboard-teacher  nav-icon"></i>
+                            <a href="{{ url('homepage', {module:2}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     СУО "Moodle"&nbsp;
-                                    <small><i class="fa fa-external-link"></i></small>
+{#                                    <small><i class="fa fa-external-link"></i></small>#}
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index2.html" class="nav-link">
-                                <i class="fas fa-chalkboard nav-icon"></i>
+                            <a href="{{ url('homepage', {module:3}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>Электронная библиотека</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index.html" class="nav-link">
-                                <i class="far fa-calendar-alt nav-icon"></i>
+                            <a href="{{ url('homepage', {module:4}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Календарь
                                 </p>
@@ -75,51 +75,64 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-user-graduate"></i>
                         <p>
-                            ИС "Университет"
+                            Мой университет
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
+{#                            <span class="badge badge-info right">6</span>#}
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="{{ url('homepage', {module:10}) }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ИР "Расписание занятий</p>
+                                <p>Расписание занятий</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                            <a href="{{ url('homepage', {module:9}) }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ИР "Журнал преподавателя"</p>
+                                <p>Карточка студента</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/boxed.html" class="nav-link">
+                            <a href="{{ url('homepage', {module:11}) }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ИР "Сайт кафедры"</p>
+                                <p>ИР «Антиплагиат»</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:16}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Общежития</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:17}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Афиша мероприятий</p>
+                                <span class="badge badge-info right">3</span>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-header">НАУЧНО-ОБРАЗОВАТЕЛЬНЫЕ СЕРВИСЫ</li>
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.0" class="nav-link">
+                    <a href="{{ url('homepage', {module:2}) }}" class="nav-link">
                         <i class="fas fa-chalkboard-teacher  nav-icon"></i>
                         <p>
                             СУО "Moodle"&nbsp;
-                            <small><i class="fa fa-external-link"></i></small>
+{#                            <small><i class="fa fa-external-link"></i></small>#}
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="./index2.html" class="nav-link">
+                    <a href="{{ url('homepage', {module:3}) }}" class="nav-link">
                         <i class="fas fa-chalkboard nav-icon"></i>
                         <p>Электронная библиотека</p>
                     </a>
                 </li>
                 <li class="nav-header">КОММУНИКАЦИОННЫЕ СЕРВИСЫ</li>
                 <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
+                    <a href="{{ url('homepage', {module:4}) }}" class="nav-link">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>
                             Календарь
@@ -128,7 +141,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/gallery.html" class="nav-link">
+                    <a href="{{ url('homepage', {module:5}) }}" class="nav-link">
                         <i class="nav-icon fa fa-video-camera"></i>
                         <p>
                             Видеоконференции
@@ -136,7 +149,7 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('homepage', {module:6}) }}" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>
                         <p>
                             Электронная почта
@@ -165,7 +178,7 @@
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('homepage', {module:7}) }}" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Хранение документов
@@ -187,53 +200,53 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-plus-square"></i>
-                        <p>
-                            Дополнительно
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/examples/login.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Сервис 1</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/register.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Сервис 2</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+{#                <li class="nav-item has-treeview">#}
+{#                    <a href="#" class="nav-link">#}
+{#                        <i class="nav-icon far fa-plus-square"></i>#}
+{#                        <p>#}
+{#                            Дополнительно#}
+{#                            <i class="fas fa-angle-left right"></i>#}
+{#                        </p>#}
+{#                    </a>#}
+{#                    <ul class="nav nav-treeview">#}
+{#                        <li class="nav-item">#}
+{#                            <a href="pages/examples/login.html" class="nav-link">#}
+{#                                <i class="far fa-circle nav-icon"></i>#}
+{#                                <p>Сервис 1</p>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a href="pages/examples/register.html" class="nav-link">#}
+{#                                <i class="far fa-circle nav-icon"></i>#}
+{#                                <p>Сервис 2</p>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
                 <li class="nav-header">ИС "УНИВЕРСИТЕТ"</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-handshake nav-icon"></i>
-                        <p>
-                            {{ 'link.service_3_1'|trans({},'user')|raw }}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ИР "Абитуриент БарГУ"</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>АС "Абитуриент"</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+{#                <li class="nav-item">#}
+{#                    <a href="#" class="nav-link">#}
+{#                        <i class="far fa-handshake nav-icon"></i>#}
+{#                        <p>#}
+{#                            {{ 'link.service_3_1'|trans({},'user')|raw }}#}
+{#                            <i class="right fas fa-angle-left"></i>#}
+{#                        </p>#}
+{#                    </a>#}
+{#                    <ul class="nav nav-treeview">#}
+{#                        <li class="nav-item">#}
+{#                            <a href="#" class="nav-link">#}
+{#                                <i class="far fa-circle nav-icon"></i>#}
+{#                                <p>ИР "Абитуриент БарГУ"</p>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a href="#" class="nav-link">#}
+{#                                <i class="far fa-circle nav-icon"></i>#}
+{#                                <p>АС "Абитуриент"</p>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </li>#}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-user-graduate"></i>
@@ -247,7 +260,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ИР "Сайт БарГУ"</p>
+                                <p>ИР «Университет»</p>
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
@@ -259,40 +272,41 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+{#                                <li class="nav-item">#}
+{#                                    <a href="#" class="nav-link">#}
+{#                                        <i class="far fa-dot-circle nav-icon"></i>#}
+{#                                        <p>Учебные планы</p>#}
+{#                                    </a>#}
+{#                                </li>#}
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Учебные планы</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('homepage', {module:9}) }}" class="nav-link">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Карточка студента</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Экзаменационные ведомости</p>
-                                    </a>
-                                </li>
+{#                                <li class="nav-item">#}
+{#                                    <a href="#" class="nav-link">#}
+{#                                        <i class="far fa-dot-circle nav-icon"></i>#}
+{#                                        <p>Экзаменационные ведомости</p>#}
+{#                                    </a>#}
+{#                                </li>#}
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('homepage', {module:10}) }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>АС "Расписание занятий"</p>
+                                <p>Расписание занятий</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('homepage', {module:11}) }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>АС "Антиплагиат"</p>
+                                <p>ИР "Антиплагиат"</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('homepage', {module:12}) }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ИР подразделений</p>
                             </a>
@@ -304,41 +318,102 @@
                         <i class="nav-icon fas fa-atom"></i>
                         <p>
                             {{ 'link.service_3_3'|trans({},'user')|raw }}
-                        </p>
-
+                         </p>
+                        <i class="right fas fa-angle-left"></i>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:13}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Научная деятельность</p>
+                            </a>
+                        </li>
+{#                        <li class="nav-item">#}
+{#                            <a href="#" class="nav-link">#}
+{#                                <i class="far fa-circle nav-icon"></i>#}
+{#                                <p>ИР "Экономические тенденции"</p>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a href="#" class="nav-link">#}
+{#                                <i class="far fa-circle nav-icon"></i>#}
+{#                                <p>ИР "Материалы научных мероприятий"</p>#}
+{#                            </a>#}
+{#                        </li>#}
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:14}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Центр трансфера технологий</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-theater-masks nav-icon"></i>
-                        <p>{{ 'link.service_3_4'|trans({},'user')|raw }}</p>
+                        <p>
+                            {{ 'link.service_3_4'|trans({},'user')|raw }}
+                        </p>
+                        <i class="right fas fa-angle-left"></i>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:15}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Внеучебная деятельность</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:16}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Общежития</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:17}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Афиша мероприятий</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:18}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ИР "Сайт педагогов психологов"</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('homepage', {module:19}) }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>"Мой унiверсiтэт"</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-chart-line nav-icon"></i>
-                        <p>{{ 'link.service_3_5'|trans({},'user')|raw }}</p>
-                    </a>
-                </li>
-                <li class="nav-header">МЕТКИ</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-danger"></i>
-                        <p class="text">Важно</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Предупреждение</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p>Информация</p>
-                    </a>
-                </li>
+{#                <li class="nav-item">#}
+{#                    <a href="#" class="nav-link">#}
+{#                        <i class="fas fa-chart-line nav-icon"></i>#}
+{#                        <p>{{ 'link.service_3_5'|trans({},'user')|raw }}</p>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="nav-header">МЕТКИ</li>#}
+{#                <li class="nav-item">#}
+{#                    <a href="#" class="nav-link">#}
+{#                        <i class="nav-icon far fa-circle text-danger"></i>#}
+{#                        <p class="text">Важно</p>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a href="#" class="nav-link">#}
+{#                        <i class="nav-icon far fa-circle text-warning"></i>#}
+{#                        <p>Предупреждение</p>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a href="#" class="nav-link">#}
+{#                        <i class="nav-icon far fa-circle text-info"></i>#}
+{#                        <p>Информация</p>#}
+{#                    </a>#}
+{#                </li>#}
             </ul>
             <div class="card-body text-center">
                 <a href="#" class="btn btn-social"><span class="fa fa-facebook"></span></a>

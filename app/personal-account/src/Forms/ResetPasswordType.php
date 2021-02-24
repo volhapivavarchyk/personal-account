@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\{Length, Regex};
 use Symfony\Component\Form\Extension\Core\Type\{
     PasswordType,
-    RepeatedType,
+    RepeatedType
 };
 
 class ResetPasswordType extends AbstractType

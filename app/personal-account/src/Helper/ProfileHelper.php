@@ -23,6 +23,6 @@ class ProfileHelper
         $formFactory = Forms::createFormFactoryBuilder()
             ->addExtension(new HttpFoundationExtension())
             ->getFormFactory();
-        return $formFactory->createBuilder(ProfileType::class, $this->user)->getForm()->createView();
+        return $formFactory->createBuilder(ProfileType::class, $this->user, [])->getForm()->createView();
     }
 }

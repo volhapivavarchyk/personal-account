@@ -8,7 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use VP\PersonalAccount\Forms\PositionType;
+use VP\PersonalAccount\Forms\ProfileType;
 use VP\PersonalAccount\Helper\ProfileHelper;
+use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationExtension;
+use Symfony\Component\Form\Forms;
 
 class UserController extends AbstractController
 {
@@ -24,8 +28,79 @@ class UserController extends AbstractController
                 break;
             case 1:
                 $moduleName = 'profile';
-//                var_dump($this->getUser());
                 $data = (new ProfileHelper($this->getUser()))->createForm();
+                break;
+            case 2:
+                $moduleName = 'moodle';
+                $data = [];
+                break;
+            case 3:
+                $moduleName = 'elib';
+                $data = [];
+                break;
+            case 4:
+                $moduleName = 'calendar';
+                $data = [];
+                break;
+            case 5:
+                $moduleName = 'videoconference';
+                $data = [];
+                break;
+            case 6:
+                $moduleName = 'email';
+                $data = [];
+                break;
+            case 7:
+                $moduleName = 'documents';
+                $data = [];
+                break;
+            case 8:
+                $moduleName = 'university';
+                $data = [];
+                break;
+            case 9:
+                $moduleName = 'studentCadr';
+                $data = [];
+                break;
+            case 10:
+                $moduleName = 'schedule';
+                $data = [];
+                break;
+            case 11:
+                $moduleName = 'originality';
+                $data = [];
+                break;
+            case 12:
+                $moduleName = 'departments';
+                $data = [];
+                break;
+            case 13:
+                $moduleName = 'science';
+                $data = [];
+                break;
+            case 14:
+                $moduleName = 'technologyCentre';
+                $data = [];
+                break;
+            case 15:
+                $moduleName = 'additional';
+                $data = [];
+                break;
+            case 16:
+                $moduleName = 'campus';
+                $data = [];
+                break;
+            case 17:
+                $moduleName = 'poster';
+                $data = [];
+                break;
+            case 18:
+                $moduleName = 'psychologist';
+                $data = [];
+                break;
+            case 19:
+                $moduleName = 'newspaper';
+                $data = [];
                 break;
             default:
                 $moduleName = 'content';
